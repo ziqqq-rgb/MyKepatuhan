@@ -1,0 +1,27 @@
+2026-05-21 11:00:35,788 [INFO] Database tables ready.
+2026-05-21 11:00:35,791 [INFO] Loading default query engine...
+2026-05-21 11:00:35,792 [INFO] Query engine ready.
+2026-05-21 11:03:33,135 [WARNING] (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/Users/raziqs/Desktop/MyKepatuhan/MyKepatuhan/.venv/lib/python3.13/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2026-05-21 11:11:06,896 [INFO] Database tables ready.
+2026-05-21 11:11:06,898 [INFO] Loading default query engine...
+2026-05-21 11:11:06,900 [INFO] Query engine ready.
+2026-05-21 17:55:22,663 [INFO] Database tables ready.
+2026-05-21 17:55:22,665 [INFO] Loading default query engine...
+2026-05-21 17:55:22,667 [INFO] Query engine ready.
+2026-05-21 17:55:44,903 [INFO] Database tables ready.
+2026-05-21 17:55:44,904 [INFO] Loading default query engine...
+2026-05-21 17:55:44,905 [INFO] Query engine ready.
+2026-05-21 17:59:03,204 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-21 18:00:23,711 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-21 18:07:25,080 [INFO] Database tables ready.
+2026-05-21 18:07:25,082 [INFO] Loading default query engine...
+2026-05-21 18:07:25,083 [INFO] Query engine ready.
+2026-05-21 18:09:22,739 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-21 18:09:37,095 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-21 18:09:39,649 [INFO] AFC is enabled with max remote calls: 10.
+2026-05-21 18:09:41,503 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"
