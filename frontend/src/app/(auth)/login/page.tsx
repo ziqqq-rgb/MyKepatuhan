@@ -3,41 +3,62 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, ShieldCheck } from "lucide-react";
 import { useStackApp } from "@stackframe/stack";
 import { useLanguage } from "@/lib/i18n";
 import { ErrorBanner } from "@/components/ErrorBanner";
 import { apiLogin, setToken, apiGetMe } from "@/lib/api";
+
+// Google icon SVG
+function GoogleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
+      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+    </svg>
+  );
+}
 
 export default function LoginPage() {
   const { tr } = useLanguage();
   const router = useRouter();
   const stackApp = useStackApp();
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
-  const [showPw, setShowPw] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [showPw, setShowPw]     = useState(false);
+  const [loading, setLoading]   = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [error, setError]       = useState<string | null>(null);
 
+  /* ── Google OAuth ── */
+  async function handleGoogle() {
+    setError(null);
+    setGoogleLoading(true);
+    try {
+      await stackApp.signInWithOAuth({ provider: "google" });
+      // Stack Auth will redirect automatically; nothing more needed here.
+    } catch {
+      setError("Google sign-in failed. Please try again.");
+      setGoogleLoading(false);
+    }
+  }
+
+  /* ── Email / password ── */
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
     setLoading(true);
-
     try {
-      // 1. Sign in with Neon Auth (Stack Auth) — manages the frontend session
       const result = await stackApp.signInWithCredential({ email, password });
       if (result.status === "error") {
         setError(tr("login_error"));
         return;
       }
-
-      // 2. Exchange for a FastAPI JWT — used for API calls
       const authResponse = await apiLogin(email, password);
       setToken(authResponse.access_token);
-
-      // 3. Check if admin and redirect accordingly
       const me = await apiGetMe();
       router.push(me.is_admin ? "/admin" : "/chat");
     } catch {
@@ -48,25 +69,49 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="w-full max-w-sm animate-fade-in">
+    <div className="w-full max-w-[400px] animate-fade-in">
+      {/* Logo mark */}
+      <div className="mb-8 flex flex-col items-center text-center">
+        <div
+          className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-lg"
+          style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-elegant)" }}
+        >
+          <ShieldCheck className="h-6 w-6" strokeWidth={2} />
+        </div>
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+          {tr("login_title")}
+        </h1>
+        <p className="mt-1.5 text-sm text-muted-foreground">{tr("login_sub")}</p>
+      </div>
+
       {/* Card */}
-      <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-        {/* Header */}
-        <div className="mb-7 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-            {tr("login_title")}
-          </h1>
-          <p className="mt-1.5 text-sm text-muted-foreground">{tr("login_sub")}</p>
+      <div
+        className="rounded-2xl border border-border/60 p-6"
+        style={{ background: "var(--gradient-card)", boxShadow: "var(--shadow-card)" }}
+      >
+        {error && <div className="mb-5"><ErrorBanner message={error} /></div>}
+
+        {/* Google button */}
+        <button
+          onClick={handleGoogle}
+          disabled={googleLoading || loading}
+          className="flex w-full items-center justify-center gap-3 rounded-xl border border-border bg-secondary/80 px-4 py-2.5 text-sm font-medium text-foreground transition-all hover:bg-secondary hover:border-border/80 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {googleLoading
+            ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-border border-t-foreground" />
+            : <GoogleIcon />}
+          Continue with Google
+        </button>
+
+        {/* Divider */}
+        <div className="my-5 flex items-center gap-3">
+          <div className="h-px flex-1 bg-border" />
+          <span className="text-xs text-muted-foreground">or continue with email</span>
+          <div className="h-px flex-1 bg-border" />
         </div>
 
-        {error && (
-          <div className="mb-5">
-            <ErrorBanner message={error} />
-          </div>
-        )}
-
+        {/* Email / password form */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email */}
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">
               {tr("login_email")}
@@ -78,11 +123,10 @@ export default function LoginPage() {
               required
               autoComplete="email"
               placeholder="you@example.com"
-              className="w-full rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="w-full rounded-xl border border-border bg-background/60 px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-all focus:border-primary/60 focus:ring-2 focus:ring-primary/15"
             />
           </div>
 
-          {/* Password */}
           <div>
             <label className="mb-1.5 block text-sm font-medium text-foreground">
               {tr("login_password")}
@@ -95,12 +139,12 @@ export default function LoginPage() {
                 required
                 autoComplete="current-password"
                 placeholder="••••••••"
-                className="w-full rounded-lg border border-border bg-background px-3.5 py-2.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20"
+                className="w-full rounded-xl border border-border bg-background/60 px-3.5 py-2.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-all focus:border-primary/60 focus:ring-2 focus:ring-primary/15"
               />
               <button
                 type="button"
                 onClick={() => setShowPw((v) => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
                 tabIndex={-1}
               >
                 {showPw ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -108,32 +152,28 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
-            disabled={loading}
-            className="mt-1 flex w-full items-center justify-center rounded-xl py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-            style={{ background: "var(--gradient-primary)" }}
+            disabled={loading || googleLoading}
+            className="flex w-full items-center justify-center rounded-xl py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+            style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-elegant)" }}
           >
             {loading ? (
               <span className="flex items-center gap-2">
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
                 Signing in...
               </span>
-            ) : (
-              tr("login_submit")
-            )}
+            ) : tr("login_submit")}
           </button>
         </form>
-
-        {/* Footer */}
-        <p className="mt-6 text-center text-sm text-muted-foreground">
-          {tr("login_no_account")}{" "}
-          <Link href="/register" className="font-medium text-primary hover:underline">
-            {tr("login_register_link")}
-          </Link>
-        </p>
       </div>
+
+      <p className="mt-5 text-center text-sm text-muted-foreground">
+        {tr("login_no_account")}{" "}
+        <Link href="/register" className="font-medium text-primary transition-colors hover:text-primary/80">
+          {tr("login_register_link")}
+        </Link>
+      </p>
     </div>
   );
 }
