@@ -38,7 +38,7 @@ export default function LoginPage() {
     setError(null);
     setGoogleLoading(true);
     try {
-      await stackApp.signInWithOAuth({ provider: "google" });
+      await stackApp.signInWithOAuth("google");
       // Stack Auth will redirect automatically; nothing more needed here.
     } catch {
       setError("Google sign-in failed. Please try again.");
@@ -52,15 +52,18 @@ export default function LoginPage() {
     setError(null);
     setLoading(true);
     try {
+      // 1. Sign in with Neon Auth (Stack Auth)
       const result = await stackApp.signInWithCredential({ email, password });
       if (result.status === "error") {
         setError(tr("login_error"));
         return;
       }
+
+      // 2. Exchange for a FastAPI JWT
       const authResponse = await apiLogin(email, password);
       setToken(authResponse.access_token);
-      const me = await apiGetMe();
-      router.push(me.is_admin ? "/admin" : "/chat");
+      
+      window.location.href = "/chat";
     } catch {
       setError(tr("login_error"));
     } finally {
@@ -69,7 +72,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="w-full max-w-[400px] animate-fade-in">
+    <div className="w-full max-w-100 animate-fade-in">
       {/* Logo mark */}
       <div className="mb-8 flex flex-col items-center text-center">
         <div
@@ -89,7 +92,7 @@ export default function LoginPage() {
         className="rounded-2xl border border-border/60 p-6"
         style={{ background: "var(--gradient-card)", boxShadow: "var(--shadow-card)" }}
       >
-        {error && <div className="mb-5"><ErrorBanner message={error} /></div>}
+        {error && <div className="mb-5"><ErrorBanner error={error} /></div>}
 
         {/* Google button */}
         <button
