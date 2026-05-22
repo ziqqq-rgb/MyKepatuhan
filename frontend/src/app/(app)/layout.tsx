@@ -1,25 +1,44 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useUser } from "@stackframe/stack";
-import { getToken } from "@/lib/api";
+import { getToken, setToken, apiOAuthLogin } from "@/lib/api"; 
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  const router  = useRouter();
-  const user    = useUser();
-  const [ready, setReady] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const user = useUser();
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (user === null) { router.replace("/login"); return; }
-    if (user !== undefined && !getToken()) { router.replace("/login"); return; }
-    if (user !== undefined) setReady(true);
-  }, [user, router]);
+  if (user === null) {
+    router.replace("/login");
+    return;
+  }
 
-  if (!ready) {
+  const token = getToken();
+
+  if (user && !token) {
+    apiOAuthLogin(user.primaryEmail as string)
+      .then((res) => {
+        setToken(res.access_token);
+        setIsReady(true);
+      })
+      .catch((err) => {
+        console.error("Failed to sync OAuth with backend:", err);
+        router.replace("/login");
+      });
+    return;
+  }
+
+  setIsReady(true);
+}, [user, router, pathname]);
+
+  if (!isReady) {
     return (
       <div className="flex h-screen items-center justify-center bg-background">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
       </div>
     );
   }

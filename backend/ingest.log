@@ -25,3 +25,15 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2026-05-21 18:09:37,095 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
 2026-05-21 18:09:39,649 [INFO] AFC is enabled with max remote calls: 10.
 2026-05-21 18:09:41,503 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-05-22 11:24:52,153 [INFO] Database tables ready.
+2026-05-22 11:24:52,154 [INFO] Loading default query engine...
+2026-05-22 11:24:52,155 [INFO] Query engine ready.
+2026-05-22 11:25:15,905 [INFO] Database tables ready.
+2026-05-22 11:25:15,906 [INFO] Loading default query engine...
+2026-05-22 11:25:15,906 [INFO] Query engine ready.
+2026-05-22 11:41:55,761 [INFO] Database tables ready.
+2026-05-22 11:41:55,763 [INFO] Loading default query engine...
+2026-05-22 11:41:55,766 [INFO] Query engine ready.
+2026-05-22 11:45:45,694 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-22 11:45:48,332 [INFO] AFC is enabled with max remote calls: 10.
+2026-05-22 11:46:02,169 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"

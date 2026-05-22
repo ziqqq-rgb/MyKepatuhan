@@ -89,6 +89,20 @@ export async function apiGetMe(): Promise<UserProfile> {
   return apiFetch<UserProfile>("/auth/me");
 }
 
+export async function apiOAuthLogin(email: string) {
+  const res = await fetch(`${API_URL}/auth/oauth-login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: "OAuth Sync failed" }));
+    throw new Error(err.detail ?? "OAuth Sync failed");
+  }
+  return res.json();
+}
+
 // ─────────────────────────────────────────
 // QUERY
 // ─────────────────────────────────────────

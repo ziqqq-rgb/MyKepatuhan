@@ -21,6 +21,8 @@ class UserResponse(BaseModel):
     class Config:
         from_attributes = True
 
+class OAuthLoginRequest(BaseModel):
+    email: str
 
 @router.post("/login", response_model=TokenResponse)
 def login(
@@ -51,4 +53,26 @@ def get_me(db: Session = Depends(get_db), token: str = ""):
     from auth.utils import get_current_user
     from fastapi import Request
     pass 
+
+@router.post("/oauth-login")
+def oauth_login(request: OAuthLoginRequest, db: Session = Depends(get_db)):
+    """Bridge endpoint for Google Sign-In via Stack Auth"""
+    # 1. Check if the user already exists in your Postgres DB
+    user = db.query(User).filter(User.email == request.email).first()
+    
+    if not user:
+        # 2. If they are a brand new Google user, create a profile for them!
+        # We give them a dummy password because Google handles their actual auth
+        user = User(
+            email=request.email,
+            hashed_password="OAUTH_USER_NO_PASSWORD", 
+            is_admin=False
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+    # 3. Issue the standard FastAPI JWT so they can query the RAG engine
+    access_token = create_access_token(data={"sub": str(user.id)})
+    return {"access_token": access_token, "token_type": "bearer"}
     
