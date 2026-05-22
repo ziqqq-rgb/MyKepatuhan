@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n";
+import { StackProvider } from "@stackframe/stack";
+import { stackApp } from "@/lib/stack";
+import { Suspense } from "react";
 
 
 const geistSans = Geist({
@@ -24,7 +27,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="...">
       <body className="...">
-        <LanguageProvider>{children}</LanguageProvider>
+        <StackProvider app={stackApp}>
+          <LanguageProvider>
+            <Suspense fallback={<div className="p-6 text-sm text-muted-foreground">Loading...</div>}>
+              {children}
+            </Suspense>
+          </LanguageProvider>
+        </StackProvider>
       </body>
     </html>
   );
