@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from database.models import User
 from auth.utils import get_current_admin
 from pipeline.ingestion.main import ingest_document
+from pipeline.ingestion.checkpointing import load_hash_registry
 
 router = APIRouter(prefix="/ingest", tags=["Ingest (admin)"])
 
@@ -95,7 +96,6 @@ def list_jobs(admin: User = Depends(get_current_admin)):
 @router.get("/documents", response_model=list[DocumentInfo])
 def list_documents(admin: User = Depends(get_current_admin)):
     """List all documents ingested into Pinecone. Admin only."""
-    from ingest import load_hash_registry
     registry = load_hash_registry()
     return [
         DocumentInfo(

@@ -96,3 +96,1095 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2026-05-22 12:37:31,603 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
 2026-05-22 12:37:37,297 [INFO] AFC is enabled with max remote calls: 10.
 2026-05-22 12:37:50,876 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-05-23 10:31:01,490 [INFO] Database tables ready.
+2026-05-23 10:31:01,490 [INFO] Loading default query engine...
+2026-05-23 10:31:01,491 [INFO] Query engine ready.
+2026-05-23 10:31:27,219 [INFO] Database tables ready.
+2026-05-23 10:31:27,221 [INFO] Loading default query engine...
+2026-05-23 10:31:27,228 [INFO] Query engine ready.
+2026-05-23 10:31:54,493 [INFO] Database tables ready.
+2026-05-23 10:31:54,494 [INFO] Loading default query engine...
+2026-05-23 10:31:54,496 [INFO] Query engine ready.
+2026-05-23 10:34:01,366 [INFO] Database tables ready.
+2026-05-23 10:34:01,368 [INFO] Loading default query engine...
+2026-05-23 10:34:01,369 [INFO] Query engine ready.
+2026-05-23 10:34:23,729 [INFO] Database tables ready.
+2026-05-23 10:34:23,730 [INFO] Loading default query engine...
+2026-05-23 10:34:23,731 [INFO] Query engine ready.
+2026-05-23 10:35:37,756 [INFO] Database tables ready.
+2026-05-23 10:35:37,756 [INFO] Loading default query engine...
+2026-05-23 10:35:37,757 [INFO] Query engine ready.
+2026-05-23 10:36:08,566 [INFO] Database tables ready.
+2026-05-23 10:36:08,572 [INFO] Loading default query engine...
+2026-05-23 10:36:08,575 [INFO] Query engine ready.
+2026-05-23 10:36:30,947 [INFO] Database tables ready.
+2026-05-23 10:36:30,947 [INFO] Loading default query engine...
+2026-05-23 10:36:30,950 [INFO] Query engine ready.
+2026-05-23 10:36:53,717 [INFO] Database tables ready.
+2026-05-23 10:36:53,718 [INFO] Loading default query engine...
+2026-05-23 10:36:53,725 [INFO] Query engine ready.
+2026-05-23 10:41:16,104 [INFO] 
+============================================================
+2026-05-23 10:41:16,105 [INFO] INGESTING: uploads/87e06d87-f23c-4707-84c3-43563fc6c9a7_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP).pdf
+2026-05-23 10:41:16,105 [INFO] ============================================================
+2026-05-23 10:41:16,106 [INFO] [START] Parsing 'uploads/87e06d87-f23c-4707-84c3-43563fc6c9a7_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP).pdf'...
+2026-05-23 10:41:17,623 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 10:41:17,641 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/config.json "HTTP/1.1 200 OK"
+2026-05-23 10:41:17,909 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 10:41:17,930 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-23 10:41:18,204 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-23 10:41:18,479 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-23 10:41:18,537 [INFO] detected formats: [<InputFormat.PDF: 'pdf'>]
+2026-05-23 10:41:18,580 [INFO] Going to convert document batch...
+2026-05-23 10:41:18,581 [INFO] Initializing pipeline for StandardPdfPipeline with options hash 80a8a1322ca5ef46817c7adbf875fff6
+2026-05-23 10:41:18,598 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 10:41:18,600 [INFO] Registered picture descriptions: ['picture_description_vlm_engine', 'vlm', 'api']
+2026-05-23 10:41:18,607 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 10:41:18,615 [INFO] Registered ocr engines: ['auto', 'easyocr', 'kserve_v2_ocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2026-05-23 10:41:18,615 [INFO] ocrmac cannot be used because ocrmac is not installed.
+2026-05-23 10:41:18,615 [INFO] rapidocr cannot be used because onnxruntime is not installed.
+2026-05-23 10:41:18,615 [INFO] easyocr cannot be used because it is not installed.
+2026-05-23 10:41:18,918 [INFO] Accelerator device: 'mps'
+2026-05-23 10:41:19,302 [INFO] Auto OCR model selected rapidocr with torch.
+2026-05-23 10:41:19,306 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 10:41:19,309 [INFO] Registered layout engines: ['layout_object_detection', 'docling_layout_default', 'docling_experimental_table_crops_layout']
+2026-05-23 10:41:19,319 [INFO] Accelerator device: 'mps'
+2026-05-23 10:41:19,579 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+2026-05-23 10:41:20,582 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 10:41:20,585 [INFO] Registered table structure engines: ['docling_tableformer', 'docling_tableformer_v2', 'granite_vision_table']
+2026-05-23 10:41:20,846 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+2026-05-23 10:41:20,878 [INFO] Accelerator device: 'mps'
+2026-05-23 10:41:21,546 [INFO] Processing document 87e06d87-f23c-4707-84c3-43563fc6c9a7_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP).pdf
+2026-05-23 10:41:22,879 [INFO] Finished converting document 87e06d87-f23c-4707-84c3-43563fc6c9a7_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP).pdf in 4.34 sec.
+2026-05-23 10:41:22,923 [INFO] [DONE] Parsed 4 nodes from '87e06d87-f23c-4707-84c3-43563fc6c9a7_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP)'.
+2026-05-23 10:51:08,897 [INFO] Database tables ready.
+2026-05-23 10:51:08,897 [INFO] Loading default query engine...
+2026-05-23 10:51:08,898 [INFO] Query engine ready.
+2026-05-23 10:51:31,405 [INFO] Database tables ready.
+2026-05-23 10:51:31,407 [INFO] Loading default query engine...
+2026-05-23 10:51:31,407 [INFO] Query engine ready.
+2026-05-23 10:51:46,057 [INFO] 
+============================================================
+2026-05-23 10:51:46,057 [INFO] INGESTING: uploads/f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP).pdf
+2026-05-23 10:51:46,058 [INFO] ============================================================
+2026-05-23 10:51:46,059 [INFO] [START] Parsing 'uploads/f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP).pdf'...
+2026-05-23 10:51:47,391 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 10:51:47,419 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/config.json "HTTP/1.1 200 OK"
+2026-05-23 10:51:47,734 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 10:51:47,757 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-23 10:51:48,017 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-23 10:51:48,282 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-23 10:51:48,337 [INFO] detected formats: [<InputFormat.PDF: 'pdf'>]
+2026-05-23 10:51:48,374 [INFO] Going to convert document batch...
+2026-05-23 10:51:48,374 [INFO] Initializing pipeline for StandardPdfPipeline with options hash 80a8a1322ca5ef46817c7adbf875fff6
+2026-05-23 10:51:48,389 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 10:51:48,392 [INFO] Registered picture descriptions: ['picture_description_vlm_engine', 'vlm', 'api']
+2026-05-23 10:51:48,399 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 10:51:48,405 [INFO] Registered ocr engines: ['auto', 'easyocr', 'kserve_v2_ocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2026-05-23 10:51:48,406 [INFO] ocrmac cannot be used because ocrmac is not installed.
+2026-05-23 10:51:48,406 [INFO] rapidocr cannot be used because onnxruntime is not installed.
+2026-05-23 10:51:48,406 [INFO] easyocr cannot be used because it is not installed.
+2026-05-23 10:51:48,822 [INFO] Accelerator device: 'mps'
+2026-05-23 10:51:49,229 [INFO] Auto OCR model selected rapidocr with torch.
+2026-05-23 10:51:49,234 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 10:51:49,237 [INFO] Registered layout engines: ['layout_object_detection', 'docling_layout_default', 'docling_experimental_table_crops_layout']
+2026-05-23 10:51:49,248 [INFO] Accelerator device: 'mps'
+2026-05-23 10:51:49,518 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+2026-05-23 10:51:50,328 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 10:51:50,330 [INFO] Registered table structure engines: ['docling_tableformer', 'docling_tableformer_v2', 'granite_vision_table']
+2026-05-23 10:51:50,612 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+2026-05-23 10:51:50,641 [INFO] Accelerator device: 'mps'
+2026-05-23 10:51:51,268 [INFO] Processing document f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP).pdf
+2026-05-23 10:51:52,428 [INFO] Finished converting document f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP).pdf in 4.09 sec.
+2026-05-23 10:51:52,454 [INFO] [DONE] Parsed 4 nodes from 'f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP)'.
+2026-05-23 10:51:52,454 [INFO] [CHECKPOINT SAVED] stage=nodes_raw | doc=f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP) → .checkpoints/f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP)__nodes_raw.pkl
+2026-05-23 10:51:52,460 [INFO] [START] Enriching 4 remaining nodes (5 at a time) for 'f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP)'...
+2026-05-23 10:51:52,532 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2026-05-23 10:52:28,915 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 10:52:28,995 [INFO]   [1/4] OK
+2026-05-23 10:52:30,491 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 10:52:30,501 [INFO]   [4/4] OK
+2026-05-23 10:52:56,731 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 10:52:56,735 [INFO]   [3/4] OK
+2026-05-23 10:53:16,090 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 10:53:16,093 [INFO]   [2/4] OK
+2026-05-23 10:53:16,131 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP) → .checkpoints/f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP)__nodes_enriched_partial.pkl
+2026-05-23 10:53:16,132 [INFO]   [PARTIAL SAVE] Progress saved at node 4/4.
+2026-05-23 10:53:16,148 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched | doc=f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP) → .checkpoints/f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP)__nodes_enriched.pkl
+2026-05-23 10:53:16,149 [INFO] [CLEANUP] Removed partial checkpoint for 'f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP)'.
+2026-05-23 10:53:16,149 [INFO] [DONE] Enrichment complete for 'f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP)'.
+2026-05-23 10:53:16,153 [INFO] [DONE] Metadata sanitized for 4 nodes.
+2026-05-23 10:53:16,154 [INFO] [START] Embedding and uploading 'f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP)' (4 nodes) to Pinecone...
+2026-05-23 10:53:18,687 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 10:53:20,778 [INFO] [DONE] 'f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP)' successfully uploaded to Pinecone.
+2026-05-23 10:53:20,780 [INFO] [REGISTRY] Recorded 'f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP)' (hash: 7da6a5d7e588...)
+2026-05-23 10:53:20,780 [INFO] 
+✅ DONE: 'f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP)' is fully ingested into Pinecone.
+
+2026-05-23 10:57:11,167 [INFO] 
+============================================================
+2026-05-23 10:57:11,168 [INFO] INGESTING: uploads/52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327.pdf
+2026-05-23 10:57:11,168 [INFO] ============================================================
+2026-05-23 10:57:11,173 [INFO] [START] Parsing 'uploads/52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327.pdf'...
+2026-05-23 10:57:11,568 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 10:57:11,587 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/config.json "HTTP/1.1 200 OK"
+2026-05-23 10:57:11,916 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 10:57:11,944 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-23 10:57:12,218 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-23 10:57:12,479 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-23 10:57:12,619 [INFO] detected formats: [<InputFormat.PDF: 'pdf'>]
+2026-05-23 10:57:12,642 [INFO] Going to convert document batch...
+2026-05-23 10:57:12,644 [INFO] Initializing pipeline for StandardPdfPipeline with options hash 80a8a1322ca5ef46817c7adbf875fff6
+2026-05-23 10:57:12,653 [INFO] ocrmac cannot be used because ocrmac is not installed.
+2026-05-23 10:57:12,653 [INFO] rapidocr cannot be used because onnxruntime is not installed.
+2026-05-23 10:57:12,654 [INFO] easyocr cannot be used because it is not installed.
+2026-05-23 10:57:12,658 [INFO] Accelerator device: 'mps'
+2026-05-23 10:57:13,138 [INFO] Auto OCR model selected rapidocr with torch.
+2026-05-23 10:57:13,138 [INFO] Accelerator device: 'mps'
+2026-05-23 10:57:13,426 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+2026-05-23 10:57:15,290 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+2026-05-23 10:57:15,300 [INFO] Accelerator device: 'mps'
+2026-05-23 10:57:15,983 [INFO] Processing document 52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327.pdf
+2026-05-23 10:58:19,299 [INFO] Finished converting document 52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327.pdf in 66.70 sec.
+2026-05-23 10:58:20,989 [INFO] [DONE] Parsed 310 nodes from '52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327'.
+2026-05-23 10:58:21,018 [INFO] [CHECKPOINT SAVED] stage=nodes_raw | doc=52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327 → .checkpoints/52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327__nodes_raw.pkl
+2026-05-23 10:58:21,030 [INFO] [START] Enriching 310 remaining nodes (5 at a time) for '52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327'...
+2026-05-23 10:58:21,091 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2026-05-23 10:59:02,099 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 10:59:02,172 [INFO]   [2/310] OK
+2026-05-23 10:59:30,594 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 10:59:30,598 [INFO]   [3/310] OK
+2026-05-23 10:59:31,942 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 10:59:31,949 [INFO]   [1/310] OK
+2026-05-23 10:59:59,256 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 10:59:59,265 [INFO]   [5/310] OK
+2026-05-23 11:00:21,115 [ERROR]   [4/310] ERROR — 
+2026-05-23 11:00:43,172 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:00:43,182 [INFO]   [6/310] OK
+2026-05-23 11:01:09,700 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:01:09,704 [INFO]   [7/310] OK
+2026-05-23 11:01:31,010 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:01:31,016 [INFO]   [8/310] OK
+2026-05-23 11:01:56,510 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:01:56,514 [INFO]   [9/310] OK
+2026-05-23 11:02:17,688 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:02:17,691 [INFO]   [10/310] OK
+2026-05-23 11:02:43,191 [ERROR]   [11/310] ERROR — 
+2026-05-23 11:03:03,128 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:03:03,131 [INFO]   [12/310] OK
+2026-05-23 11:03:22,886 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:03:22,890 [INFO]   [13/310] OK
+2026-05-23 11:03:43,964 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:03:43,967 [INFO]   [14/310] OK
+2026-05-23 11:04:09,141 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:04:09,144 [INFO]   [15/310] OK
+2026-05-23 11:04:33,535 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:04:33,538 [INFO]   [16/310] OK
+2026-05-23 11:05:03,143 [ERROR]   [17/310] ERROR — 
+2026-05-23 11:05:22,898 [ERROR]   [18/310] ERROR — 
+2026-05-23 11:05:43,976 [ERROR]   [19/310] ERROR — 
+2026-05-23 11:06:09,035 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:06:09,043 [INFO]   [20/310] OK
+2026-05-23 11:06:33,549 [ERROR]   [21/310] ERROR — 
+2026-05-23 11:07:03,183 [ERROR]   [22/310] ERROR — 
+2026-05-23 11:07:22,908 [ERROR]   [23/310] ERROR — 
+2026-05-23 11:07:43,990 [ERROR]   [24/310] ERROR — 
+2026-05-23 11:08:08,914 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:08:08,918 [INFO]   [25/310] OK
+2026-05-23 11:08:31,614 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:08:31,619 [INFO]   [26/310] OK
+2026-05-23 11:08:51,555 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:08:51,557 [INFO]   [27/310] OK
+2026-05-23 11:09:15,474 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:09:15,481 [INFO]   [28/310] OK
+2026-05-23 11:09:36,455 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:09:36,457 [INFO]   [29/310] OK
+2026-05-23 11:10:06,256 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:10:06,259 [INFO]   [30/310] OK
+2026-05-23 11:10:31,294 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:10:31,297 [INFO]   [31/310] OK
+2026-05-23 11:10:51,569 [ERROR]   [32/310] ERROR — 
+2026-05-23 11:11:15,491 [ERROR]   [33/310] ERROR — 
+2026-05-23 11:11:36,465 [ERROR]   [34/310] ERROR — 
+2026-05-23 11:12:00,697 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:12:00,701 [INFO]   [35/310] OK
+2026-05-23 11:12:30,656 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:12:30,659 [INFO]   [36/310] OK
+2026-05-23 11:12:51,594 [ERROR]   [37/310] ERROR — 
+2026-05-23 11:13:15,510 [ERROR]   [38/310] ERROR — 
+2026-05-23 11:13:36,476 [ERROR]   [39/310] ERROR — 
+2026-05-23 11:14:00,708 [ERROR]   [40/310] ERROR — 
+2026-05-23 11:14:26,735 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:14:26,741 [INFO]   [41/310] OK
+2026-05-23 11:14:51,606 [ERROR]   [42/310] ERROR — 
+2026-05-23 11:15:15,546 [ERROR]   [43/310] ERROR — 
+2026-05-23 11:15:36,496 [ERROR]   [44/310] ERROR — 
+2026-05-23 11:16:00,720 [ERROR]   [45/310] ERROR — 
+2026-05-23 11:16:25,813 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:16:25,818 [INFO]   [46/310] OK
+2026-05-23 11:16:51,626 [ERROR]   [47/310] ERROR — 
+2026-05-23 11:17:13,997 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:17:13,999 [INFO]   [48/310] OK
+2026-05-23 11:17:36,530 [ERROR]   [49/310] ERROR — 
+2026-05-23 11:18:00,730 [ERROR]   [50/310] ERROR — 
+2026-05-23 11:18:00,825 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327 → .checkpoints/52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327__nodes_enriched_partial.pkl
+2026-05-23 11:18:00,825 [INFO]   [PARTIAL SAVE] Progress saved at node 50/310.
+2026-05-23 11:18:29,134 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:18:29,137 [INFO]   [55/310] OK
+2026-05-23 11:18:50,629 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:18:50,635 [INFO]   [53/310] OK
+2026-05-23 11:19:14,535 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:19:14,537 [INFO]   [54/310] OK
+2026-05-23 11:19:42,371 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:19:42,373 [INFO]   [51/310] OK
+2026-05-23 11:20:00,846 [ERROR]   [52/310] ERROR — 
+2026-05-23 11:20:29,145 [ERROR]   [56/310] ERROR — 
+2026-05-23 11:20:50,643 [ERROR]   [57/310] ERROR — 
+2026-05-23 11:21:13,766 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:21:13,771 [INFO]   [58/310] OK
+2026-05-23 11:21:41,857 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:21:41,863 [INFO]   [59/310] OK
+2026-05-23 11:22:00,857 [ERROR]   [60/310] ERROR — 
+2026-05-23 11:22:24,874 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:22:24,877 [INFO]   [61/310] OK
+2026-05-23 11:22:50,655 [ERROR]   [62/310] ERROR — 
+2026-05-23 11:23:13,776 [ERROR]   [63/310] ERROR — 
+2026-05-23 11:23:39,545 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:23:39,547 [INFO]   [64/310] OK
+2026-05-23 11:24:00,888 [ERROR]   [65/310] ERROR — 
+2026-05-23 11:24:24,889 [ERROR]   [66/310] ERROR — 
+2026-05-23 11:24:50,694 [ERROR]   [67/310] ERROR — 
+2026-05-23 11:25:13,805 [ERROR]   [68/310] ERROR — 
+2026-05-23 11:25:38,374 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:25:38,376 [INFO]   [69/310] OK
+2026-05-23 11:26:00,902 [ERROR]   [70/310] ERROR — 
+2026-05-23 11:26:24,906 [ERROR]   [71/310] ERROR — 
+2026-05-23 11:26:50,703 [ERROR]   [72/310] ERROR — 
+2026-05-23 11:27:13,830 [ERROR]   [73/310] ERROR — 
+2026-05-23 11:27:38,145 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:27:38,148 [INFO]   [74/310] OK
+2026-05-23 11:27:58,791 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:27:58,794 [INFO]   [75/310] OK
+2026-05-23 11:28:24,920 [ERROR]   [76/310] ERROR — 
+2026-05-23 11:28:46,290 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:28:46,294 [INFO]   [77/310] OK
+2026-05-23 11:29:07,488 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:29:07,501 [INFO]   [78/310] OK
+2026-05-23 11:29:34,330 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:29:34,332 [INFO]   [79/310] OK
+2026-05-23 11:29:56,384 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:29:56,395 [INFO]   [80/310] OK
+2026-05-23 11:30:21,536 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:30:21,539 [INFO]   [81/310] OK
+2026-05-23 11:30:44,124 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:30:44,127 [INFO]   [82/310] OK
+2026-05-23 11:31:07,465 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:31:07,470 [INFO]   [83/310] OK
+2026-05-23 11:31:30,591 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:31:30,595 [INFO]   [84/310] OK
+2026-05-23 11:31:55,691 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:31:55,695 [INFO]   [85/310] OK
+2026-05-23 11:32:15,562 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:32:15,566 [INFO]   [86/310] OK
+2026-05-23 11:32:37,599 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:32:37,604 [INFO]   [87/310] OK
+2026-05-23 11:33:07,480 [ERROR]   [88/310] ERROR — 
+2026-05-23 11:33:29,908 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:33:29,910 [INFO]   [89/310] OK
+2026-05-23 11:33:54,429 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:33:54,431 [INFO]   [90/310] OK
+2026-05-23 11:34:15,575 [ERROR]   [91/310] ERROR — 
+2026-05-23 11:34:37,611 [ERROR]   [92/310] ERROR — 
+2026-05-23 11:35:04,838 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:35:04,842 [INFO]   [93/310] OK
+2026-05-23 11:35:29,931 [ERROR]   [94/310] ERROR — 
+2026-05-23 11:35:52,413 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:35:52,421 [INFO]   [95/310] OK
+2026-05-23 11:36:11,242 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:36:11,247 [INFO]   [96/310] OK
+2026-05-23 11:36:35,666 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:36:35,670 [INFO]   [97/310] OK
+2026-05-23 11:36:56,413 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:36:56,416 [INFO]   [98/310] OK
+2026-05-23 11:37:14,722 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:37:14,726 [INFO]   [99/310] OK
+2026-05-23 11:37:36,574 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:37:36,584 [INFO]   [100/310] OK
+2026-05-23 11:37:36,700 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327 → .checkpoints/52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327__nodes_enriched_partial.pkl
+2026-05-23 11:37:36,700 [INFO]   [PARTIAL SAVE] Progress saved at node 100/310.
+2026-05-23 11:38:02,201 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:38:02,204 [INFO]   [101/310] OK
+2026-05-23 11:38:29,077 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:38:29,081 [INFO]   [105/310] OK
+2026-05-23 11:38:51,370 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:38:51,374 [INFO]   [102/310] OK
+2026-05-23 11:39:12,678 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:39:12,682 [INFO]   [103/310] OK
+2026-05-23 11:39:36,715 [ERROR]   [104/310] ERROR — 
+2026-05-23 11:39:59,892 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:39:59,895 [INFO]   [106/310] OK
+2026-05-23 11:40:29,116 [ERROR]   [107/310] ERROR — 
+2026-05-23 11:40:51,393 [ERROR]   [108/310] ERROR — 
+2026-05-23 11:41:12,691 [ERROR]   [109/310] ERROR — 
+2026-05-23 11:41:36,732 [ERROR]   [110/310] ERROR — 
+2026-05-23 11:41:55,560 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:41:55,566 [INFO]   [111/310] OK
+2026-05-23 11:42:20,370 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:42:20,384 [INFO]   [112/310] OK
+2026-05-23 11:42:40,553 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:42:40,555 [INFO]   [113/310] OK
+2026-05-23 11:43:05,474 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:43:05,484 [INFO]   [114/310] OK
+2026-05-23 11:43:25,720 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:43:25,724 [INFO]   [115/310] OK
+2026-05-23 11:43:44,916 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:43:44,926 [INFO]   [116/310] OK
+2026-05-23 11:44:08,475 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:44:08,476 [INFO]   [117/310] OK
+2026-05-23 11:44:27,673 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:44:27,676 [INFO]   [118/310] OK
+2026-05-23 11:44:51,251 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:44:51,254 [INFO]   [119/310] OK
+2026-05-23 11:45:14,004 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:45:14,010 [INFO]   [120/310] OK
+2026-05-23 11:45:40,627 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:45:40,635 [INFO]   [121/310] OK
+2026-05-23 11:46:08,484 [ERROR]   [122/310] ERROR — 
+2026-05-23 11:46:27,684 [ERROR]   [123/310] ERROR — 
+2026-05-23 11:46:51,270 [ERROR]   [124/310] ERROR — 
+2026-05-23 11:47:14,028 [ERROR]   [125/310] ERROR — 
+2026-05-23 11:47:40,137 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:47:40,149 [INFO]   [126/310] OK
+2026-05-23 11:48:01,326 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:48:01,328 [INFO]   [127/310] OK
+2026-05-23 11:48:27,707 [ERROR]   [128/310] ERROR — 
+2026-05-23 11:48:51,290 [ERROR]   [129/310] ERROR — 
+2026-05-23 11:49:14,047 [ERROR]   [130/310] ERROR — 
+2026-05-23 11:49:35,156 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:49:35,158 [INFO]   [131/310] OK
+2026-05-23 11:50:00,060 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:50:00,064 [INFO]   [132/310] OK
+2026-05-23 11:50:27,726 [ERROR]   [133/310] ERROR — 
+2026-05-23 11:50:51,323 [ERROR]   [134/310] ERROR — 
+2026-05-23 11:51:14,064 [ERROR]   [135/310] ERROR — 
+2026-05-23 11:51:35,165 [ERROR]   [136/310] ERROR — 
+2026-05-23 11:52:00,087 [ERROR]   [137/310] ERROR — 
+2026-05-23 11:52:27,741 [ERROR]   [138/310] ERROR — 
+2026-05-23 11:52:50,336 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:52:50,340 [INFO]   [139/310] OK
+2026-05-23 11:53:14,086 [ERROR]   [140/310] ERROR — 
+2026-05-23 11:53:35,181 [ERROR]   [141/310] ERROR — 
+2026-05-23 11:54:00,100 [ERROR]   [142/310] ERROR — 
+2026-05-23 11:54:20,896 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:54:20,899 [INFO]   [143/310] OK
+2026-05-23 11:54:48,174 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:54:48,179 [INFO]   [144/310] OK
+2026-05-23 11:55:14,126 [ERROR]   [145/310] ERROR — 
+2026-05-23 11:55:35,195 [ERROR]   [146/310] ERROR — 
+2026-05-23 11:55:55,787 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:55:55,791 [INFO]   [147/310] OK
+2026-05-23 11:56:20,914 [ERROR]   [148/310] ERROR — 
+2026-05-23 11:56:41,066 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:56:41,069 [INFO]   [149/310] OK
+2026-05-23 11:57:01,071 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:57:01,075 [INFO]   [150/310] OK
+2026-05-23 11:57:01,222 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327 → .checkpoints/52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327__nodes_enriched_partial.pkl
+2026-05-23 11:57:01,222 [INFO]   [PARTIAL SAVE] Progress saved at node 150/310.
+2026-05-23 11:57:26,498 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:57:26,531 [INFO]   [152/310] OK
+2026-05-23 11:57:46,717 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:57:46,719 [INFO]   [154/310] OK
+2026-05-23 11:58:13,370 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:58:13,380 [INFO]   [151/310] OK
+2026-05-23 11:58:36,011 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:58:36,015 [INFO]   [155/310] OK
+2026-05-23 11:58:55,470 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:58:55,476 [INFO]   [153/310] OK
+2026-05-23 11:59:20,365 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 11:59:20,369 [INFO]   [156/310] OK
+2026-05-23 11:59:46,725 [ERROR]   [157/310] ERROR — 
+2026-05-23 12:00:12,931 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:00:12,935 [INFO]   [158/310] OK
+2026-05-23 12:00:34,708 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:00:34,711 [INFO]   [159/310] OK
+2026-05-23 12:00:55,492 [ERROR]   [160/310] ERROR — 
+2026-05-23 12:01:20,378 [ERROR]   [161/310] ERROR — 
+2026-05-23 12:01:39,588 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:01:39,642 [INFO]   [162/310] OK
+2026-05-23 12:02:05,746 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:02:05,749 [INFO]   [163/310] OK
+2026-05-23 12:02:31,705 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:02:31,707 [INFO]   [164/310] OK
+2026-05-23 12:02:55,084 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:02:55,089 [INFO]   [165/310] OK
+2026-05-23 12:03:20,404 [ERROR]   [166/310] ERROR — 
+2026-05-23 12:03:39,678 [ERROR]   [167/310] ERROR — 
+2026-05-23 12:04:04,800 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:04:04,803 [INFO]   [168/310] OK
+2026-05-23 12:04:31,713 [ERROR]   [169/310] ERROR — 
+2026-05-23 12:04:55,096 [ERROR]   [170/310] ERROR — 
+2026-05-23 12:05:20,434 [ERROR]   [171/310] ERROR — 
+2026-05-23 12:05:39,685 [ERROR]   [172/310] ERROR — 
+2026-05-23 12:05:59,359 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:05:59,362 [INFO]   [173/310] OK
+2026-05-23 12:06:23,268 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:06:23,271 [INFO]   [174/310] OK
+2026-05-23 12:06:46,298 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:06:46,302 [INFO]   [175/310] OK
+2026-05-23 12:07:11,459 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:07:11,461 [INFO]   [176/310] OK
+2026-05-23 12:07:39,699 [ERROR]   [177/310] ERROR — 
+2026-05-23 12:07:59,370 [ERROR]   [178/310] ERROR — 
+2026-05-23 12:08:23,288 [ERROR]   [179/310] ERROR — 
+2026-05-23 12:08:46,315 [ERROR]   [180/310] ERROR — 
+2026-05-23 12:09:06,105 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:09:06,108 [INFO]   [181/310] OK
+2026-05-23 12:09:26,292 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:09:26,295 [INFO]   [182/310] OK
+2026-05-23 12:09:49,249 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:09:49,251 [INFO]   [183/310] OK
+2026-05-23 12:10:14,815 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:10:14,821 [INFO]   [184/310] OK
+2026-05-23 12:10:33,336 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:10:33,338 [INFO]   [185/310] OK
+2026-05-23 12:10:57,652 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:10:57,654 [INFO]   [186/310] OK
+2026-05-23 12:11:19,953 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:11:19,960 [INFO]   [187/310] OK
+2026-05-23 12:11:42,451 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:11:42,456 [INFO]   [188/310] OK
+2026-05-23 12:12:06,238 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:12:06,245 [INFO]   [189/310] OK
+2026-05-23 12:12:33,351 [ERROR]   [190/310] ERROR — 
+2026-05-23 12:12:54,946 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:12:54,948 [INFO]   [191/310] OK
+2026-05-23 12:13:16,652 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:13:16,657 [INFO]   [192/310] OK
+2026-05-23 12:13:35,665 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:13:35,668 [INFO]   [193/310] OK
+2026-05-23 12:14:00,731 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:14:00,734 [INFO]   [194/310] OK
+2026-05-23 12:14:27,628 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:14:27,634 [INFO]   [195/310] OK
+2026-05-23 12:14:47,675 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:14:47,684 [INFO]   [196/310] OK
+2026-05-23 12:15:09,978 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:15:09,981 [INFO]   [197/310] OK
+2026-05-23 12:15:34,579 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:15:34,584 [INFO]   [198/310] OK
+2026-05-23 12:16:00,750 [ERROR]   [199/310] ERROR — 
+2026-05-23 12:16:27,650 [ERROR]   [200/310] ERROR — 
+2026-05-23 12:16:27,739 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327 → .checkpoints/52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327__nodes_enriched_partial.pkl
+2026-05-23 12:16:27,739 [INFO]   [PARTIAL SAVE] Progress saved at node 200/310.
+2026-05-23 12:16:54,036 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:16:54,039 [INFO]   [204/310] OK
+2026-05-23 12:17:13,133 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:17:13,136 [INFO]   [202/310] OK
+2026-05-23 12:17:31,915 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:17:31,917 [INFO]   [201/310] OK
+2026-05-23 12:17:57,355 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:17:57,357 [INFO]   [205/310] OK
+2026-05-23 12:18:20,973 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:18:20,977 [INFO]   [203/310] OK
+2026-05-23 12:18:40,316 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:18:40,318 [INFO]   [206/310] OK
+2026-05-23 12:18:59,822 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:18:59,824 [INFO]   [207/310] OK
+2026-05-23 12:19:26,279 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:19:26,283 [INFO]   [208/310] OK
+2026-05-23 12:19:46,325 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:19:46,327 [INFO]   [209/310] OK
+2026-05-23 12:20:15,921 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:20:15,926 [INFO]   [210/310] OK
+2026-05-23 12:20:40,327 [ERROR]   [211/310] ERROR — 
+2026-05-23 12:20:59,837 [ERROR]   [212/310] ERROR — 
+2026-05-23 12:21:20,984 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:21:20,986 [INFO]   [213/310] OK
+2026-05-23 12:21:44,332 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:21:44,335 [INFO]   [214/310] OK
+2026-05-23 12:22:07,379 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:22:07,381 [INFO]   [215/310] OK
+2026-05-23 12:22:25,955 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:22:25,957 [INFO]   [216/310] OK
+2026-05-23 12:22:47,548 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:22:47,550 [INFO]   [217/310] OK
+2026-05-23 12:23:07,473 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:23:07,476 [INFO]   [218/310] OK
+2026-05-23 12:23:29,550 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:23:29,555 [INFO]   [219/310] OK
+2026-05-23 12:23:49,107 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:23:49,109 [INFO]   [220/310] OK
+2026-05-23 12:24:10,106 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:24:10,114 [INFO]   [221/310] OK
+2026-05-23 12:24:33,717 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:24:33,721 [INFO]   [222/310] OK
+2026-05-23 12:24:54,965 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:24:54,967 [INFO]   [223/310] OK
+2026-05-23 12:25:17,410 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:25:17,412 [INFO]   [224/310] OK
+2026-05-23 12:25:39,720 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:25:39,722 [INFO]   [225/310] OK
+2026-05-23 12:26:00,640 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:26:00,643 [INFO]   [226/310] OK
+2026-05-23 12:26:23,597 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:26:23,601 [INFO]   [227/310] OK
+2026-05-23 12:26:44,847 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:26:44,848 [INFO]   [228/310] OK
+2026-05-23 12:27:03,821 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:27:03,824 [INFO]   [229/310] OK
+2026-05-23 12:27:30,680 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:27:30,683 [INFO]   [230/310] OK
+2026-05-23 12:27:56,110 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:27:56,112 [INFO]   [231/310] OK
+2026-05-23 12:28:18,372 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:28:18,375 [INFO]   [232/310] OK
+2026-05-23 12:28:39,653 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:28:39,655 [INFO]   [233/310] OK
+2026-05-23 12:29:02,384 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:29:02,387 [INFO]   [234/310] OK
+2026-05-23 12:29:21,251 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:29:21,256 [INFO]   [235/310] OK
+2026-05-23 12:29:40,362 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:29:40,364 [INFO]   [236/310] OK
+2026-05-23 12:30:07,323 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:30:07,328 [INFO]   [237/310] OK
+2026-05-23 12:30:29,065 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:30:29,072 [INFO]   [238/310] OK
+2026-05-23 12:30:49,277 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:30:49,282 [INFO]   [239/310] OK
+2026-05-23 12:31:12,477 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:31:12,480 [INFO]   [240/310] OK
+2026-05-23 12:31:34,344 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:31:34,356 [INFO]   [241/310] OK
+2026-05-23 12:32:03,860 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:32:03,866 [INFO]   [242/310] OK
+2026-05-23 12:32:29,090 [ERROR]   [243/310] ERROR — 
+2026-05-23 12:32:49,290 [ERROR]   [244/310] ERROR — 
+2026-05-23 12:33:12,493 [ERROR]   [245/310] ERROR — 
+2026-05-23 12:33:32,143 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:33:32,151 [INFO]   [246/310] OK
+2026-05-23 12:33:55,310 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:33:55,314 [INFO]   [247/310] OK
+2026-05-23 12:34:19,199 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:34:19,204 [INFO]   [248/310] OK
+2026-05-23 12:34:42,772 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:34:42,775 [INFO]   [249/310] OK
+2026-05-23 12:35:11,663 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:35:11,667 [INFO]   [250/310] OK
+2026-05-23 12:35:11,742 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327 → .checkpoints/52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327__nodes_enriched_partial.pkl
+2026-05-23 12:35:11,742 [INFO]   [PARTIAL SAVE] Progress saved at node 250/310.
+2026-05-23 12:35:33,102 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:35:33,105 [INFO]   [253/310] OK
+2026-05-23 12:36:01,106 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:36:01,110 [INFO]   [252/310] OK
+2026-05-23 12:36:22,903 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:36:22,914 [INFO]   [251/310] OK
+2026-05-23 12:36:49,218 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:36:49,220 [INFO]   [254/310] OK
+2026-05-23 12:37:11,758 [ERROR]   [255/310] ERROR — 
+2026-05-23 12:37:33,152 [ERROR]   [256/310] ERROR — 
+2026-05-23 12:37:58,870 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:37:58,873 [INFO]   [257/310] OK
+2026-05-23 12:38:19,945 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:38:19,947 [INFO]   [258/310] OK
+2026-05-23 12:38:41,164 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:38:41,167 [INFO]   [259/310] OK
+2026-05-23 12:39:00,067 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:39:00,069 [INFO]   [260/310] OK
+2026-05-23 12:39:26,051 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:39:26,056 [INFO]   [261/310] OK
+2026-05-23 12:39:43,451 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:39:43,457 [INFO]   [262/310] OK
+2026-05-23 12:40:08,927 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:40:08,929 [INFO]   [263/310] OK
+2026-05-23 12:40:33,921 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:40:33,924 [INFO]   [264/310] OK
+2026-05-23 12:40:58,621 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:40:58,627 [INFO]   [265/310] OK
+2026-05-23 12:41:25,982 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:41:25,985 [INFO]   [266/310] OK
+2026-05-23 12:41:43,478 [ERROR]   [267/310] ERROR — 
+2026-05-23 12:42:08,940 [ERROR]   [268/310] ERROR — 
+2026-05-23 12:42:10,594 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:42:10,596 [INFO]   [269/310] OK
+2026-05-23 12:42:31,069 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:42:31,072 [INFO]   [270/310] OK
+2026-05-23 12:42:53,665 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:42:53,667 [INFO]   [271/310] OK
+2026-05-23 12:43:13,708 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:43:13,712 [INFO]   [272/310] OK
+2026-05-23 12:43:37,831 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:43:37,833 [INFO]   [273/310] OK
+2026-05-23 12:44:07,471 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:44:07,477 [INFO]   [274/310] OK
+2026-05-23 12:44:31,083 [ERROR]   [275/310] ERROR — 
+2026-05-23 12:44:53,679 [ERROR]   [276/310] ERROR — 
+2026-05-23 12:45:13,723 [ERROR]   [277/310] ERROR — 
+2026-05-23 12:45:36,879 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:45:36,882 [INFO]   [278/310] OK
+2026-05-23 12:46:00,498 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:46:00,501 [INFO]   [279/310] OK
+2026-05-23 12:46:23,322 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:46:23,330 [INFO]   [280/310] OK
+2026-05-23 12:46:49,791 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:46:49,800 [INFO]   [281/310] OK
+2026-05-23 12:47:13,743 [ERROR]   [282/310] ERROR — 
+2026-05-23 12:47:36,063 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:47:36,066 [INFO]   [283/310] OK
+2026-05-23 12:48:00,510 [ERROR]   [284/310] ERROR — 
+2026-05-23 12:48:23,342 [ERROR]   [285/310] ERROR — 
+2026-05-23 12:48:43,526 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:48:43,528 [INFO]   [286/310] OK
+2026-05-23 12:49:10,163 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:49:10,166 [INFO]   [287/310] OK
+2026-05-23 12:49:33,224 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:49:33,228 [INFO]   [288/310] OK
+2026-05-23 12:49:59,767 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:49:59,768 [INFO]   [289/310] OK
+2026-05-23 12:50:23,350 [ERROR]   [290/310] ERROR — 
+2026-05-23 12:50:43,533 [ERROR]   [291/310] ERROR — 
+2026-05-23 12:51:07,243 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:51:07,246 [INFO]   [292/310] OK
+2026-05-23 12:51:32,733 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:51:32,735 [INFO]   [293/310] OK
+2026-05-23 12:51:59,191 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:51:59,195 [INFO]   [294/310] OK
+2026-05-23 12:52:21,701 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:52:21,703 [INFO]   [295/310] OK
+2026-05-23 12:52:43,547 [ERROR]   [296/310] ERROR — 
+2026-05-23 12:53:07,252 [ERROR]   [297/310] ERROR — 
+2026-05-23 12:53:31,941 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:53:31,947 [INFO]   [298/310] OK
+2026-05-23 12:53:55,475 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:53:55,478 [INFO]   [299/310] OK
+2026-05-23 12:54:19,910 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:54:19,912 [INFO]   [300/310] OK
+2026-05-23 12:54:19,994 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327 → .checkpoints/52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327__nodes_enriched_partial.pkl
+2026-05-23 12:54:19,994 [INFO]   [PARTIAL SAVE] Progress saved at node 300/310.
+2026-05-23 12:54:42,945 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:54:42,948 [INFO]   [305/310] OK
+2026-05-23 12:55:03,387 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:55:03,390 [INFO]   [301/310] OK
+2026-05-23 12:55:26,543 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:55:26,546 [INFO]   [303/310] OK
+2026-05-23 12:55:52,426 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:55:52,428 [INFO]   [302/310] OK
+2026-05-23 12:56:18,520 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:56:18,524 [INFO]   [304/310] OK
+2026-05-23 12:56:40,109 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 12:56:40,114 [INFO]   [306/310] OK
+2026-05-23 12:57:03,398 [ERROR]   [307/310] ERROR — 
+2026-05-23 12:57:26,553 [ERROR]   [308/310] ERROR — 
+2026-05-23 12:57:52,445 [ERROR]   [309/310] ERROR — 
+2026-05-23 12:58:18,541 [ERROR]   [310/310] ERROR — 
+2026-05-23 12:58:18,620 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327 → .checkpoints/52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327__nodes_enriched_partial.pkl
+2026-05-23 12:58:18,620 [INFO]   [PARTIAL SAVE] Progress saved at node 310/310.
+2026-05-23 12:58:18,683 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched | doc=52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327 → .checkpoints/52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327__nodes_enriched.pkl
+2026-05-23 12:58:18,684 [INFO] [CLEANUP] Removed partial checkpoint for '52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327'.
+2026-05-23 12:58:18,684 [INFO] [DONE] Enrichment complete for '52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327'.
+2026-05-23 12:58:18,997 [INFO] [DONE] Metadata sanitized for 310 nodes.
+2026-05-23 12:58:18,999 [INFO] [START] Embedding and uploading '52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327' (310 nodes) to Pinecone...
+2026-05-23 12:58:22,807 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 12:58:24,249 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 12:58:25,704 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 12:58:27,093 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 12:58:28,598 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 12:58:30,127 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 12:58:30,595 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 12:58:36,249 [INFO] [DONE] '52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327' successfully uploaded to Pinecone.
+2026-05-23 12:58:36,256 [INFO] [REGISTRY] Recorded '52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327' (hash: 6e7c0fa8e553...)
+2026-05-23 12:58:36,257 [INFO] 
+✅ DONE: '52e3b2c3-539d-4d93-bed4-47082193dafc_akta-penggalakan-pelaburan-1986-akta-327' is fully ingested into Pinecone.
+
+2026-05-23 13:03:36,935 [INFO] Database tables ready.
+2026-05-23 13:03:36,936 [INFO] Loading default query engine...
+2026-05-23 13:03:36,939 [INFO] Query engine ready.
+2026-05-23 13:03:59,895 [INFO] Database tables ready.
+2026-05-23 13:03:59,896 [INFO] Loading default query engine...
+2026-05-23 13:03:59,896 [INFO] Query engine ready.
+2026-05-23 13:05:52,867 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 13:05:56,211 [INFO] AFC is enabled with max remote calls: 10.
+2026-05-23 13:06:04,288 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-05-23 13:09:33,531 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 13:09:36,630 [INFO] AFC is enabled with max remote calls: 10.
+2026-05-23 13:09:49,146 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-05-23 13:11:02,832 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 13:11:05,635 [INFO] AFC is enabled with max remote calls: 10.
+2026-05-23 13:11:15,057 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-05-23 13:19:34,275 [INFO] 
+============================================================
+2026-05-23 13:19:34,276 [INFO] INGESTING: uploads/40d04e51-0b91-476e-a548-1bd25f878b90_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP).pdf
+2026-05-23 13:19:34,276 [INFO] ============================================================
+2026-05-23 13:19:34,278 [WARNING] [DUPLICATE] '40d04e51-0b91-476e-a548-1bd25f878b90_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP).pdf' is identical to 'f4297db0-400d-42c9-90ea-0c81e84baee3_PANDUAN-SKIM-PENDAFTARAN-PERNIAGAAN-PERCUMA-(SPPP).pdf' (ingested 2026-05-23T10:53:20.780118). Skipping.
+2026-05-23 13:19:49,260 [INFO] 
+============================================================
+2026-05-23 13:19:49,260 [INFO] INGESTING: uploads/3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P).pdf
+2026-05-23 13:19:49,261 [INFO] ============================================================
+2026-05-23 13:19:49,261 [INFO] [START] Parsing 'uploads/3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P).pdf'...
+2026-05-23 13:19:50,719 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 13:19:50,738 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/config.json "HTTP/1.1 200 OK"
+2026-05-23 13:19:51,004 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 13:19:51,025 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-23 13:19:51,297 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-23 13:19:51,579 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-23 13:19:51,633 [INFO] detected formats: [<InputFormat.PDF: 'pdf'>]
+2026-05-23 13:19:51,667 [INFO] Going to convert document batch...
+2026-05-23 13:19:51,667 [INFO] Initializing pipeline for StandardPdfPipeline with options hash 80a8a1322ca5ef46817c7adbf875fff6
+2026-05-23 13:19:51,683 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 13:19:51,685 [INFO] Registered picture descriptions: ['picture_description_vlm_engine', 'vlm', 'api']
+2026-05-23 13:19:51,692 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 13:19:51,698 [INFO] Registered ocr engines: ['auto', 'easyocr', 'kserve_v2_ocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2026-05-23 13:19:51,698 [INFO] ocrmac cannot be used because ocrmac is not installed.
+2026-05-23 13:19:51,698 [INFO] rapidocr cannot be used because onnxruntime is not installed.
+2026-05-23 13:19:51,698 [INFO] easyocr cannot be used because it is not installed.
+2026-05-23 13:19:52,037 [INFO] Accelerator device: 'mps'
+2026-05-23 13:19:52,420 [INFO] Auto OCR model selected rapidocr with torch.
+2026-05-23 13:19:52,425 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 13:19:52,428 [INFO] Registered layout engines: ['layout_object_detection', 'docling_layout_default', 'docling_experimental_table_crops_layout']
+2026-05-23 13:19:52,437 [INFO] Accelerator device: 'mps'
+2026-05-23 13:19:52,697 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+2026-05-23 13:19:53,396 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 13:19:53,399 [INFO] Registered table structure engines: ['docling_tableformer', 'docling_tableformer_v2', 'granite_vision_table']
+2026-05-23 13:19:53,662 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+2026-05-23 13:19:53,679 [INFO] Accelerator device: 'mps'
+2026-05-23 13:19:54,280 [INFO] Processing document 3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P).pdf
+2026-05-23 13:19:55,393 [INFO] Finished converting document 3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P).pdf in 3.76 sec.
+2026-05-23 13:19:55,415 [INFO] [DONE] Parsed 3 nodes from '3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P)'.
+2026-05-23 13:19:55,416 [INFO] [CHECKPOINT SAVED] stage=nodes_raw | doc=3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P) → .checkpoints/3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P)__nodes_raw.pkl
+2026-05-23 13:19:55,420 [INFO] [START] Enriching 3 remaining nodes (5 at a time) for '3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P)'...
+2026-05-23 13:19:55,459 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2026-05-23 13:20:28,131 [INFO] 
+============================================================
+2026-05-23 13:20:28,132 [INFO] INGESTING: uploads/0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN.pdf
+2026-05-23 13:20:28,134 [INFO] ============================================================
+2026-05-23 13:20:28,142 [INFO] [START] Parsing 'uploads/0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN.pdf'...
+2026-05-23 13:20:28,617 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 13:20:28,635 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/config.json "HTTP/1.1 200 OK"
+2026-05-23 13:20:28,976 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 13:20:28,993 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-23 13:20:29,277 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-23 13:20:29,550 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-23 13:20:29,710 [INFO] detected formats: [<InputFormat.PDF: 'pdf'>]
+2026-05-23 13:20:29,744 [INFO] Going to convert document batch...
+2026-05-23 13:20:29,745 [INFO] Initializing pipeline for StandardPdfPipeline with options hash 80a8a1322ca5ef46817c7adbf875fff6
+2026-05-23 13:20:29,754 [INFO] ocrmac cannot be used because ocrmac is not installed.
+2026-05-23 13:20:29,755 [INFO] rapidocr cannot be used because onnxruntime is not installed.
+2026-05-23 13:20:29,755 [INFO] easyocr cannot be used because it is not installed.
+2026-05-23 13:20:29,759 [INFO] Accelerator device: 'mps'
+2026-05-23 13:20:30,380 [INFO] Auto OCR model selected rapidocr with torch.
+2026-05-23 13:20:30,380 [INFO] Accelerator device: 'mps'
+2026-05-23 13:20:30,649 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+2026-05-23 13:20:31,705 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:20:31,721 [INFO]   [1/3] OK
+2026-05-23 13:20:34,072 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+2026-05-23 13:20:34,098 [INFO] Accelerator device: 'mps'
+2026-05-23 13:20:35,348 [INFO] Processing document 0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN.pdf
+2026-05-23 13:20:39,007 [INFO] Finished converting document 0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN.pdf in 9.31 sec.
+2026-05-23 13:20:39,056 [INFO] [DONE] Parsed 6 nodes from '0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN'.
+2026-05-23 13:20:39,057 [INFO] [CHECKPOINT SAVED] stage=nodes_raw | doc=0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN → .checkpoints/0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN__nodes_raw.pkl
+2026-05-23 13:20:39,093 [INFO] [START] Enriching 6 remaining nodes (5 at a time) for '0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN'...
+2026-05-23 13:20:39,155 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2026-05-23 13:20:52,823 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:20:52,827 [INFO]   [2/3] OK
+2026-05-23 13:21:13,923 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:21:13,928 [INFO]   [3/3] OK
+2026-05-23 13:21:13,932 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P) → .checkpoints/3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P)__nodes_enriched_partial.pkl
+2026-05-23 13:21:13,932 [INFO]   [PARTIAL SAVE] Progress saved at node 3/3.
+2026-05-23 13:21:13,937 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched | doc=3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P) → .checkpoints/3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P)__nodes_enriched.pkl
+2026-05-23 13:21:13,937 [INFO] [CLEANUP] Removed partial checkpoint for '3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P)'.
+2026-05-23 13:21:13,937 [INFO] [DONE] Enrichment complete for '3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P)'.
+2026-05-23 13:21:13,952 [INFO] [DONE] Metadata sanitized for 3 nodes.
+2026-05-23 13:21:13,953 [INFO] [START] Embedding and uploading '3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P)' (3 nodes) to Pinecone...
+2026-05-23 13:21:16,390 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 13:21:18,469 [INFO] [DONE] '3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P)' successfully uploaded to Pinecone.
+2026-05-23 13:21:18,473 [INFO] [REGISTRY] Recorded '3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P)' (hash: 63533c90b133...)
+2026-05-23 13:21:18,473 [INFO] 
+✅ DONE: '3b18bedb-fcc6-4d56-b21e-522f31b05a79_PANDUAN-SKIM-1-OKU-1-PERNIAGAAN-(S1O1P)' is fully ingested into Pinecone.
+
+2026-05-23 13:21:37,001 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:21:37,013 [INFO]   [2/6] OK
+2026-05-23 13:21:59,711 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:21:59,715 [INFO]   [3/6] OK
+2026-05-23 13:22:19,509 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:22:19,512 [INFO]   [5/6] OK
+2026-05-23 13:22:39,180 [ERROR]   [4/6] ERROR — 
+2026-05-23 13:22:39,182 [ERROR]   [1/6] ERROR — 
+2026-05-23 13:23:00,128 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:23:00,131 [INFO]   [6/6] OK
+2026-05-23 13:23:00,134 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN → .checkpoints/0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN__nodes_enriched_partial.pkl
+2026-05-23 13:23:00,134 [INFO]   [PARTIAL SAVE] Progress saved at node 6/6.
+2026-05-23 13:23:00,137 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched | doc=0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN → .checkpoints/0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN__nodes_enriched.pkl
+2026-05-23 13:23:00,139 [INFO] [CLEANUP] Removed partial checkpoint for '0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN'.
+2026-05-23 13:23:00,139 [INFO] [DONE] Enrichment complete for '0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN'.
+2026-05-23 13:23:00,139 [INFO] [DONE] Metadata sanitized for 6 nodes.
+2026-05-23 13:23:00,139 [INFO] [START] Embedding and uploading '0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN' (6 nodes) to Pinecone...
+2026-05-23 13:23:00,532 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 13:23:02,567 [INFO] [DONE] '0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN' successfully uploaded to Pinecone.
+2026-05-23 13:23:02,571 [INFO] [REGISTRY] Recorded '0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN' (hash: 9b53709cc002...)
+2026-05-23 13:23:02,571 [INFO] 
+✅ DONE: '0f6a0146-9a75-4032-9a67-c937b800479a_PANDUAN-PENDAFTARAN-PERUBAHAN-MAKLUMAT-PERNIAGAAN' is fully ingested into Pinecone.
+
+2026-05-23 13:24:02,743 [INFO] 
+============================================================
+2026-05-23 13:24:02,743 [INFO] INGESTING: uploads/299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU.pdf
+2026-05-23 13:24:02,743 [INFO] ============================================================
+2026-05-23 13:24:02,745 [INFO] [START] Parsing 'uploads/299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU.pdf'...
+2026-05-23 13:24:03,102 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 13:24:03,121 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/config.json "HTTP/1.1 200 OK"
+2026-05-23 13:24:03,392 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 13:24:03,421 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-23 13:24:03,704 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-23 13:24:03,975 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-23 13:24:04,065 [INFO] detected formats: [<InputFormat.PDF: 'pdf'>]
+2026-05-23 13:24:04,082 [INFO] Going to convert document batch...
+2026-05-23 13:24:04,082 [INFO] Initializing pipeline for StandardPdfPipeline with options hash 80a8a1322ca5ef46817c7adbf875fff6
+2026-05-23 13:24:04,089 [INFO] ocrmac cannot be used because ocrmac is not installed.
+2026-05-23 13:24:04,089 [INFO] rapidocr cannot be used because onnxruntime is not installed.
+2026-05-23 13:24:04,089 [INFO] easyocr cannot be used because it is not installed.
+2026-05-23 13:24:04,089 [INFO] Accelerator device: 'mps'
+2026-05-23 13:24:04,523 [INFO] Auto OCR model selected rapidocr with torch.
+2026-05-23 13:24:04,523 [INFO] Accelerator device: 'mps'
+2026-05-23 13:24:04,780 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+2026-05-23 13:24:06,521 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+2026-05-23 13:24:06,533 [INFO] Accelerator device: 'mps'
+2026-05-23 13:24:07,127 [INFO] Processing document 299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU.pdf
+2026-05-23 13:24:08,370 [INFO] Finished converting document 299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU.pdf in 4.31 sec.
+2026-05-23 13:24:08,413 [INFO] [DONE] Parsed 5 nodes from '299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU'.
+2026-05-23 13:24:08,414 [INFO] [CHECKPOINT SAVED] stage=nodes_raw | doc=299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU → .checkpoints/299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU__nodes_raw.pkl
+2026-05-23 13:24:08,439 [INFO] [START] Enriching 5 remaining nodes (5 at a time) for '299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU'...
+2026-05-23 13:24:08,505 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2026-05-23 13:24:32,572 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:24:32,575 [INFO]   [1/5] OK
+2026-05-23 13:24:58,055 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:24:58,058 [INFO]   [5/5] OK
+2026-05-23 13:25:12,961 [INFO] 
+============================================================
+2026-05-23 13:25:12,961 [INFO] INGESTING: uploads/46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN.pdf
+2026-05-23 13:25:12,961 [INFO] ============================================================
+2026-05-23 13:25:12,964 [INFO] [START] Parsing 'uploads/46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN.pdf'...
+2026-05-23 13:25:13,284 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 13:25:13,304 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/config.json "HTTP/1.1 200 OK"
+2026-05-23 13:25:13,575 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 13:25:13,613 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-23 13:25:13,868 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-23 13:25:14,159 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-23 13:25:14,234 [INFO] detected formats: [<InputFormat.PDF: 'pdf'>]
+2026-05-23 13:25:14,244 [INFO] Going to convert document batch...
+2026-05-23 13:25:14,245 [INFO] Initializing pipeline for StandardPdfPipeline with options hash 80a8a1322ca5ef46817c7adbf875fff6
+2026-05-23 13:25:14,246 [INFO] ocrmac cannot be used because ocrmac is not installed.
+2026-05-23 13:25:14,246 [INFO] rapidocr cannot be used because onnxruntime is not installed.
+2026-05-23 13:25:14,246 [INFO] easyocr cannot be used because it is not installed.
+2026-05-23 13:25:14,246 [INFO] Accelerator device: 'mps'
+2026-05-23 13:25:14,643 [INFO] Auto OCR model selected rapidocr with torch.
+2026-05-23 13:25:14,644 [INFO] Accelerator device: 'mps'
+2026-05-23 13:25:14,927 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+2026-05-23 13:25:16,412 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+2026-05-23 13:25:16,424 [INFO] Accelerator device: 'mps'
+2026-05-23 13:25:17,234 [INFO] Processing document 46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN.pdf
+2026-05-23 13:25:22,507 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:25:22,510 [INFO]   [4/5] OK
+2026-05-23 13:25:46,772 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:25:46,774 [INFO]   [3/5] OK
+2026-05-23 13:26:07,270 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:26:07,275 [INFO]   [2/5] OK
+2026-05-23 13:26:07,279 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU → .checkpoints/299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU__nodes_enriched_partial.pkl
+2026-05-23 13:26:07,279 [INFO]   [PARTIAL SAVE] Progress saved at node 5/5.
+2026-05-23 13:26:07,282 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched | doc=299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU → .checkpoints/299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU__nodes_enriched.pkl
+2026-05-23 13:26:07,282 [INFO] [CLEANUP] Removed partial checkpoint for '299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU'.
+2026-05-23 13:26:07,282 [INFO] [DONE] Enrichment complete for '299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU'.
+2026-05-23 13:26:07,291 [INFO] [DONE] Metadata sanitized for 5 nodes.
+2026-05-23 13:26:07,291 [INFO] [START] Embedding and uploading '299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU' (5 nodes) to Pinecone...
+2026-05-23 13:26:07,789 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 13:26:09,054 [WARNING] RapidOCR returned empty result!
+2026-05-23 13:26:09,859 [INFO] [DONE] '299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU' successfully uploaded to Pinecone.
+2026-05-23 13:26:09,862 [INFO] [REGISTRY] Recorded '299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU' (hash: 6d82a1fb4335...)
+2026-05-23 13:26:09,862 [INFO] 
+✅ DONE: '299443a6-4daf-4c5f-9f06-789bdb795d44_PANDUAN-PENDAFTARAN-PERNIAGAAN-BARU' is fully ingested into Pinecone.
+
+2026-05-23 13:26:35,152 [WARNING] RapidOCR returned empty result!
+2026-05-23 13:28:25,098 [INFO] Finished converting document 46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN.pdf in 190.86 sec.
+2026-05-23 13:28:25,332 [INFO] [DONE] Parsed 13 nodes from '46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN'.
+2026-05-23 13:28:25,336 [INFO] [CHECKPOINT SAVED] stage=nodes_raw | doc=46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN → .checkpoints/46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN__nodes_raw.pkl
+2026-05-23 13:28:25,399 [INFO] [START] Enriching 13 remaining nodes (5 at a time) for '46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN'...
+2026-05-23 13:28:25,491 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2026-05-23 13:28:52,686 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:28:52,695 [INFO]   [4/13] OK
+2026-05-23 13:29:15,694 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:29:15,699 [INFO]   [3/13] OK
+2026-05-23 13:29:17,123 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:29:17,127 [INFO]   [1/13] OK
+2026-05-23 13:29:38,942 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:29:38,945 [INFO]   [5/13] OK
+2026-05-23 13:30:04,689 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:30:04,693 [INFO]   [2/13] OK
+2026-05-23 13:30:25,205 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:30:25,209 [INFO]   [6/13] OK
+2026-05-23 13:30:50,066 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:30:50,076 [INFO]   [7/13] OK
+2026-05-23 13:31:16,018 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:31:16,021 [INFO]   [8/13] OK
+2026-05-23 13:31:38,761 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:31:38,765 [INFO]   [9/13] OK
+2026-05-23 13:32:00,153 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:32:00,158 [INFO]   [10/13] OK
+2026-05-23 13:32:23,928 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:32:23,932 [INFO]   [11/13] OK
+2026-05-23 13:32:46,783 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:32:46,785 [INFO]   [12/13] OK
+2026-05-23 13:33:11,996 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:33:11,998 [INFO]   [13/13] OK
+2026-05-23 13:33:12,005 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN → .checkpoints/46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN__nodes_enriched_partial.pkl
+2026-05-23 13:33:12,005 [INFO]   [PARTIAL SAVE] Progress saved at node 13/13.
+2026-05-23 13:33:12,013 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched | doc=46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN → .checkpoints/46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN__nodes_enriched.pkl
+2026-05-23 13:33:12,014 [INFO] [CLEANUP] Removed partial checkpoint for '46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN'.
+2026-05-23 13:33:12,014 [INFO] [DONE] Enrichment complete for '46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN'.
+2026-05-23 13:33:12,015 [INFO] [DONE] Metadata sanitized for 13 nodes.
+2026-05-23 13:33:12,016 [INFO] [START] Embedding and uploading '46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN' (13 nodes) to Pinecone...
+2026-05-23 13:33:14,292 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 13:33:16,811 [INFO] [DONE] '46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN' successfully uploaded to Pinecone.
+2026-05-23 13:33:16,816 [INFO] [REGISTRY] Recorded '46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN' (hash: 57974b027548...)
+2026-05-23 13:33:16,816 [INFO] 
+✅ DONE: '46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN' is fully ingested into Pinecone.
+
+2026-05-23 13:36:13,212 [INFO] Database tables ready.
+2026-05-23 13:36:13,215 [INFO] Loading default query engine...
+2026-05-23 13:36:13,217 [INFO] Query engine ready.
+2026-05-23 13:36:40,720 [INFO] 
+============================================================
+2026-05-23 13:36:40,720 [INFO] INGESTING: uploads/44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN.pdf
+2026-05-23 13:36:40,720 [INFO] ============================================================
+2026-05-23 13:36:40,722 [INFO] [START] Parsing 'uploads/44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN.pdf'...
+2026-05-23 13:36:42,030 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 13:36:42,044 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/config.json "HTTP/1.1 200 OK"
+2026-05-23 13:36:42,308 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 13:36:42,322 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-23 13:36:42,578 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-23 13:36:42,855 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-23 13:36:42,912 [INFO] detected formats: [<InputFormat.PDF: 'pdf'>]
+2026-05-23 13:36:42,948 [INFO] Going to convert document batch...
+2026-05-23 13:36:42,948 [INFO] Initializing pipeline for StandardPdfPipeline with options hash 80a8a1322ca5ef46817c7adbf875fff6
+2026-05-23 13:36:42,965 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 13:36:42,966 [INFO] Registered picture descriptions: ['picture_description_vlm_engine', 'vlm', 'api']
+2026-05-23 13:36:42,971 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 13:36:42,979 [INFO] Registered ocr engines: ['auto', 'easyocr', 'kserve_v2_ocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2026-05-23 13:36:47,130 [INFO] Auto OCR model selected ocrmac.
+2026-05-23 13:36:47,136 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 13:36:47,138 [INFO] Registered layout engines: ['layout_object_detection', 'docling_layout_default', 'docling_experimental_table_crops_layout']
+2026-05-23 13:36:47,147 [INFO] Accelerator device: 'mps'
+2026-05-23 13:36:47,430 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+2026-05-23 13:36:48,120 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 13:36:48,122 [INFO] Registered table structure engines: ['docling_tableformer', 'docling_tableformer_v2', 'granite_vision_table']
+2026-05-23 13:36:48,371 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+2026-05-23 13:37:01,682 [INFO] Accelerator device: 'mps'
+2026-05-23 13:37:02,305 [INFO] Processing document 44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN.pdf
+2026-05-23 13:37:08,087 [INFO] Finished converting document 44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN.pdf in 25.18 sec.
+2026-05-23 13:37:08,163 [INFO] [DONE] Parsed 4 nodes from '44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN'.
+2026-05-23 13:37:08,167 [INFO] [CHECKPOINT SAVED] stage=nodes_raw | doc=44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN → .checkpoints/44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN__nodes_raw.pkl
+2026-05-23 13:37:08,173 [INFO] [START] Enriching 4 remaining nodes (5 at a time) for '44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN'...
+2026-05-23 13:37:08,245 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2026-05-23 13:37:33,492 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:37:33,502 [INFO]   [3/4] OK
+2026-05-23 13:37:48,382 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:37:48,389 [INFO]   [1/4] OK
+2026-05-23 13:38:14,010 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:38:14,012 [INFO]   [2/4] OK
+2026-05-23 13:38:34,256 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 13:38:34,260 [INFO]   [4/4] OK
+2026-05-23 13:38:34,264 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN → .checkpoints/44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN__nodes_enriched_partial.pkl
+2026-05-23 13:38:34,265 [INFO]   [PARTIAL SAVE] Progress saved at node 4/4.
+2026-05-23 13:38:34,275 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched | doc=44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN → .checkpoints/44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN__nodes_enriched.pkl
+2026-05-23 13:38:34,276 [INFO] [CLEANUP] Removed partial checkpoint for '44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN'.
+2026-05-23 13:38:34,276 [INFO] [DONE] Enrichment complete for '44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN'.
+2026-05-23 13:38:34,279 [INFO] [DONE] Metadata sanitized for 4 nodes.
+2026-05-23 13:38:34,280 [INFO] [START] Embedding and uploading '44d1bd3e-d9fb-449c-9b7b-0d61b2af16d0_PANDUAN-PEMBAHARUAN-PERAKUAN-PENDAFTARAN-PERNIAGAAN' (4 nodes) to Pinecone...
+2026-05-23 13:38:36,384 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 14:06:40,517 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 14:06:44,461 [INFO] AFC is enabled with max remote calls: 10.
+2026-05-23 14:06:58,389 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-05-23 14:09:33,881 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 14:09:37,183 [INFO] AFC is enabled with max remote calls: 10.
+2026-05-23 14:09:39,890 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-05-23 14:32:21,448 [INFO] Database tables ready.
+2026-05-23 14:32:21,448 [INFO] Loading default query engine...
+2026-05-23 14:32:21,448 [INFO] Query engine ready.
+2026-05-23 14:34:32,959 [INFO] 
+============================================================
+2026-05-23 14:34:32,959 [INFO] INGESTING: uploads/1c8b4ba9-ce45-4d8a-9ec5-3823b7e0cd65_PANDUAN-PENAMATAN-PERNIAGAAN.pdf
+2026-05-23 14:34:32,960 [INFO] ============================================================
+2026-05-23 14:34:32,962 [WARNING] [DUPLICATE] '1c8b4ba9-ce45-4d8a-9ec5-3823b7e0cd65_PANDUAN-PENAMATAN-PERNIAGAAN.pdf' is identical to '46fce0ea-307b-46eb-a7ae-4d39460216c4_PANDUAN-PENAMATAN-PERNIAGAAN.pdf' (ingested 2026-05-23T13:33:16.815767). Skipping.
+2026-05-23 14:37:16,039 [INFO] 
+============================================================
+2026-05-23 14:37:16,040 [INFO] INGESTING: uploads/e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN.pdf
+2026-05-23 14:37:16,040 [INFO] ============================================================
+2026-05-23 14:37:16,042 [INFO] [START] Parsing 'uploads/e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN.pdf'...
+2026-05-23 14:37:17,561 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 14:37:17,582 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/config.json "HTTP/1.1 200 OK"
+2026-05-23 14:37:17,864 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 14:37:17,881 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-23 14:37:18,151 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-23 14:37:18,408 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-23 14:37:18,468 [INFO] detected formats: [<InputFormat.PDF: 'pdf'>]
+2026-05-23 14:37:18,505 [INFO] Going to convert document batch...
+2026-05-23 14:37:18,505 [INFO] Initializing pipeline for StandardPdfPipeline with options hash 80a8a1322ca5ef46817c7adbf875fff6
+2026-05-23 14:37:18,524 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 14:37:18,526 [INFO] Registered picture descriptions: ['picture_description_vlm_engine', 'vlm', 'api']
+2026-05-23 14:37:18,532 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 14:37:18,538 [INFO] Registered ocr engines: ['auto', 'easyocr', 'kserve_v2_ocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2026-05-23 14:37:19,135 [INFO] Auto OCR model selected ocrmac.
+2026-05-23 14:37:19,142 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 14:37:19,144 [INFO] Registered layout engines: ['layout_object_detection', 'docling_layout_default', 'docling_experimental_table_crops_layout']
+2026-05-23 14:37:19,153 [INFO] Accelerator device: 'mps'
+2026-05-23 14:37:19,411 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+2026-05-23 14:37:20,312 [INFO] Loading plugin 'docling_defaults'
+2026-05-23 14:37:20,314 [INFO] Registered table structure engines: ['docling_tableformer', 'docling_tableformer_v2', 'granite_vision_table']
+2026-05-23 14:37:20,594 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+2026-05-23 14:37:20,797 [INFO] Accelerator device: 'mps'
+2026-05-23 14:37:21,597 [INFO] Processing document e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN.pdf
+2026-05-23 14:37:35,445 [INFO] Finished converting document e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN.pdf in 16.98 sec.
+2026-05-23 14:37:35,720 [INFO] [DONE] Parsed 14 nodes from 'e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN'.
+2026-05-23 14:37:35,726 [INFO] [CHECKPOINT SAVED] stage=nodes_raw | doc=e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN → .checkpoints/e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN__nodes_raw.pkl
+2026-05-23 14:37:35,731 [INFO] [START] Enriching 14 remaining nodes (5 at a time) for 'e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN'...
+2026-05-23 14:37:35,798 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2026-05-23 14:38:16,939 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:38:17,039 [INFO]   [5/14] OK
+2026-05-23 14:38:32,749 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:38:32,757 [INFO]   [1/14] OK
+2026-05-23 14:38:55,092 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:38:55,096 [INFO]   [4/14] OK
+2026-05-23 14:38:56,282 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:38:56,285 [INFO]   [2/14] OK
+2026-05-23 14:39:26,024 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:39:26,028 [INFO]   [3/14] OK
+2026-05-23 14:39:48,179 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:39:48,183 [INFO]   [6/14] OK
+2026-05-23 14:40:14,330 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:40:14,341 [INFO]   [7/14] OK
+2026-05-23 14:40:35,999 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:40:36,004 [INFO]   [8/14] OK
+2026-05-23 14:40:56,296 [ERROR]   [9/14] ERROR — 
+2026-05-23 14:41:20,872 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:41:20,879 [INFO]   [10/14] OK
+2026-05-23 14:41:41,297 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:41:41,302 [INFO]   [11/14] OK
+2026-05-23 14:42:02,134 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:42:02,139 [INFO]   [12/14] OK
+2026-05-23 14:42:26,021 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:42:26,023 [INFO]   [13/14] OK
+2026-05-23 14:42:54,231 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 14:42:54,236 [INFO]   [14/14] OK
+2026-05-23 14:42:54,392 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN → .checkpoints/e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN__nodes_enriched_partial.pkl
+2026-05-23 14:42:54,395 [INFO]   [PARTIAL SAVE] Progress saved at node 14/14.
+2026-05-23 14:42:54,485 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched | doc=e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN → .checkpoints/e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN__nodes_enriched.pkl
+2026-05-23 14:42:54,486 [INFO] [CLEANUP] Removed partial checkpoint for 'e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN'.
+2026-05-23 14:42:54,486 [INFO] [DONE] Enrichment complete for 'e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN'.
+2026-05-23 14:42:54,493 [INFO] [DONE] Metadata sanitized and size-limited for 14 nodes.
+2026-05-23 14:42:54,498 [INFO] [START] Embedding and uploading 'e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN' (14 nodes) to Pinecone...
+2026-05-23 14:42:57,142 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 14:42:59,724 [INFO] [DONE] 'e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN' successfully uploaded to Pinecone.
+2026-05-23 14:42:59,731 [INFO] [REGISTRY] Recorded 'e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN' (hash: 57974b027548...)
+2026-05-23 14:42:59,731 [INFO] 
+✅ DONE: 'e0c62f2c-f16e-4914-a744-d0afe82c6fbb_PANDUAN-PENAMATAN-PERNIAGAAN' is fully ingested into Pinecone.
+
+2026-05-23 14:44:31,474 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 14:44:37,611 [INFO] AFC is enabled with max remote calls: 10.
+2026-05-23 14:44:39,129 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"
