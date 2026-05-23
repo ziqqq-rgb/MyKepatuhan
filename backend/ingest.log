@@ -1188,3 +1188,146 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2026-05-23 14:44:31,474 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
 2026-05-23 14:44:37,611 [INFO] AFC is enabled with max remote calls: 10.
 2026-05-23 14:44:39,129 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-05-23 18:30:59,680 [INFO] 
+============================================================
+2026-05-23 18:30:59,680 [INFO] INGESTING: uploads/569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617.pdf
+2026-05-23 18:30:59,680 [INFO] ============================================================
+2026-05-23 18:30:59,688 [INFO] [START] Parsing 'uploads/569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617.pdf'...
+2026-05-23 18:31:00,071 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 18:31:00,091 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/config.json "HTTP/1.1 200 OK"
+2026-05-23 18:31:00,414 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-23 18:31:00,443 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-23 18:31:00,748 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-23 18:31:01,018 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-23 18:31:01,149 [INFO] detected formats: [<InputFormat.PDF: 'pdf'>]
+2026-05-23 18:31:01,179 [INFO] Going to convert document batch...
+2026-05-23 18:31:01,181 [INFO] Initializing pipeline for StandardPdfPipeline with options hash 80a8a1322ca5ef46817c7adbf875fff6
+2026-05-23 18:31:01,194 [INFO] Auto OCR model selected ocrmac.
+2026-05-23 18:31:01,201 [INFO] Accelerator device: 'mps'
+2026-05-23 18:31:01,475 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+2026-05-23 18:31:09,990 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+2026-05-23 18:31:09,998 [INFO] Accelerator device: 'mps'
+2026-05-23 18:31:10,472 [INFO] Processing document 569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617.pdf
+2026-05-23 18:31:17,740 [INFO] Finished converting document 569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617.pdf in 16.61 sec.
+2026-05-23 18:31:17,949 [INFO] [DONE] Parsed 56 nodes from '569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617'.
+2026-05-23 18:31:17,956 [INFO] [CHECKPOINT SAVED] stage=nodes_raw | doc=569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617 → .checkpoints/569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617__nodes_raw.pkl
+2026-05-23 18:31:17,980 [INFO] [START] Enriching 56 remaining nodes (5 at a time) for '569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617'...
+2026-05-23 18:31:18,060 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2026-05-23 18:31:55,542 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:31:55,593 [INFO]   [3/56] OK
+2026-05-23 18:32:09,344 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:32:09,348 [INFO]   [2/56] OK
+2026-05-23 18:32:36,860 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:32:36,869 [INFO]   [5/56] OK
+2026-05-23 18:32:38,228 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:32:38,233 [INFO]   [1/56] OK
+2026-05-23 18:33:03,703 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:33:03,706 [INFO]   [4/56] OK
+2026-05-23 18:33:31,450 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:33:31,452 [INFO]   [6/56] OK
+2026-05-23 18:33:32,754 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:33:32,755 [INFO]   [7/56] OK
+2026-05-23 18:33:51,755 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:33:51,758 [INFO]   [8/56] OK
+2026-05-23 18:34:13,364 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:34:13,370 [INFO]   [9/56] OK
+2026-05-23 18:34:42,671 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:34:42,673 [INFO]   [10/56] OK
+2026-05-23 18:35:03,043 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:35:03,055 [INFO]   [11/56] OK
+2026-05-23 18:35:27,116 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:35:27,122 [INFO]   [12/56] OK
+2026-05-23 18:35:51,858 [ERROR]   [13/56] ERROR — 
+2026-05-23 18:36:13,383 [ERROR]   [14/56] ERROR — 
+2026-05-23 18:36:34,375 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:36:34,378 [INFO]   [15/56] OK
+2026-05-23 18:36:59,315 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:36:59,318 [INFO]   [16/56] OK
+2026-05-23 18:37:25,048 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:37:25,055 [INFO]   [17/56] OK
+2026-05-23 18:37:51,892 [ERROR]   [18/56] ERROR — 
+2026-05-23 18:38:13,304 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:38:13,307 [INFO]   [19/56] OK
+2026-05-23 18:38:34,385 [ERROR]   [20/56] ERROR — 
+2026-05-23 18:38:55,845 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:38:55,848 [INFO]   [21/56] OK
+2026-05-23 18:39:25,070 [ERROR]   [22/56] ERROR — 
+2026-05-23 18:39:49,554 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:39:49,557 [INFO]   [23/56] OK
+2026-05-23 18:40:13,314 [ERROR]   [24/56] ERROR — 
+2026-05-23 18:40:34,399 [ERROR]   [25/56] ERROR — 
+2026-05-23 18:40:55,854 [ERROR]   [26/56] ERROR — 
+2026-05-23 18:41:22,087 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:41:22,099 [INFO]   [27/56] OK
+2026-05-23 18:41:42,635 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:41:42,639 [INFO]   [28/56] OK
+2026-05-23 18:42:05,836 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:42:05,840 [INFO]   [29/56] OK
+2026-05-23 18:42:25,018 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:42:25,022 [INFO]   [30/56] OK
+2026-05-23 18:42:47,726 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:42:47,730 [INFO]   [31/56] OK
+2026-05-23 18:43:12,708 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:43:12,713 [INFO]   [32/56] OK
+2026-05-23 18:43:36,698 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:43:36,702 [INFO]   [33/56] OK
+2026-05-23 18:43:38,282 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:43:38,282 [INFO]   [34/56] OK
+2026-05-23 18:44:00,502 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:44:00,504 [INFO]   [35/56] OK
+2026-05-23 18:44:23,734 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:44:23,743 [INFO]   [36/56] OK
+2026-05-23 18:44:48,107 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:44:48,110 [INFO]   [37/56] OK
+2026-05-23 18:45:10,809 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:45:10,812 [INFO]   [38/56] OK
+2026-05-23 18:45:36,440 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:45:36,444 [INFO]   [39/56] OK
+2026-05-23 18:46:00,517 [ERROR]   [40/56] ERROR — 
+2026-05-23 18:46:23,758 [ERROR]   [41/56] ERROR — 
+2026-05-23 18:46:45,912 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:46:45,925 [INFO]   [42/56] OK
+2026-05-23 18:46:47,533 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:46:47,538 [INFO]   [43/56] OK
+2026-05-23 18:47:11,703 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:47:11,707 [INFO]   [44/56] OK
+2026-05-23 18:47:13,320 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:47:13,321 [INFO]   [45/56] OK
+2026-05-23 18:47:36,802 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:47:36,807 [INFO]   [46/56] OK
+2026-05-23 18:47:55,501 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:47:55,505 [INFO]   [47/56] OK
+2026-05-23 18:47:56,962 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:47:56,963 [INFO]   [48/56] OK
+2026-05-23 18:48:28,720 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:48:28,729 [INFO]   [49/56] OK
+2026-05-23 18:48:53,999 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:48:54,009 [INFO]   [50/56] OK
+2026-05-23 18:48:54,050 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617 → .checkpoints/569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617__nodes_enriched_partial.pkl
+2026-05-23 18:48:54,051 [INFO]   [PARTIAL SAVE] Progress saved at node 50/56.
+2026-05-23 18:48:56,039 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:48:56,041 [INFO]   [54/56] OK
+2026-05-23 18:49:20,329 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:49:20,333 [INFO]   [55/56] OK
+2026-05-23 18:49:49,356 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:49:49,361 [INFO]   [52/56] OK
+2026-05-23 18:49:51,094 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:49:51,096 [INFO]   [51/56] OK
+2026-05-23 18:50:17,772 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:50:17,777 [INFO]   [53/56] OK
+2026-05-23 18:50:42,724 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-23 18:50:42,726 [INFO]   [56/56] OK
+2026-05-23 18:50:42,735 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617 → .checkpoints/569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617__nodes_enriched_partial.pkl
+2026-05-23 18:50:42,735 [INFO]   [PARTIAL SAVE] Progress saved at node 56/56.
+2026-05-23 18:50:42,759 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched | doc=569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617 → .checkpoints/569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617__nodes_enriched.pkl
+2026-05-23 18:50:42,760 [INFO] [CLEANUP] Removed partial checkpoint for '569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617'.
+2026-05-23 18:50:42,760 [INFO] [DONE] Enrichment complete for '569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617'.
+2026-05-23 18:50:42,762 [INFO] [DONE] Metadata sanitized and size-limited for 56 nodes.
+2026-05-23 18:50:42,768 [INFO] [START] Embedding and uploading '569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617' (56 nodes) to Pinecone...
+2026-05-23 18:50:48,049 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 18:50:48,300 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-23 18:50:51,461 [INFO] [DONE] '569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617' successfully uploaded to Pinecone.
+2026-05-23 18:50:51,466 [INFO] [REGISTRY] Recorded '569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617' (hash: 51f772e29186...)
+2026-05-23 18:50:51,466 [INFO] 
+✅ DONE: '569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617' is fully ingested into Pinecone.
+
