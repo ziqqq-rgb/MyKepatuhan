@@ -169,7 +169,7 @@ export default function AdminPage() {
             />
           </label>
 
-          {error && <div className="mt-4"><ErrorBanner message={error} /></div>}
+          {error && <div className="mt-4"><ErrorBanner error={error} /></div>}
 
           <button
             onClick={handleUpload}
@@ -204,7 +204,7 @@ export default function AdminPage() {
                 <div className="h-7 w-7 animate-spin rounded-full border-2 border-border border-t-primary" />
               </div>
             ) : docsError ? (
-              <div className="p-4"><ErrorBanner message={docsError} /></div>
+              <div className="p-4"><ErrorBanner error={docsError} /></div>
             ) : docs.length === 0 ? (
               <div className="flex flex-col items-center justify-center p-12 text-center text-sm text-muted-foreground">
                 <FileText className="h-7 w-7" strokeWidth={1.5} />

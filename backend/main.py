@@ -60,12 +60,3 @@ def health():
     return {"status": "ok", "service": "MyKepatuhan API"}
  
  
-@app.get("/auth/me", tags=["Auth"])
-def get_me(current_user: User = Depends(get_current_user)):
-    """Returns the currently logged-in user's profile."""
-    return {
-        "id": current_user.id,
-        "email": current_user.email,
-        "is_admin": current_user.is_admin,
-    }
- 

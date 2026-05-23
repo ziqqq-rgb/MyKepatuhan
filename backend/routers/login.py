@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from database.db import get_db
 from database.models import User
 from auth.utils import verify_password, create_access_token
+from auth.utils import get_current_user
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -48,11 +49,13 @@ def login(
     return TokenResponse(access_token=token)
 
 @router.get("/me", response_model=UserResponse)
-def get_me(db: Session = Depends(get_db), token: str = ""):
+def get_me(current_user: User = Depends(get_current_user)):
     """Returns the currently authenticated user's profile."""
-    from auth.utils import get_current_user
-    from fastapi import Request
-    pass 
+    return {
+        "id": current_user.id,
+        "email": current_user.email,
+        "is_admin": current_user.is_admin,
+    }
 
 @router.post("/oauth-login")
 def oauth_login(request: OAuthLoginRequest, db: Session = Depends(get_db)):

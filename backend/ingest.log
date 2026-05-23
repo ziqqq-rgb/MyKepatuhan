@@ -37,3 +37,62 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2026-05-22 11:45:45,694 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
 2026-05-22 11:45:48,332 [INFO] AFC is enabled with max remote calls: 10.
 2026-05-22 11:46:02,169 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"
+2026-05-22 12:06:38,140 [INFO] Database tables ready.
+2026-05-22 12:06:38,142 [INFO] Loading default query engine...
+2026-05-22 12:06:38,144 [INFO] Query engine ready.
+2026-05-22 12:08:30,826 [INFO] 
+============================================================
+2026-05-22 12:08:30,827 [INFO] INGESTING: uploads/309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM.pdf
+2026-05-22 12:08:30,827 [INFO] ============================================================
+2026-05-22 12:08:30,827 [INFO] [START] Parsing 'uploads/309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM.pdf'...
+2026-05-22 12:08:32,907 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-22 12:08:32,925 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/config.json "HTTP/1.1 200 OK"
+2026-05-22 12:08:33,192 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-22 12:08:33,206 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-22 12:08:33,475 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-22 12:08:33,744 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-22 12:08:33,803 [INFO] detected formats: [<InputFormat.PDF: 'pdf'>]
+2026-05-22 12:08:33,839 [INFO] Going to convert document batch...
+2026-05-22 12:08:33,839 [INFO] Initializing pipeline for StandardPdfPipeline with options hash 80a8a1322ca5ef46817c7adbf875fff6
+2026-05-22 12:08:33,859 [INFO] Loading plugin 'docling_defaults'
+2026-05-22 12:08:33,861 [INFO] Registered picture descriptions: ['picture_description_vlm_engine', 'vlm', 'api']
+2026-05-22 12:08:33,868 [INFO] Loading plugin 'docling_defaults'
+2026-05-22 12:08:33,875 [INFO] Registered ocr engines: ['auto', 'easyocr', 'kserve_v2_ocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2026-05-22 12:08:33,875 [INFO] ocrmac cannot be used because ocrmac is not installed.
+2026-05-22 12:08:33,876 [INFO] rapidocr cannot be used because onnxruntime is not installed.
+2026-05-22 12:08:33,876 [INFO] easyocr cannot be used because it is not installed.
+2026-05-22 12:08:36,726 [INFO] Accelerator device: 'mps'
+2026-05-22 12:08:37,104 [INFO] Auto OCR model selected rapidocr with torch.
+2026-05-22 12:08:37,110 [INFO] Loading plugin 'docling_defaults'
+2026-05-22 12:08:37,112 [INFO] Registered layout engines: ['layout_object_detection', 'docling_layout_default', 'docling_experimental_table_crops_layout']
+2026-05-22 12:08:37,121 [INFO] Accelerator device: 'mps'
+2026-05-22 12:08:37,379 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+2026-05-22 12:08:38,259 [INFO] Loading plugin 'docling_defaults'
+2026-05-22 12:08:38,262 [INFO] Registered table structure engines: ['docling_tableformer', 'docling_tableformer_v2', 'granite_vision_table']
+2026-05-22 12:08:38,530 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+2026-05-22 12:08:38,560 [INFO] Accelerator device: 'mps'
+2026-05-22 12:08:39,242 [INFO] Processing document 309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM.pdf
+2026-05-22 12:08:41,413 [INFO] Finished converting document 309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM.pdf in 7.61 sec.
+2026-05-22 12:08:41,438 [INFO] [DONE] Parsed 2 nodes from '309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM'.
+2026-05-22 12:08:41,438 [INFO] [CHECKPOINT SAVED] stage=nodes_raw | doc=309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM → .checkpoints/309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM__nodes_raw.pkl
+2026-05-22 12:08:41,442 [INFO] [START] Enriching 2 remaining nodes (5 at a time) for '309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM'...
+2026-05-22 12:08:41,505 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2026-05-22 12:09:24,844 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-22 12:09:24,932 [INFO]   [2/2] OK
+2026-05-22 12:09:49,150 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-22 12:09:49,158 [INFO]   [1/2] OK
+2026-05-22 12:09:49,185 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM → .checkpoints/309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM__nodes_enriched_partial.pkl
+2026-05-22 12:09:49,185 [INFO]   [PARTIAL SAVE] Progress saved at node 2/2.
+2026-05-22 12:09:49,200 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched | doc=309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM → .checkpoints/309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM__nodes_enriched.pkl
+2026-05-22 12:09:49,201 [INFO] [CLEANUP] Removed partial checkpoint for '309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM'.
+2026-05-22 12:09:49,201 [INFO] [DONE] Enrichment complete for '309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM'.
+2026-05-22 12:09:49,205 [INFO] [DONE] Metadata sanitized for 2 nodes.
+2026-05-22 12:09:49,205 [INFO] [START] Embedding and uploading '309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM' (2 nodes) to Pinecone...
+2026-05-22 12:09:52,378 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-22 12:09:54,565 [INFO] [DONE] '309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM' successfully uploaded to Pinecone.
+2026-05-22 12:09:54,568 [INFO] 
+✅ DONE: '309438d7-4a80-4e8c-af67-16dcebcbfe0e_sample3BM' is fully ingested into Pinecone.
+
+2026-05-22 12:37:31,603 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-22 12:37:37,297 [INFO] AFC is enabled with max remote calls: 10.
+2026-05-22 12:37:50,876 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent "HTTP/1.1 200 OK"
