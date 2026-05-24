@@ -152,10 +152,17 @@ curl -X POST http://localhost:8000/ingest \
 
 The pipeline runs as a background job through four stages:
 
-1. **Parse** — Docling converts the PDF into semantically chunked nodes using the embedding model's tokenizer.
-2. **Enrich** — gemma3:1b extracts four metadata fields per chunk: jurisdiction, authority, topic, document\_type.
-3. **Sanitize** — Docling layout data is stripped; metadata is size-capped for Pinecone's 40KB limit.
-4. **Upload** — Nodes are embedded with nomic-embed-text-v2-moe and upserted to Pinecone with sparse vectors for hybrid search.
+1. **Parse** 
+Docling converts the PDF into semantically chunked nodes using the embedding model's tokenizer.
+
+2. **Enrich** 
+gemma3:1b extracts four metadata fields per chunk: jurisdiction, authority, topic, document\_type.
+
+3. **Sanitize** 
+Docling layout data is stripped; metadata is size-capped for Pinecone's 40KB limit.
+
+4. **Upload** 
+Nodes are embedded with nomic-embed-text-v2-moe and upserted to Pinecone with sparse vectors for hybrid search.
 
 Each stage checkpoints its output. If the process is interrupted, it resumes from the last completed stage rather than starting over. Documents are deduplicated by SHA-256 hash so re-uploading the same file is a no-op.
 
@@ -172,9 +179,14 @@ curl http://localhost:8000/ingest/status/JOB_ID \
 
 Each query goes through three steps:
 
-1. **Hybrid search** — Pinecone runs BM25 keyword search and dense vector search in parallel, combined at alpha=0.6 (60% semantic, 40% keyword). Top 15 candidates are returned.
-2. **Reranking** — A cross-encoder (ms-marco-MiniLM-L-6-v2) re-scores the 15 candidates and keeps the top 3.
-3. **Generation** — The top 3 passages are passed to Gemini with a strict prompt that instructs it to answer only from the provided context.
+1. **Hybrid search** 
+Pinecone runs BM25 keyword search and dense vector search in parallel, combined at alpha=0.6 (60% semantic, 40% keyword). Top 15 candidates are returned.
+
+2. **Reranking** 
+A cross-encoder (ms-marco-MiniLM-L-6-v2) re-scores the 15 candidates and keeps the top 3.
+
+3. **Generation** 
+The top 3 passages are passed to Gemini with a strict prompt that instructs it to answer only from the provided context.
 
 Users can optionally filter by `authority` (e.g. SSM, LHDN) or `topic` (e.g. tax, licensing) before retrieval.
 
@@ -182,21 +194,12 @@ Users can optionally filter by `authority` (e.g. SSM, LHDN) or `topic` (e.g. tax
 
 ## Evaluation
 
-The evaluation notebook is in `evaluation/eval.ipynb`. It uses DeepEval with a Gemini judge to measure four metrics across 20 bilingual test questions:
+The evaluation notebook is in `evaluation/eval.ipynb`. It uses LlamaIndex built-in evaluatorsto measure four metrics:
 
 - **Faithfulness** — is the answer grounded in the retrieved passages?
 - **Answer Relevancy** — does the answer address the question?
 - **Contextual Precision** — are the retrieved chunks relevant?
 - **Contextual Recall** — did retrieval find all relevant chunks?
-
-To run:
-
-```bash
-cd evaluation
-pip install deepeval google-generativeai
-# Add GEMINI_API_KEY to your .env
-jupyter notebook eval.ipynb
-```
 
 Use a different model as judge from the one generating answers. If both use the same model, scores will be inflated.
 
@@ -204,10 +207,36 @@ Use a different model as judge from the one generating answers. If both use the 
 
 ## Known Limitations
 
-- Ingestion speed is bound by the local LLM enrichment step. For large documents (250+ pages), expect 30–60 minutes with gemma3:1b at 5 concurrent requests. This is a deliberate tradeoff to avoid cloud API costs during development.
-- The jobs dictionary in `ingest.py` is in-memory. Restarting the server clears job history.
-- Conversation history is not persisted. Each query is stateless.
-- Metadata enrichment accuracy depends on the enrichment model. Some chunks, particularly tables and forms, may receive `unknown` classifications.
+- Ingestion speed is bottlenecked by the local LLM enrichment step. For large documents
+  (250+ pages), expect 8-20 minutes using gemma3:1b at 5 concurrent requests. Heavier
+  models like gemma4:e4b can push this to several hours depending on hardware. This is a
+  deliberate tradeoff to keep ingestion costs at zero during development. To improve speed,
+  use a smaller enrichment model or increase OLLAMA_NUM_PARALLEL if your machine has
+  enough RAM.
+
+- The jobs dictionary in `ingest.py` is in-memory. Restarting the server clears all job
+  history, including jobs that are still processing.
+
+- Conversation history is not persisted. Each query is independent. The model has no
+  memory of previous messages in the same session.
+
+- Metadata enrichment accuracy depends on the enrichment model. Chunks that are purely
+  tabular, form-based, or contain very short text may receive `unknown` classifications,
+  which reduces the effectiveness of authority and topic filtering.
+
+- The current evaluation coverage is limited. Only 5 questions were used, which is not enough to draw statistically reliable conclusions about system
+  performance. A more rigorous evaluation would include the following:
+
+  - A larger question set (100+ questions) covering every ingested authority and document
+    type, not just the ones currently tested.
+  - Manual evaluation by someone with working knowledge of Malaysian business compliance,
+    particularly for Bahasa Melayu responses where automated judges tend to be weaker.
+  - Adversarial questions. Questions about topics not in the knowledge base, to verify
+    the system correctly says it does not know rather than hallucinating an answer.
+  - Regression testing after each new document is ingested, to catch cases where adding
+    new content degrades retrieval quality for previously working questions.
+  - A separate faithfulness check on citations. Verifying that the excerpt shown to the
+    user actually supports the answer given, not just that it was retrieved.
 
 ---
 
