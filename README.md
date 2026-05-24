@@ -4,14 +4,9 @@ A RAG-based compliance assistant for Malaysian entrepreneurs. Users ask question
 
 ---
 
-## Architecture
+## RAG Pipeline Architecture
 
 ```
-Frontend (Next.js)
-    └── REST API (FastAPI)
-            ├── /auth          JWT-based auth + Google OAuth bridge
-            ├── /query         Hybrid retrieval → rerank → Gemini generation
-            └── /ingest        Admin-only PDF ingestion pipeline (background job)
 
 Ingestion Pipeline
     Parse (Docling) → Enrich (gemma3:1b via Ollama) → Sanitize → Upload (Pinecone)
@@ -26,19 +21,19 @@ Retrieval Pipeline
 
 **Backend**
 - Python 3.13, FastAPI, SQLAlchemy
-- LlamaIndex — orchestration, hybrid retrieval, query engine
-- Pinecone — vector store with sparse+dense hybrid search
-- Docling — PDF parsing and structure-aware chunking
-- nomic-embed-text-v2-moe (Ollama) — embeddings
-- gemma3:1b (Ollama) — metadata enrichment during ingestion
-- gemini-2.0-flash — answer generation
-- cross-encoder/ms-marco-MiniLM-L-6-v2 — reranking
-- PostgreSQL (Neon) — user accounts
+- LlamaIndex 
+- Pinecone 
+- Docling 
+- nomic-embed-text-v2-moe (Ollama) for embeddings
+- gemma3:1b (Ollama) for metadata enrichment during ingestion
+- gemini-2.0-flash for answer generation
+- cross-encoder/ms-marco-MiniLM-L-6-v2 for reranking
+- PostgreSQL (Neon) for user accounts database
 
 **Frontend**
 - Next.js 15, TypeScript, Tailwind CSS
-- Stack Auth — Google OAuth
-- Lucide React — icons
+- Stack Auth 
+- Lucide React 
 
 ---
 
@@ -78,8 +73,8 @@ MyKepatuhan/
 │           ├── api.ts           Typed API client
 │           └── i18n.tsx         EN/BM translation strings
 └── evaluation/
-    ├── eval.ipynb               DeepEval evaluation notebook
-    └── questions.py             20-question bilingual test dataset
+    ├── eval.ipynb               Evaluation notebook
+    └── questions.py             questions test dataset
 ```
 
 ---
@@ -95,9 +90,9 @@ MyKepatuhan/
   ollama pull nomic-embed-text-v2-moe
   ollama pull gemma3:1b
   ```
-- A Pinecone account with an index named `mykepatuhan` (dimensionality: 768, metric: dotproduct)
+- A Pinecone account (dimensionality: 768, metric: dotproduct) or other preferred vectorstore
 - A Neon (or any PostgreSQL) database
-- A Gemini API key ([get one free](https://aistudio.google.com/apikey))
+- A Gemini API key ([get one free](https://aistudio.google.com/apikey)) or other preferred llm
 
 ### Environment Variables
 
