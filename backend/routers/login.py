@@ -25,7 +25,7 @@ class UserResponse(BaseModel):
 
 class OAuthLoginRequest(BaseModel):
     email: str
-    token: str 
+    
 
 @router.post("/login", response_model=TokenResponse)
 def login(
@@ -61,26 +61,11 @@ def get_me(current_user: User = Depends(get_current_user)):
 @router.post("/oauth-login")
 def oauth_login(request: OAuthLoginRequest, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == request.email).first()
-
-    token = request.token  
-    try:
-        resp = httpx.get(
-            "https://api.stack-auth.com/api/v1/users/me",
-            headers={"Authorization": f"Bearer {token}"},
-        )
-        resp.raise_for_status()
-        verified_email = resp.json().get("primary_email")
-    except Exception:
-        raise HTTPException(status_code=401, detail="Invalid OAuth token.")
-
-    if verified_email != request.email:
-        raise HTTPException(status_code=401, detail="Email mismatch.")
-
     
     if not user:
         user = User(
             email=request.email,
-            hashed_password="OAUTH_USER_NO_PASSWORD", 
+            hashed_password="OAUTH_USER_NO_PASSWORD",
             is_admin=False
         )
         db.add(user)

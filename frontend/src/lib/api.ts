@@ -1,9 +1,7 @@
 const API_URL =
   (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
 
-// ─────────────────────────────────────────
-// TOKEN HELPERS
-// ─────────────────────────────────────────
+
 export function getToken(): string | null {
   if (typeof window === "undefined") return null;
   return localStorage.getItem("mk_token");
@@ -49,9 +47,6 @@ async function apiFetch<T>(
   return res.json();
 }
 
-// ─────────────────────────────────────────
-// AUTH
-// ─────────────────────────────────────────
 export interface AuthResponse {
   access_token: string;
   token_type: string;
@@ -89,17 +84,21 @@ export async function apiGetMe(): Promise<UserProfile> {
   return apiFetch<UserProfile>("/auth/me");
 }
 
-export async function apiOAuthLogin(email: string, token: string) {
+export async function apiOAuthLogin(email: string) {
   const res = await fetch(`${API_URL}/auth/oauth-login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, token }),
+    body: JSON.stringify({ email }),
   });
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: "OAuth Sync failed" }));
-    throw new Error(err.detail ?? "OAuth Sync failed");
+    const message = typeof err.detail === "string"
+      ? err.detail
+      : JSON.stringify(err.detail);
+    throw new Error(message);
   }
+
   return res.json();
 }
 
