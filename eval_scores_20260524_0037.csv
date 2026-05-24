@@ -1,0 +1,15 @@
+question,lang,topic,faithfulness,answer_relevancy,contextual_precision,contextual_recall
+What is the primary legal status of the Intellectual Property Corporation of Malaysia?,en,registration,1.0,1.0,1.0,1.0
+Which intellectual property laws are administered by the Corporation under the First Schedule?,en,registration,1.0,1.0,1.0,1.0
+Who is responsible for appointing the Director General of the Corporation?,en,employment,1.0,1.0,1.0,1.0
+How long is the term of office for an appointed member of the Corporation?,en,employment,1.0,1.0,1.0,1.0
+How can a member of the Corporation resign from their position?,en,employment,1.0,1.0,1.0,1.0
+Apakah syarat umur minimum untuk mendaftarkan perniagaan baru di Malaysia?,bm,registration,1.0,1.0,1.0,1.0
+Apakah jenis-jenis perubahan maklumat perniagaan yang perlu didaftarkan kepada SSM?,bm,registration,1.0,1.0,1.0,1.0
+Apakah denda jika pemilik meneruskan perniagaan tanpa mendaftarkan perubahan maklumat perniagaannya?,bm,compliance,1.0,1.0,1.0,1.0
+Siapakah yang layak untuk memohon Skim Pendaftaran Perniagaan Percuma (SPPP) di bawah kategori Usahawan Kumpulan B40?,bm,registration,1.0,1.0,1.0,1.0
+Adakah pengecualian bayaran di bawah SPPP merangkumi kos untuk pembaharuan perniagaan dan penambahan cawangan?,bm,fee_schedule,1.0,1.0,1.0,1.0
+Berapa lamakah tempoh masa yang diberikan untuk memuat turun Sijil Perniagaan dari portal Ezbiz selepas permohonan pembaharuan diluluskan?,bm,licensing,1.0,1.0,1.0,1.0
+Mengapakah butang 'Download Business Info' tidak dipaparkan selepas pembaharuan perniagaan saya diluluskan?,bm,licensing,1.0,1.0,1.0,1.0
+Apakah syarat utama bagi membolehkan golongan Orang Kurang Upaya (OKU) memohon Skim 1 OKU 1 Perniagaan (S1O1P)?,bm,registration,1.0,1.0,1.0,1.0
+Adakah saya akan menerima Sijil Penamatan setelah proses penamatan perniagaan diluluskan melalui Ezbiz?,bm,registration,1.0,1.0,1.0,1.0

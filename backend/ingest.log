@@ -1331,3 +1331,973 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2026-05-23 18:50:51,466 [INFO] 
 ✅ DONE: '569025d0-4527-46f1-9e0c-543b0ee19d60_Intellectual-Property-Corporation-of-Malaysia-Act-2002-Act-617' is fully ingested into Pinecone.
 
+2026-05-24 07:35:37,616 [INFO] Database tables ready.
+2026-05-24 07:35:37,619 [INFO] Loading default query engine...
+2026-05-24 07:35:37,620 [INFO] Query engine ready.
+2026-05-24 07:37:52,821 [INFO] 
+============================================================
+2026-05-24 07:37:52,823 [INFO] INGESTING: uploads/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation.pdf
+2026-05-24 07:37:52,823 [INFO] ============================================================
+2026-05-24 07:37:52,830 [INFO] [START] Parsing 'uploads/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation.pdf'...
+2026-05-24 07:37:54,270 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-24 07:37:54,288 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/config.json "HTTP/1.1 200 OK"
+2026-05-24 07:37:54,566 [INFO] HTTP Request: HEAD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-24 07:37:54,580 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/nomic-ai/nomic-embed-text-v1.5/e9b6763023c676ca8431644204f50c2b100d9aab/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-24 07:37:54,844 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-24 07:37:55,109 [INFO] HTTP Request: GET https://huggingface.co/api/models/nomic-ai/nomic-embed-text-v1.5/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-24 07:37:55,167 [INFO] detected formats: [<InputFormat.PDF: 'pdf'>]
+2026-05-24 07:37:55,216 [INFO] Going to convert document batch...
+2026-05-24 07:37:55,216 [INFO] Initializing pipeline for StandardPdfPipeline with options hash 80a8a1322ca5ef46817c7adbf875fff6
+2026-05-24 07:37:55,234 [INFO] Loading plugin 'docling_defaults'
+2026-05-24 07:37:55,235 [INFO] Registered picture descriptions: ['picture_description_vlm_engine', 'vlm', 'api']
+2026-05-24 07:37:55,242 [INFO] Loading plugin 'docling_defaults'
+2026-05-24 07:37:55,248 [INFO] Registered ocr engines: ['auto', 'easyocr', 'kserve_v2_ocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2026-05-24 07:37:55,792 [INFO] Auto OCR model selected ocrmac.
+2026-05-24 07:37:55,799 [INFO] Loading plugin 'docling_defaults'
+2026-05-24 07:37:55,802 [INFO] Registered layout engines: ['layout_object_detection', 'docling_layout_default', 'docling_experimental_table_crops_layout']
+2026-05-24 07:37:55,811 [INFO] Accelerator device: 'mps'
+2026-05-24 07:37:56,058 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+2026-05-24 07:37:57,105 [INFO] Loading plugin 'docling_defaults'
+2026-05-24 07:37:57,107 [INFO] Registered table structure engines: ['docling_tableformer', 'docling_tableformer_v2', 'granite_vision_table']
+2026-05-24 07:37:57,375 [INFO] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+2026-05-24 07:37:57,827 [INFO] Accelerator device: 'mps'
+2026-05-24 07:37:58,524 [INFO] Processing document e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation.pdf
+2026-05-24 07:41:03,445 [INFO] Finished converting document e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation.pdf in 188.28 sec.
+2026-05-24 07:41:08,856 [INFO] [DONE] Parsed 512 nodes from 'e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation'.
+2026-05-24 07:41:08,906 [INFO] [CHECKPOINT SAVED] stage=nodes_raw | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_raw.pkl
+2026-05-24 07:41:08,912 [INFO] [START] Enriching 512 remaining nodes (5 at a time) for 'e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation'...
+2026-05-24 07:41:08,989 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2026-05-24 07:41:43,936 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:41:44,030 [INFO]   [4/512] OK
+2026-05-24 07:42:01,685 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:42:01,700 [INFO]   [2/512] OK
+2026-05-24 07:42:20,279 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:42:20,289 [INFO]   [1/512] OK
+2026-05-24 07:42:47,156 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:42:47,158 [INFO]   [5/512] OK
+2026-05-24 07:43:07,630 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:43:07,634 [INFO]   [3/512] OK
+2026-05-24 07:43:30,313 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:43:30,340 [INFO]   [6/512] OK
+2026-05-24 07:43:51,492 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:43:51,495 [INFO]   [7/512] OK
+2026-05-24 07:44:12,152 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:44:12,156 [INFO]   [8/512] OK
+2026-05-24 07:44:35,213 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:44:35,218 [INFO]   [9/512] OK
+2026-05-24 07:45:00,051 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:45:00,058 [INFO]   [10/512] OK
+2026-05-24 07:45:25,290 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:45:25,293 [INFO]   [11/512] OK
+2026-05-24 07:45:45,782 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:45:45,785 [INFO]   [12/512] OK
+2026-05-24 07:46:11,400 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:46:11,402 [INFO]   [13/512] OK
+2026-05-24 07:46:33,918 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:46:33,925 [INFO]   [14/512] OK
+2026-05-24 07:46:55,343 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:46:55,347 [INFO]   [15/512] OK
+2026-05-24 07:47:15,096 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:47:15,100 [INFO]   [16/512] OK
+2026-05-24 07:47:37,341 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:47:37,344 [INFO]   [17/512] OK
+2026-05-24 07:47:57,381 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:47:57,385 [INFO]   [18/512] OK
+2026-05-24 07:48:14,392 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:48:14,395 [INFO]   [19/512] OK
+2026-05-24 07:48:38,640 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:48:38,644 [INFO]   [20/512] OK
+2026-05-24 07:49:02,995 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:49:02,998 [INFO]   [21/512] OK
+2026-05-24 07:49:26,221 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:49:26,226 [INFO]   [22/512] OK
+2026-05-24 07:49:49,309 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:49:49,312 [INFO]   [23/512] OK
+2026-05-24 07:50:14,500 [ERROR]   [24/512] ERROR — 
+2026-05-24 07:50:38,743 [ERROR]   [25/512] ERROR — 
+2026-05-24 07:51:03,090 [ERROR]   [26/512] ERROR — 
+2026-05-24 07:51:26,235 [ERROR]   [27/512] ERROR — 
+2026-05-24 07:51:49,316 [ERROR]   [28/512] ERROR — 
+2026-05-24 07:52:13,024 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:52:13,027 [INFO]   [29/512] OK
+2026-05-24 07:52:38,495 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:52:38,499 [INFO]   [30/512] OK
+2026-05-24 07:53:03,107 [ERROR]   [31/512] ERROR — 
+2026-05-24 07:53:15,906 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:53:15,909 [INFO]   [32/512] OK
+2026-05-24 07:53:40,861 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:53:40,866 [INFO]   [33/512] OK
+2026-05-24 07:53:58,091 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:53:58,096 [INFO]   [34/512] OK
+2026-05-24 07:54:17,287 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:54:17,291 [INFO]   [35/512] OK
+2026-05-24 07:54:42,183 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:54:42,186 [INFO]   [36/512] OK
+2026-05-24 07:55:00,740 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:55:00,744 [INFO]   [37/512] OK
+2026-05-24 07:55:28,228 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:55:28,231 [INFO]   [38/512] OK
+2026-05-24 07:55:52,151 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:55:52,154 [INFO]   [39/512] OK
+2026-05-24 07:56:17,300 [ERROR]   [40/512] ERROR — 
+2026-05-24 07:56:42,194 [ERROR]   [41/512] ERROR — 
+2026-05-24 07:57:00,753 [ERROR]   [42/512] ERROR — 
+2026-05-24 07:57:26,449 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:57:26,451 [INFO]   [43/512] OK
+2026-05-24 07:57:52,159 [ERROR]   [44/512] ERROR — 
+2026-05-24 07:58:15,195 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:58:15,197 [INFO]   [45/512] OK
+2026-05-24 07:58:40,317 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:58:40,321 [INFO]   [46/512] OK
+2026-05-24 07:59:00,769 [ERROR]   [47/512] ERROR — 
+2026-05-24 07:59:02,112 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:59:02,114 [INFO]   [48/512] OK
+2026-05-24 07:59:24,340 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:59:24,342 [INFO]   [49/512] OK
+2026-05-24 07:59:50,958 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 07:59:50,961 [INFO]   [50/512] OK
+2026-05-24 07:59:51,244 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_enriched_partial.pkl
+2026-05-24 07:59:51,245 [INFO]   [PARTIAL SAVE] Progress saved at node 50/512.
+2026-05-24 08:00:12,054 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:00:12,057 [INFO]   [54/512] OK
+2026-05-24 08:00:13,680 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:00:13,682 [INFO]   [55/512] OK
+2026-05-24 08:00:39,931 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:00:39,936 [INFO]   [53/512] OK
+2026-05-24 08:01:09,985 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:01:09,987 [INFO]   [52/512] OK
+2026-05-24 08:01:40,244 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:01:40,247 [INFO]   [51/512] OK
+2026-05-24 08:02:06,594 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:02:06,596 [INFO]   [56/512] OK
+2026-05-24 08:02:13,692 [ERROR]   [57/512] ERROR — 
+2026-05-24 08:02:35,556 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:02:35,559 [INFO]   [58/512] OK
+2026-05-24 08:03:00,061 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:03:00,070 [INFO]   [59/512] OK
+2026-05-24 08:03:21,506 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:03:21,509 [INFO]   [60/512] OK
+2026-05-24 08:03:42,061 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:03:42,069 [INFO]   [61/512] OK
+2026-05-24 08:04:04,163 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:04:04,166 [INFO]   [62/512] OK
+2026-05-24 08:04:25,548 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:04:25,551 [INFO]   [63/512] OK
+2026-05-24 08:04:48,240 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:04:48,246 [INFO]   [64/512] OK
+2026-05-24 08:05:14,676 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:05:14,684 [INFO]   [65/512] OK
+2026-05-24 08:05:38,484 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:05:38,487 [INFO]   [66/512] OK
+2026-05-24 08:06:03,515 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:06:03,518 [INFO]   [67/512] OK
+2026-05-24 08:06:25,140 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:06:25,143 [INFO]   [68/512] OK
+2026-05-24 08:06:46,724 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:06:46,726 [INFO]   [69/512] OK
+2026-05-24 08:07:12,967 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:07:12,971 [INFO]   [70/512] OK
+2026-05-24 08:07:38,494 [ERROR]   [71/512] ERROR — 
+2026-05-24 08:07:58,911 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:07:58,916 [INFO]   [72/512] OK
+2026-05-24 08:08:24,404 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:08:24,407 [INFO]   [73/512] OK
+2026-05-24 08:08:45,319 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:08:45,321 [INFO]   [74/512] OK
+2026-05-24 08:09:08,769 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:09:08,771 [INFO]   [75/512] OK
+2026-05-24 08:09:38,511 [ERROR]   [76/512] ERROR — 
+2026-05-24 08:09:58,924 [ERROR]   [77/512] ERROR — 
+2026-05-24 08:10:23,597 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:10:23,610 [INFO]   [78/512] OK
+2026-05-24 08:10:43,202 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:10:43,204 [INFO]   [79/512] OK
+2026-05-24 08:11:08,779 [ERROR]   [80/512] ERROR — 
+2026-05-24 08:11:38,529 [ERROR]   [81/512] ERROR — 
+2026-05-24 08:11:58,944 [ERROR]   [82/512] ERROR — 
+2026-05-24 08:12:16,964 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:12:16,969 [INFO]   [83/512] OK
+2026-05-24 08:12:37,513 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:12:37,518 [INFO]   [84/512] OK
+2026-05-24 08:13:03,849 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:13:03,851 [INFO]   [85/512] OK
+2026-05-24 08:13:27,441 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:13:27,446 [INFO]   [86/512] OK
+2026-05-24 08:13:55,257 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:13:55,264 [INFO]   [87/512] OK
+2026-05-24 08:14:16,974 [ERROR]   [88/512] ERROR — 
+2026-05-24 08:14:37,527 [ERROR]   [89/512] ERROR — 
+2026-05-24 08:14:58,530 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:14:58,534 [INFO]   [90/512] OK
+2026-05-24 08:15:26,401 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:15:26,404 [INFO]   [91/512] OK
+2026-05-24 08:15:51,279 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:15:51,281 [INFO]   [92/512] OK
+2026-05-24 08:16:16,985 [ERROR]   [93/512] ERROR — 
+2026-05-24 08:16:37,540 [ERROR]   [94/512] ERROR — 
+2026-05-24 08:16:58,475 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:16:58,481 [INFO]   [95/512] OK
+2026-05-24 08:17:26,414 [ERROR]   [96/512] ERROR — 
+2026-05-24 08:17:47,666 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:17:47,670 [INFO]   [97/512] OK
+2026-05-24 08:18:09,970 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:18:09,973 [INFO]   [98/512] OK
+2026-05-24 08:18:31,928 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:18:31,931 [INFO]   [99/512] OK
+2026-05-24 08:18:51,226 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:18:51,231 [INFO]   [100/512] OK
+2026-05-24 08:18:51,318 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_enriched_partial.pkl
+2026-05-24 08:18:51,319 [INFO]   [PARTIAL SAVE] Progress saved at node 100/512.
+2026-05-24 08:19:13,969 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:19:13,973 [INFO]   [102/512] OK
+2026-05-24 08:19:39,490 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:19:39,492 [INFO]   [103/512] OK
+2026-05-24 08:19:59,352 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:19:59,355 [INFO]   [101/512] OK
+2026-05-24 08:20:22,144 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:20:22,147 [INFO]   [104/512] OK
+2026-05-24 08:20:48,818 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:20:48,821 [INFO]   [105/512] OK
+2026-05-24 08:21:11,354 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:21:11,358 [INFO]   [106/512] OK
+2026-05-24 08:21:34,528 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:21:34,530 [INFO]   [107/512] OK
+2026-05-24 08:21:58,187 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:21:58,189 [INFO]   [108/512] OK
+2026-05-24 08:22:22,165 [ERROR]   [109/512] ERROR — 
+2026-05-24 08:22:46,740 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:22:46,746 [INFO]   [110/512] OK
+2026-05-24 08:23:11,382 [ERROR]   [111/512] ERROR — 
+2026-05-24 08:23:30,631 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:23:30,635 [INFO]   [112/512] OK
+2026-05-24 08:23:55,557 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:23:55,562 [INFO]   [113/512] OK
+2026-05-24 08:24:18,508 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:24:18,512 [INFO]   [114/512] OK
+2026-05-24 08:24:20,100 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:24:20,102 [INFO]   [115/512] OK
+2026-05-24 08:24:41,800 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:24:41,803 [INFO]   [116/512] OK
+2026-05-24 08:25:04,247 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:25:04,251 [INFO]   [117/512] OK
+2026-05-24 08:25:26,565 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:25:26,567 [INFO]   [118/512] OK
+2026-05-24 08:25:52,445 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:25:52,461 [INFO]   [119/512] OK
+2026-05-24 08:26:15,831 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:26:15,833 [INFO]   [120/512] OK
+2026-05-24 08:26:41,132 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:26:41,135 [INFO]   [121/512] OK
+2026-05-24 08:27:04,262 [ERROR]   [122/512] ERROR — 
+2026-05-24 08:27:26,575 [ERROR]   [123/512] ERROR — 
+2026-05-24 08:27:50,128 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:27:50,131 [INFO]   [124/512] OK
+2026-05-24 08:28:15,459 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:28:15,464 [INFO]   [125/512] OK
+2026-05-24 08:28:35,294 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:28:35,298 [INFO]   [126/512] OK
+2026-05-24 08:28:57,212 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:28:57,215 [INFO]   [127/512] OK
+2026-05-24 08:29:16,955 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:29:16,959 [INFO]   [128/512] OK
+2026-05-24 08:29:37,257 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:29:37,260 [INFO]   [129/512] OK
+2026-05-24 08:30:03,464 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:30:03,469 [INFO]   [130/512] OK
+2026-05-24 08:30:29,566 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:30:29,573 [INFO]   [131/512] OK
+2026-05-24 08:30:53,266 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:30:53,269 [INFO]   [132/512] OK
+2026-05-24 08:31:16,967 [ERROR]   [133/512] ERROR — 
+2026-05-24 08:31:37,265 [ERROR]   [134/512] ERROR — 
+2026-05-24 08:31:56,728 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:31:56,736 [INFO]   [135/512] OK
+2026-05-24 08:32:12,754 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:32:12,763 [INFO]   [136/512] OK
+2026-05-24 08:32:42,974 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:32:42,977 [INFO]   [137/512] OK
+2026-05-24 08:33:06,817 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:33:06,820 [INFO]   [138/512] OK
+2026-05-24 08:33:26,271 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:33:26,273 [INFO]   [139/512] OK
+2026-05-24 08:33:49,010 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:33:49,019 [INFO]   [140/512] OK
+2026-05-24 08:34:12,367 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:34:12,369 [INFO]   [141/512] OK
+2026-05-24 08:34:35,162 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:34:35,167 [INFO]   [142/512] OK
+2026-05-24 08:35:00,326 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:35:00,330 [INFO]   [143/512] OK
+2026-05-24 08:35:18,432 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:35:18,435 [INFO]   [144/512] OK
+2026-05-24 08:35:38,246 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:35:38,252 [INFO]   [145/512] OK
+2026-05-24 08:35:55,452 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:35:55,456 [INFO]   [146/512] OK
+2026-05-24 08:36:17,777 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:36:17,784 [INFO]   [147/512] OK
+2026-05-24 08:36:38,075 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:36:38,079 [INFO]   [148/512] OK
+2026-05-24 08:37:03,239 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:37:03,245 [INFO]   [149/512] OK
+2026-05-24 08:37:30,717 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:37:30,719 [INFO]   [150/512] OK
+2026-05-24 08:37:30,838 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_enriched_partial.pkl
+2026-05-24 08:37:30,838 [INFO]   [PARTIAL SAVE] Progress saved at node 150/512.
+2026-05-24 08:37:54,459 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:37:54,462 [INFO]   [154/512] OK
+2026-05-24 08:38:24,302 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:38:24,306 [INFO]   [152/512] OK
+2026-05-24 08:38:46,752 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:38:46,754 [INFO]   [155/512] OK
+2026-05-24 08:39:04,156 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:39:04,159 [INFO]   [151/512] OK
+2026-05-24 08:39:28,369 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:39:28,371 [INFO]   [153/512] OK
+2026-05-24 08:39:54,474 [ERROR]   [156/512] ERROR — 
+2026-05-24 08:40:20,986 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:40:20,990 [INFO]   [157/512] OK
+2026-05-24 08:40:46,769 [ERROR]   [158/512] ERROR — 
+2026-05-24 08:41:04,170 [ERROR]   [159/512] ERROR — 
+2026-05-24 08:41:28,050 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:41:28,052 [INFO]   [160/512] OK
+2026-05-24 08:41:52,979 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:41:52,986 [INFO]   [161/512] OK
+2026-05-24 08:42:16,058 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:42:16,061 [INFO]   [162/512] OK
+2026-05-24 08:42:36,925 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:42:36,927 [INFO]   [163/512] OK
+2026-05-24 08:42:58,999 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:42:59,002 [INFO]   [164/512] OK
+2026-05-24 08:43:21,748 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:43:21,753 [INFO]   [165/512] OK
+2026-05-24 08:43:45,724 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:43:45,730 [INFO]   [166/512] OK
+2026-05-24 08:44:10,936 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:44:10,940 [INFO]   [167/512] OK
+2026-05-24 08:44:36,933 [ERROR]   [168/512] ERROR — 
+2026-05-24 08:44:59,012 [ERROR]   [169/512] ERROR — 
+2026-05-24 08:45:21,764 [ERROR]   [170/512] ERROR — 
+2026-05-24 08:45:45,737 [ERROR]   [171/512] ERROR — 
+2026-05-24 08:46:10,945 [ERROR]   [172/512] ERROR — 
+2026-05-24 08:46:33,907 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:46:33,911 [INFO]   [173/512] OK
+2026-05-24 08:46:59,037 [ERROR]   [174/512] ERROR — 
+2026-05-24 08:47:21,787 [ERROR]   [175/512] ERROR — 
+2026-05-24 08:47:45,112 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:47:45,115 [INFO]   [176/512] OK
+2026-05-24 08:48:05,502 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:48:05,507 [INFO]   [177/512] OK
+2026-05-24 08:48:28,773 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:48:28,777 [INFO]   [178/512] OK
+2026-05-24 08:48:54,660 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:48:54,669 [INFO]   [179/512] OK
+2026-05-24 08:49:17,782 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:49:17,790 [INFO]   [180/512] OK
+2026-05-24 08:49:42,821 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:49:42,831 [INFO]   [181/512] OK
+2026-05-24 08:50:03,551 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:50:03,555 [INFO]   [182/512] OK
+2026-05-24 08:50:21,388 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:50:21,390 [INFO]   [183/512] OK
+2026-05-24 08:50:44,606 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:50:44,610 [INFO]   [184/512] OK
+2026-05-24 08:51:04,712 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:51:04,718 [INFO]   [185/512] OK
+2026-05-24 08:51:30,985 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:51:30,987 [INFO]   [186/512] OK
+2026-05-24 08:51:56,927 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:51:56,932 [INFO]   [187/512] OK
+2026-05-24 08:52:20,868 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:52:20,871 [INFO]   [188/512] OK
+2026-05-24 08:52:37,931 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:52:37,932 [INFO]   [189/512] OK
+2026-05-24 08:53:03,402 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:53:03,405 [INFO]   [190/512] OK
+2026-05-24 08:53:22,041 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:53:22,042 [INFO]   [191/512] OK
+2026-05-24 08:53:47,168 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:53:47,173 [INFO]   [192/512] OK
+2026-05-24 08:54:07,156 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:54:07,159 [INFO]   [193/512] OK
+2026-05-24 08:54:30,106 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:54:30,108 [INFO]   [194/512] OK
+2026-05-24 08:54:56,377 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:54:56,379 [INFO]   [195/512] OK
+2026-05-24 08:55:22,051 [ERROR]   [196/512] ERROR — 
+2026-05-24 08:55:39,800 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:55:39,803 [INFO]   [197/512] OK
+2026-05-24 08:56:00,529 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:56:00,537 [INFO]   [198/512] OK
+2026-05-24 08:56:19,891 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:56:19,895 [INFO]   [199/512] OK
+2026-05-24 08:56:38,479 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:56:38,482 [INFO]   [200/512] OK
+2026-05-24 08:56:38,565 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_enriched_partial.pkl
+2026-05-24 08:56:38,565 [INFO]   [PARTIAL SAVE] Progress saved at node 200/512.
+2026-05-24 08:56:57,072 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:56:57,077 [INFO]   [202/512] OK
+2026-05-24 08:57:18,734 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:57:18,737 [INFO]   [203/512] OK
+2026-05-24 08:57:37,742 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:57:37,745 [INFO]   [201/512] OK
+2026-05-24 08:58:03,494 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:58:03,497 [INFO]   [205/512] OK
+2026-05-24 08:58:21,973 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:58:21,975 [INFO]   [204/512] OK
+2026-05-24 08:58:49,192 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:58:49,193 [INFO]   [206/512] OK
+2026-05-24 08:59:07,173 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:59:07,177 [INFO]   [207/512] OK
+2026-05-24 08:59:31,371 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:59:31,373 [INFO]   [208/512] OK
+2026-05-24 08:59:55,274 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 08:59:55,278 [INFO]   [209/512] OK
+2026-05-24 09:00:19,920 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:00:19,923 [INFO]   [210/512] OK
+2026-05-24 09:00:45,073 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:00:45,077 [INFO]   [211/512] OK
+2026-05-24 09:01:06,999 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:01:07,001 [INFO]   [212/512] OK
+2026-05-24 09:01:31,381 [ERROR]   [213/512] ERROR — 
+2026-05-24 09:01:55,293 [ERROR]   [214/512] ERROR — 
+2026-05-24 09:02:19,946 [ERROR]   [215/512] ERROR — 
+2026-05-24 09:02:45,083 [ERROR]   [216/512] ERROR — 
+2026-05-24 09:03:07,015 [ERROR]   [217/512] ERROR — 
+2026-05-24 09:03:31,390 [ERROR]   [218/512] ERROR — 
+2026-05-24 09:03:55,327 [ERROR]   [219/512] ERROR — 
+2026-05-24 09:04:19,961 [ERROR]   [220/512] ERROR — 
+2026-05-24 09:04:41,897 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:04:41,900 [INFO]   [221/512] OK
+2026-05-24 09:05:02,770 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:05:02,774 [INFO]   [222/512] OK
+2026-05-24 09:05:30,073 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:05:30,075 [INFO]   [223/512] OK
+2026-05-24 09:05:55,353 [ERROR]   [224/512] ERROR — 
+2026-05-24 09:06:17,469 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:06:17,472 [INFO]   [225/512] OK
+2026-05-24 09:06:41,907 [ERROR]   [226/512] ERROR — 
+2026-05-24 09:07:01,298 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:07:01,300 [INFO]   [227/512] OK
+2026-05-24 09:07:25,044 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:07:25,045 [INFO]   [228/512] OK
+2026-05-24 09:07:50,328 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:07:50,331 [INFO]   [229/512] OK
+2026-05-24 09:08:14,591 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:08:14,598 [INFO]   [230/512] OK
+2026-05-24 09:08:38,942 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:08:38,944 [INFO]   [231/512] OK
+2026-05-24 09:09:01,307 [ERROR]   [232/512] ERROR — 
+2026-05-24 09:09:25,054 [ERROR]   [233/512] ERROR — 
+2026-05-24 09:09:50,345 [ERROR]   [234/512] ERROR — 
+2026-05-24 09:10:14,617 [ERROR]   [235/512] ERROR — 
+2026-05-24 09:10:38,959 [ERROR]   [236/512] ERROR — 
+2026-05-24 09:11:01,345 [ERROR]   [237/512] ERROR — 
+2026-05-24 09:11:22,893 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:11:22,898 [INFO]   [238/512] OK
+2026-05-24 09:11:46,856 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:11:46,864 [INFO]   [239/512] OK
+2026-05-24 09:12:13,207 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:12:13,211 [INFO]   [240/512] OK
+2026-05-24 09:12:38,668 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:12:38,674 [INFO]   [241/512] OK
+2026-05-24 09:13:01,379 [ERROR]   [242/512] ERROR — 
+2026-05-24 09:13:21,906 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:13:21,910 [INFO]   [243/512] OK
+2026-05-24 09:13:46,881 [ERROR]   [244/512] ERROR — 
+2026-05-24 09:14:13,219 [ERROR]   [245/512] ERROR — 
+2026-05-24 09:14:37,342 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:14:37,344 [INFO]   [246/512] OK
+2026-05-24 09:15:01,021 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:15:01,024 [INFO]   [247/512] OK
+2026-05-24 09:15:21,926 [ERROR]   [248/512] ERROR — 
+2026-05-24 09:15:46,903 [ERROR]   [249/512] ERROR — 
+2026-05-24 09:16:13,260 [ERROR]   [250/512] ERROR — 
+2026-05-24 09:16:13,524 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_enriched_partial.pkl
+2026-05-24 09:16:13,524 [INFO]   [PARTIAL SAVE] Progress saved at node 250/512.
+2026-05-24 09:16:39,293 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:16:39,298 [INFO]   [252/512] OK
+2026-05-24 09:17:04,720 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:17:04,724 [INFO]   [251/512] OK
+2026-05-24 09:17:24,060 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:17:24,062 [INFO]   [253/512] OK
+2026-05-24 09:17:53,732 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:17:53,741 [INFO]   [254/512] OK
+2026-05-24 09:18:13,568 [ERROR]   [255/512] ERROR — 
+2026-05-24 09:18:37,270 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:18:37,277 [INFO]   [256/512] OK
+2026-05-24 09:18:58,276 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:18:58,280 [INFO]   [257/512] OK
+2026-05-24 09:19:18,919 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:19:18,923 [INFO]   [258/512] OK
+2026-05-24 09:19:40,788 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:19:40,791 [INFO]   [259/512] OK
+2026-05-24 09:20:06,499 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:20:06,505 [INFO]   [260/512] OK
+2026-05-24 09:20:22,994 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:20:22,997 [INFO]   [261/512] OK
+2026-05-24 09:20:46,834 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:20:46,839 [INFO]   [262/512] OK
+2026-05-24 09:21:10,949 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:21:10,953 [INFO]   [263/512] OK
+2026-05-24 09:21:34,375 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:21:34,377 [INFO]   [264/512] OK
+2026-05-24 09:21:52,308 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:21:52,314 [INFO]   [265/512] OK
+2026-05-24 09:22:17,390 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:22:17,395 [INFO]   [266/512] OK
+2026-05-24 09:22:41,842 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:22:41,845 [INFO]   [267/512] OK
+2026-05-24 09:23:06,147 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:23:06,151 [INFO]   [268/512] OK
+2026-05-24 09:23:29,476 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:23:29,479 [INFO]   [269/512] OK
+2026-05-24 09:23:52,324 [ERROR]   [270/512] ERROR — 
+2026-05-24 09:24:13,785 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:24:13,795 [INFO]   [271/512] OK
+2026-05-24 09:24:38,338 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:24:38,353 [INFO]   [272/512] OK
+2026-05-24 09:25:06,166 [ERROR]   [273/512] ERROR — 
+2026-05-24 09:25:29,497 [ERROR]   [274/512] ERROR — 
+2026-05-24 09:25:52,342 [ERROR]   [275/512] ERROR — 
+2026-05-24 09:26:13,816 [ERROR]   [276/512] ERROR — 
+2026-05-24 09:26:38,117 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:26:38,121 [INFO]   [277/512] OK
+2026-05-24 09:27:06,191 [ERROR]   [278/512] ERROR — 
+2026-05-24 09:27:29,509 [ERROR]   [279/512] ERROR — 
+2026-05-24 09:27:52,365 [ERROR]   [280/512] ERROR — 
+2026-05-24 09:28:13,826 [ERROR]   [281/512] ERROR — 
+2026-05-24 09:28:33,904 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:28:33,908 [INFO]   [282/512] OK
+2026-05-24 09:28:55,638 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:28:55,641 [INFO]   [283/512] OK
+2026-05-24 09:29:21,151 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:29:21,154 [INFO]   [284/512] OK
+2026-05-24 09:29:46,307 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:29:46,309 [INFO]   [285/512] OK
+2026-05-24 09:30:05,930 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:30:05,932 [INFO]   [286/512] OK
+2026-05-24 09:30:29,399 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:30:29,402 [INFO]   [287/512] OK
+2026-05-24 09:30:55,649 [ERROR]   [288/512] ERROR — 
+2026-05-24 09:31:18,419 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:31:18,425 [INFO]   [289/512] OK
+2026-05-24 09:31:39,550 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:31:39,554 [INFO]   [290/512] OK
+2026-05-24 09:32:02,078 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:32:02,087 [INFO]   [291/512] OK
+2026-05-24 09:32:29,415 [ERROR]   [292/512] ERROR — 
+2026-05-24 09:32:51,850 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:32:51,858 [INFO]   [293/512] OK
+2026-05-24 09:33:16,927 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:33:16,931 [INFO]   [294/512] OK
+2026-05-24 09:33:39,561 [ERROR]   [295/512] ERROR — 
+2026-05-24 09:33:58,463 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:33:58,466 [INFO]   [296/512] OK
+2026-05-24 09:34:21,321 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:34:21,325 [INFO]   [297/512] OK
+2026-05-24 09:34:45,405 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:34:45,408 [INFO]   [298/512] OK
+2026-05-24 09:35:13,826 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:35:13,831 [INFO]   [299/512] OK
+2026-05-24 09:35:35,944 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:35:35,946 [INFO]   [300/512] OK
+2026-05-24 09:35:36,053 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_enriched_partial.pkl
+2026-05-24 09:35:36,053 [INFO]   [PARTIAL SAVE] Progress saved at node 300/512.
+2026-05-24 09:35:47,935 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:35:47,954 [INFO]   [305/512] OK
+2026-05-24 09:36:12,868 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:36:12,872 [INFO]   [302/512] OK
+2026-05-24 09:36:38,485 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:36:38,490 [INFO]   [304/512] OK
+2026-05-24 09:37:00,639 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:37:00,645 [INFO]   [301/512] OK
+2026-05-24 09:37:26,575 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:37:26,580 [INFO]   [303/512] OK
+2026-05-24 09:37:47,974 [ERROR]   [306/512] ERROR — 
+2026-05-24 09:38:12,886 [ERROR]   [307/512] ERROR — 
+2026-05-24 09:38:38,503 [ERROR]   [308/512] ERROR — 
+2026-05-24 09:39:00,662 [ERROR]   [309/512] ERROR — 
+2026-05-24 09:39:18,410 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:39:18,413 [INFO]   [310/512] OK
+2026-05-24 09:39:42,836 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:39:42,838 [INFO]   [311/512] OK
+2026-05-24 09:40:06,562 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:40:06,574 [INFO]   [312/512] OK
+2026-05-24 09:40:31,945 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:40:31,948 [INFO]   [313/512] OK
+2026-05-24 09:40:57,357 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:40:57,361 [INFO]   [314/512] OK
+2026-05-24 09:41:18,424 [ERROR]   [315/512] ERROR — 
+2026-05-24 09:41:42,849 [ERROR]   [316/512] ERROR — 
+2026-05-24 09:42:05,432 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:42:05,436 [INFO]   [317/512] OK
+2026-05-24 09:42:28,948 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:42:28,956 [INFO]   [318/512] OK
+2026-05-24 09:42:48,839 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:42:48,845 [INFO]   [319/512] OK
+2026-05-24 09:43:15,526 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:43:15,529 [INFO]   [320/512] OK
+2026-05-24 09:43:40,991 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:43:40,994 [INFO]   [321/512] OK
+2026-05-24 09:44:03,072 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:44:03,079 [INFO]   [322/512] OK
+2026-05-24 09:44:22,810 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:44:22,816 [INFO]   [323/512] OK
+2026-05-24 09:44:47,193 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:44:47,195 [INFO]   [324/512] OK
+2026-05-24 09:45:11,117 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:45:11,126 [INFO]   [325/512] OK
+2026-05-24 09:45:38,656 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:45:38,660 [INFO]   [326/512] OK
+2026-05-24 09:46:03,120 [ERROR]   [327/512] ERROR — 
+2026-05-24 09:46:22,831 [ERROR]   [328/512] ERROR — 
+2026-05-24 09:46:43,935 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:46:43,944 [INFO]   [329/512] OK
+2026-05-24 09:47:08,784 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:47:08,791 [INFO]   [330/512] OK
+2026-05-24 09:47:38,672 [ERROR]   [331/512] ERROR — 
+2026-05-24 09:48:03,146 [ERROR]   [332/512] ERROR — 
+2026-05-24 09:48:22,850 [ERROR]   [333/512] ERROR — 
+2026-05-24 09:48:43,974 [ERROR]   [334/512] ERROR — 
+2026-05-24 09:49:08,814 [ERROR]   [335/512] ERROR — 
+2026-05-24 09:49:33,184 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:49:33,188 [INFO]   [336/512] OK
+2026-05-24 09:49:51,083 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:49:51,085 [INFO]   [337/512] OK
+2026-05-24 09:50:08,758 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:50:08,762 [INFO]   [338/512] OK
+2026-05-24 09:50:31,412 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:50:31,415 [INFO]   [339/512] OK
+2026-05-24 09:50:46,338 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:50:46,341 [INFO]   [340/512] OK
+2026-05-24 09:51:11,946 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:51:11,950 [INFO]   [341/512] OK
+2026-05-24 09:51:37,898 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:51:37,899 [INFO]   [342/512] OK
+2026-05-24 09:51:54,572 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:51:54,578 [INFO]   [343/512] OK
+2026-05-24 09:52:14,549 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:52:14,551 [INFO]   [344/512] OK
+2026-05-24 09:52:37,151 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:52:37,153 [INFO]   [345/512] OK
+2026-05-24 09:53:09,209 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:53:09,212 [INFO]   [346/512] OK
+2026-05-24 09:53:36,112 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:53:36,116 [INFO]   [347/512] OK
+2026-05-24 09:53:54,588 [ERROR]   [348/512] ERROR — 
+2026-05-24 09:54:14,561 [ERROR]   [349/512] ERROR — 
+2026-05-24 09:54:37,158 [ERROR]   [350/512] ERROR — 
+2026-05-24 09:54:37,255 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_enriched_partial.pkl
+2026-05-24 09:54:37,255 [INFO]   [PARTIAL SAVE] Progress saved at node 350/512.
+2026-05-24 09:55:06,076 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:55:06,080 [INFO]   [352/512] OK
+2026-05-24 09:55:22,359 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:55:22,361 [INFO]   [354/512] OK
+2026-05-24 09:55:49,452 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:55:49,458 [INFO]   [353/512] OK
+2026-05-24 09:56:17,836 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:56:17,840 [INFO]   [351/512] OK
+2026-05-24 09:56:37,277 [ERROR]   [355/512] ERROR — 
+2026-05-24 09:57:03,601 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:57:03,604 [INFO]   [356/512] OK
+2026-05-24 09:57:22,367 [ERROR]   [357/512] ERROR — 
+2026-05-24 09:57:49,470 [ERROR]   [358/512] ERROR — 
+2026-05-24 09:58:04,737 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:58:04,742 [INFO]   [359/512] OK
+2026-05-24 09:58:27,974 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:58:27,976 [INFO]   [360/512] OK
+2026-05-24 09:58:54,633 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:58:54,635 [INFO]   [361/512] OK
+2026-05-24 09:59:18,322 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:59:18,326 [INFO]   [362/512] OK
+2026-05-24 09:59:43,868 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 09:59:43,872 [INFO]   [363/512] OK
+2026-05-24 10:00:04,751 [ERROR]   [364/512] ERROR — 
+2026-05-24 10:00:27,983 [ERROR]   [365/512] ERROR — 
+2026-05-24 10:00:49,250 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:00:49,255 [INFO]   [366/512] OK
+2026-05-24 10:01:12,574 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:01:12,581 [INFO]   [367/512] OK
+2026-05-24 10:01:35,791 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:01:35,805 [INFO]   [368/512] OK
+2026-05-24 10:02:02,658 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:02:02,662 [INFO]   [369/512] OK
+2026-05-24 10:02:27,999 [ERROR]   [370/512] ERROR — 
+2026-05-24 10:02:48,391 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:02:48,398 [INFO]   [371/512] OK
+2026-05-24 10:03:09,848 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:03:09,851 [INFO]   [372/512] OK
+2026-05-24 10:03:35,079 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:03:35,082 [INFO]   [373/512] OK
+2026-05-24 10:03:59,079 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:03:59,086 [INFO]   [374/512] OK
+2026-05-24 10:04:22,072 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:04:22,077 [INFO]   [375/512] OK
+2026-05-24 10:04:48,406 [ERROR]   [376/512] ERROR — 
+2026-05-24 10:05:09,870 [ERROR]   [377/512] ERROR — 
+2026-05-24 10:05:35,092 [ERROR]   [378/512] ERROR — 
+2026-05-24 10:05:59,105 [ERROR]   [379/512] ERROR — 
+2026-05-24 10:06:22,086 [ERROR]   [380/512] ERROR — 
+2026-05-24 10:06:48,416 [ERROR]   [381/512] ERROR — 
+2026-05-24 10:07:09,895 [ERROR]   [382/512] ERROR — 
+2026-05-24 10:07:33,649 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:07:33,652 [INFO]   [383/512] OK
+2026-05-24 10:07:56,598 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:07:56,600 [INFO]   [384/512] OK
+2026-05-24 10:08:22,095 [ERROR]   [385/512] ERROR — 
+2026-05-24 10:08:44,458 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:08:44,463 [INFO]   [386/512] OK
+2026-05-24 10:09:07,222 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:09:07,227 [INFO]   [387/512] OK
+2026-05-24 10:09:24,921 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:09:24,923 [INFO]   [388/512] OK
+2026-05-24 10:09:55,263 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:09:55,266 [INFO]   [389/512] OK
+2026-05-24 10:10:17,818 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:10:17,820 [INFO]   [390/512] OK
+2026-05-24 10:10:44,472 [ERROR]   [391/512] ERROR — 
+2026-05-24 10:11:06,590 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:11:06,600 [INFO]   [392/512] OK
+2026-05-24 10:11:24,929 [ERROR]   [393/512] ERROR — 
+2026-05-24 10:11:48,014 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:11:48,018 [INFO]   [394/512] OK
+2026-05-24 10:12:12,260 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:12:12,269 [INFO]   [395/512] OK
+2026-05-24 10:12:35,587 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:12:35,593 [INFO]   [396/512] OK
+2026-05-24 10:12:59,034 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:12:59,044 [INFO]   [397/512] OK
+2026-05-24 10:13:22,993 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:13:22,998 [INFO]   [398/512] OK
+2026-05-24 10:13:45,048 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:13:45,052 [INFO]   [399/512] OK
+2026-05-24 10:14:11,439 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:14:11,443 [INFO]   [400/512] OK
+2026-05-24 10:14:11,615 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_enriched_partial.pkl
+2026-05-24 10:14:11,615 [INFO]   [PARTIAL SAVE] Progress saved at node 400/512.
+2026-05-24 10:14:33,537 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:14:33,541 [INFO]   [405/512] OK
+2026-05-24 10:14:56,194 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:14:56,198 [INFO]   [403/512] OK
+2026-05-24 10:15:15,405 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:15:15,430 [INFO]   [402/512] OK
+2026-05-24 10:15:46,058 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:15:46,065 [INFO]   [404/512] OK
+2026-05-24 10:16:07,738 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:16:07,760 [INFO]   [401/512] OK
+2026-05-24 10:16:30,741 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:16:30,744 [INFO]   [406/512] OK
+2026-05-24 10:16:56,213 [ERROR]   [407/512] ERROR — 
+2026-05-24 10:17:15,442 [ERROR]   [408/512] ERROR — 
+2026-05-24 10:17:37,975 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:17:37,977 [INFO]   [409/512] OK
+2026-05-24 10:18:02,917 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:18:02,920 [INFO]   [410/512] OK
+2026-05-24 10:18:30,750 [ERROR]   [411/512] ERROR — 
+2026-05-24 10:18:54,857 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:18:54,861 [INFO]   [412/512] OK
+2026-05-24 10:19:15,488 [ERROR]   [413/512] ERROR — 
+2026-05-24 10:19:37,991 [ERROR]   [414/512] ERROR — 
+2026-05-24 10:20:02,816 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:20:02,820 [INFO]   [415/512] OK
+2026-05-24 10:20:29,318 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:20:29,325 [INFO]   [416/512] OK
+2026-05-24 10:20:51,934 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:20:51,940 [INFO]   [417/512] OK
+2026-05-24 10:21:09,467 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:21:09,483 [INFO]   [418/512] OK
+2026-05-24 10:21:34,456 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:21:34,463 [INFO]   [419/512] OK
+2026-05-24 10:22:02,206 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:22:02,210 [INFO]   [420/512] OK
+2026-05-24 10:22:22,747 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:22:22,752 [INFO]   [421/512] OK
+2026-05-24 10:22:48,752 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:22:48,755 [INFO]   [422/512] OK
+2026-05-24 10:23:09,496 [ERROR]   [423/512] ERROR — 
+2026-05-24 10:23:34,482 [ERROR]   [424/512] ERROR — 
+2026-05-24 10:23:56,424 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:23:56,431 [INFO]   [425/512] OK
+2026-05-24 10:24:22,148 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:24:22,152 [INFO]   [426/512] OK
+2026-05-24 10:24:46,565 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:24:46,570 [INFO]   [427/512] OK
+2026-05-24 10:25:09,512 [ERROR]   [428/512] ERROR — 
+2026-05-24 10:25:34,510 [ERROR]   [429/512] ERROR — 
+2026-05-24 10:25:56,442 [ERROR]   [430/512] ERROR — 
+2026-05-24 10:26:22,139 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:26:22,143 [INFO]   [431/512] OK
+2026-05-24 10:26:46,508 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:26:46,512 [INFO]   [432/512] OK
+2026-05-24 10:27:09,544 [ERROR]   [433/512] ERROR — 
+2026-05-24 10:27:30,117 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:27:30,121 [INFO]   [434/512] OK
+2026-05-24 10:27:49,650 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:27:49,656 [INFO]   [435/512] OK
+2026-05-24 10:28:11,029 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:28:11,034 [INFO]   [436/512] OK
+2026-05-24 10:28:37,809 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:28:37,811 [INFO]   [437/512] OK
+2026-05-24 10:29:03,415 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:29:03,421 [INFO]   [438/512] OK
+2026-05-24 10:29:27,511 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:29:27,516 [INFO]   [439/512] OK
+2026-05-24 10:29:49,697 [ERROR]   [440/512] ERROR — 
+2026-05-24 10:30:10,336 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:30:10,342 [INFO]   [441/512] OK
+2026-05-24 10:30:28,097 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:30:28,100 [INFO]   [442/512] OK
+2026-05-24 10:30:47,445 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:30:47,450 [INFO]   [443/512] OK
+2026-05-24 10:31:10,063 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:31:10,068 [INFO]   [444/512] OK
+2026-05-24 10:31:38,508 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:31:38,512 [INFO]   [445/512] OK
+2026-05-24 10:31:57,126 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:31:57,137 [INFO]   [446/512] OK
+2026-05-24 10:32:16,640 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:32:16,648 [INFO]   [447/512] OK
+2026-05-24 10:32:39,389 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:32:39,395 [INFO]   [448/512] OK
+2026-05-24 10:33:00,058 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:33:00,062 [INFO]   [449/512] OK
+2026-05-24 10:33:23,642 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:33:23,647 [INFO]   [450/512] OK
+2026-05-24 10:33:23,810 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_enriched_partial.pkl
+2026-05-24 10:33:23,810 [INFO]   [PARTIAL SAVE] Progress saved at node 450/512.
+2026-05-24 10:33:43,147 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:33:43,151 [INFO]   [452/512] OK
+2026-05-24 10:34:06,589 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:34:06,593 [INFO]   [451/512] OK
+2026-05-24 10:34:33,144 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:34:33,164 [INFO]   [453/512] OK
+2026-05-24 10:34:59,803 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:34:59,806 [INFO]   [454/512] OK
+2026-05-24 10:35:13,571 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:35:13,574 [INFO]   [455/512] OK
+2026-05-24 10:35:31,765 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:35:31,767 [INFO]   [456/512] OK
+2026-05-24 10:35:51,771 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:35:51,775 [INFO]   [457/512] OK
+2026-05-24 10:36:12,938 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:36:12,941 [INFO]   [458/512] OK
+2026-05-24 10:36:38,765 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:36:38,769 [INFO]   [459/512] OK
+2026-05-24 10:36:55,309 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:36:55,317 [INFO]   [460/512] OK
+2026-05-24 10:37:15,011 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:37:15,012 [INFO]   [461/512] OK
+2026-05-24 10:37:38,412 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:37:38,414 [INFO]   [462/512] OK
+2026-05-24 10:37:58,287 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:37:58,291 [INFO]   [463/512] OK
+2026-05-24 10:38:19,022 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:38:19,026 [INFO]   [464/512] OK
+2026-05-24 10:38:36,108 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:38:36,112 [INFO]   [465/512] OK
+2026-05-24 10:38:58,128 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:38:58,132 [INFO]   [466/512] OK
+2026-05-24 10:39:21,223 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:39:21,227 [INFO]   [467/512] OK
+2026-05-24 10:39:45,097 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:39:45,104 [INFO]   [468/512] OK
+2026-05-24 10:40:09,586 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:40:09,596 [INFO]   [469/512] OK
+2026-05-24 10:40:11,449 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:40:11,451 [INFO]   [470/512] OK
+2026-05-24 10:40:34,120 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:40:34,126 [INFO]   [471/512] OK
+2026-05-24 10:40:55,778 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:40:55,783 [INFO]   [472/512] OK
+2026-05-24 10:41:24,155 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:41:24,158 [INFO]   [473/512] OK
+2026-05-24 10:41:25,946 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:41:25,948 [INFO]   [474/512] OK
+2026-05-24 10:41:51,703 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:41:51,707 [INFO]   [475/512] OK
+2026-05-24 10:42:18,000 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:42:18,003 [INFO]   [476/512] OK
+2026-05-24 10:42:47,502 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:42:47,505 [INFO]   [477/512] OK
+2026-05-24 10:43:03,853 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:43:03,856 [INFO]   [478/512] OK
+2026-05-24 10:43:25,956 [ERROR]   [479/512] ERROR — 
+2026-05-24 10:43:51,720 [ERROR]   [480/512] ERROR — 
+2026-05-24 10:44:16,405 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:44:16,407 [INFO]   [481/512] OK
+2026-05-24 10:44:45,147 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:44:45,152 [INFO]   [482/512] OK
+2026-05-24 10:45:03,872 [ERROR]   [483/512] ERROR — 
+2026-05-24 10:45:25,979 [ERROR]   [484/512] ERROR — 
+2026-05-24 10:45:49,962 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:45:49,965 [INFO]   [485/512] OK
+2026-05-24 10:46:16,415 [ERROR]   [486/512] ERROR — 
+2026-05-24 10:46:45,158 [ERROR]   [487/512] ERROR — 
+2026-05-24 10:47:03,893 [ERROR]   [488/512] ERROR — 
+2026-05-24 10:47:25,986 [ERROR]   [489/512] ERROR — 
+2026-05-24 10:47:49,135 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:47:49,146 [INFO]   [490/512] OK
+2026-05-24 10:48:13,362 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:48:13,365 [INFO]   [491/512] OK
+2026-05-24 10:48:32,024 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:48:32,027 [INFO]   [492/512] OK
+2026-05-24 10:48:48,752 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:48:48,753 [INFO]   [493/512] OK
+2026-05-24 10:49:17,852 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:49:17,855 [INFO]   [494/512] OK
+2026-05-24 10:49:40,860 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:49:40,863 [INFO]   [495/512] OK
+2026-05-24 10:50:13,377 [ERROR]   [496/512] ERROR — 
+2026-05-24 10:50:32,040 [ERROR]   [497/512] ERROR — 
+2026-05-24 10:50:48,758 [ERROR]   [498/512] ERROR — 
+2026-05-24 10:51:17,865 [ERROR]   [499/512] ERROR — 
+2026-05-24 10:51:40,868 [ERROR]   [500/512] ERROR — 
+2026-05-24 10:51:40,965 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_enriched_partial.pkl
+2026-05-24 10:51:40,965 [INFO]   [PARTIAL SAVE] Progress saved at node 500/512.
+2026-05-24 10:52:16,281 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:52:16,292 [INFO]   [504/512] OK
+2026-05-24 10:52:33,713 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:52:33,728 [INFO]   [502/512] OK
+2026-05-24 10:52:54,360 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:52:54,370 [INFO]   [503/512] OK
+2026-05-24 10:53:24,038 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:53:24,043 [INFO]   [501/512] OK
+2026-05-24 10:53:40,993 [ERROR]   [505/512] ERROR — 
+2026-05-24 10:54:01,194 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:54:01,199 [INFO]   [506/512] OK
+2026-05-24 10:54:25,150 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:54:25,153 [INFO]   [507/512] OK
+2026-05-24 10:54:42,756 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:54:42,758 [INFO]   [508/512] OK
+2026-05-24 10:55:05,979 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:55:05,987 [INFO]   [509/512] OK
+2026-05-24 10:55:30,814 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:55:30,816 [INFO]   [510/512] OK
+2026-05-24 10:55:57,697 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:55:57,701 [INFO]   [511/512] OK
+2026-05-24 10:56:16,798 [INFO] HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-24 10:56:16,800 [INFO]   [512/512] OK
+2026-05-24 10:56:16,915 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched_partial | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_enriched_partial.pkl
+2026-05-24 10:56:16,916 [INFO]   [PARTIAL SAVE] Progress saved at node 512/512.
+2026-05-24 10:56:16,977 [INFO] [CHECKPOINT SAVED] stage=nodes_enriched | doc=e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation → .checkpoints/e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation__nodes_enriched.pkl
+2026-05-24 10:56:16,981 [INFO] [CLEANUP] Removed partial checkpoint for 'e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation'.
+2026-05-24 10:56:16,981 [INFO] [DONE] Enrichment complete for 'e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation'.
+2026-05-24 10:56:17,068 [INFO] [DONE] Metadata sanitized and size-limited for 512 nodes.
+2026-05-24 10:56:17,072 [INFO] [START] Embedding and uploading 'e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation' (512 nodes) to Pinecone...
+2026-05-24 10:56:20,666 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-24 10:56:22,953 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-24 10:56:24,947 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-24 10:56:27,056 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-24 10:56:29,362 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-24 10:56:31,364 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-24 10:56:33,518 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-24 10:56:35,616 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-24 10:56:37,429 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-24 10:56:39,681 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-24 10:56:40,390 [INFO] HTTP Request: POST http://localhost:11434/api/embed "HTTP/1.1 200 OK"
+2026-05-24 10:56:47,695 [INFO] [DONE] 'e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation' successfully uploaded to Pinecone.
+2026-05-24 10:56:47,698 [INFO] [REGISTRY] Recorded 'e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation' (hash: 5da558444061...)
+2026-05-24 10:56:47,698 [INFO] 
+✅ DONE: 'e7cf6969-f5fd-464b-9c82-0d836a0d31c9_ecommerce legislation' is fully ingested into Pinecone.
+
