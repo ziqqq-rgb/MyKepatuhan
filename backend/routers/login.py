@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from fastapi.security import OAuth2PasswordRequestForm
+import httpx
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 
@@ -24,13 +25,13 @@ class UserResponse(BaseModel):
 
 class OAuthLoginRequest(BaseModel):
     email: str
+    token: str 
 
 @router.post("/login", response_model=TokenResponse)
 def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db),
 ):
-    """Login with email + password. Returns a JWT access token."""
     user = db.query(User).filter(User.email == form_data.username).first()
  
     if not user or not verify_password(form_data.password, user.hashed_password):
@@ -59,13 +60,24 @@ def get_me(current_user: User = Depends(get_current_user)):
 
 @router.post("/oauth-login")
 def oauth_login(request: OAuthLoginRequest, db: Session = Depends(get_db)):
-    """Bridge endpoint for Google Sign-In via Stack Auth"""
-    # 1. Check if the user already exists in your Postgres DB
     user = db.query(User).filter(User.email == request.email).first()
+
+    token = request.token  
+    try:
+        resp = httpx.get(
+            "https://api.stack-auth.com/api/v1/users/me",
+            headers={"Authorization": f"Bearer {token}"},
+        )
+        resp.raise_for_status()
+        verified_email = resp.json().get("primary_email")
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid OAuth token.")
+
+    if verified_email != request.email:
+        raise HTTPException(status_code=401, detail="Email mismatch.")
+
     
     if not user:
-        # 2. If they are a brand new Google user, create a profile for them!
-        # We give them a dummy password because Google handles their actual auth
         user = User(
             email=request.email,
             hashed_password="OAUTH_USER_NO_PASSWORD", 
@@ -75,7 +87,6 @@ def oauth_login(request: OAuthLoginRequest, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(user)
 
-    # 3. Issue the standard FastAPI JWT so they can query the RAG engine
     access_token = create_access_token(data={"sub": str(user.id)})
     return {"access_token": access_token, "token_type": "bearer"}
     

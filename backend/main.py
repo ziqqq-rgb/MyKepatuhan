@@ -1,5 +1,6 @@
 import logging
 from contextlib import asynccontextmanager
+import os
  
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,19 +19,15 @@ from routers.query import query_engine_cache
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
  
- 
-# ─────────────────────────────────────────
-# STARTUP
-# ─────────────────────────────────────────
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Create DB tables if they don't exist yet
     models.Base.metadata.create_all(bind=engine)
+
     log.info("Database tables ready.")
- 
-    # Pre-load default query engine
     log.info("Loading default query engine...")
+
     query_engine_cache["default"] = build_query_engine()
+    
     log.info("Query engine ready.")
  
     yield
@@ -42,13 +39,15 @@ app = FastAPI(
     lifespan=lifespan,
 )
  
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "*").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],   
+    allow_origins=ALLOWED_ORIGINS,  # set ALLOWED_ORIGINS=https://yourdomain.com in production
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
- 
 
 app.include_router(login_router)
 app.include_router(register_router)

@@ -8087,3 +8087,36 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2026-05-24 16:32:32,724 [INFO] 
 ✅ DONE: '77bdca94-bba8-4df8-b79a-c788193918ef_A1701 BI' is fully ingested into Pinecone.
 
+2026-05-24 17:07:03,248 [INFO] Database tables ready.
+2026-05-24 17:07:03,249 [INFO] Loading default query engine...
+2026-05-24 17:07:03,250 [INFO] Query engine ready.
+2026-05-24 17:07:25,831 [INFO] Database tables ready.
+2026-05-24 17:07:25,832 [INFO] Loading default query engine...
+2026-05-24 17:07:25,834 [INFO] Query engine ready.
+2026-05-24 17:07:48,685 [INFO] Database tables ready.
+2026-05-24 17:07:48,689 [INFO] Loading default query engine...
+2026-05-24 17:07:48,690 [INFO] Query engine ready.
+2026-05-24 17:09:31,872 [INFO] Database tables ready.
+2026-05-24 17:09:31,872 [INFO] Loading default query engine...
+2026-05-24 17:09:31,873 [INFO] Query engine ready.
+2026-05-24 17:09:54,193 [INFO] Database tables ready.
+2026-05-24 17:09:54,194 [INFO] Loading default query engine...
+2026-05-24 17:09:54,198 [INFO] Query engine ready.
+2026-05-24 17:10:16,396 [INFO] Database tables ready.
+2026-05-24 17:10:16,398 [INFO] Loading default query engine...
+2026-05-24 17:10:16,402 [INFO] Query engine ready.
+2026-05-24 17:10:39,200 [INFO] Database tables ready.
+2026-05-24 17:10:39,201 [INFO] Loading default query engine...
+2026-05-24 17:10:39,202 [INFO] Query engine ready.
+2026-05-24 17:11:01,345 [INFO] Database tables ready.
+2026-05-24 17:11:01,345 [INFO] Loading default query engine...
+2026-05-24 17:11:01,345 [INFO] Query engine ready.
+2026-05-24 17:11:24,299 [INFO] Database tables ready.
+2026-05-24 17:11:24,299 [INFO] Loading default query engine...
+2026-05-24 17:11:24,299 [INFO] Query engine ready.
+2026-05-24 17:11:46,832 [INFO] Database tables ready.
+2026-05-24 17:11:46,834 [INFO] Loading default query engine...
+2026-05-24 17:11:46,835 [INFO] Query engine ready.
+2026-05-24 17:12:09,633 [INFO] Database tables ready.
+2026-05-24 17:12:09,637 [INFO] Loading default query engine...
+2026-05-24 17:12:09,638 [INFO] Query engine ready.

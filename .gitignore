@@ -1,2 +1,20 @@
+# Runtime artifacts
+backend/.checkpoints/
+backend/uploads/
+backend/ingest.log
+backend/pipeline/ingestion/ingest.log
+
+# DeepEval
+.deepeval/
+
+# Python
+__pycache__/
+*.pyc
+.python-version
+
+# macOS
+.DS_Store
+
+# Env
 .env
 .env.local

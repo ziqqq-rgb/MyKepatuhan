@@ -89,11 +89,11 @@ export async function apiGetMe(): Promise<UserProfile> {
   return apiFetch<UserProfile>("/auth/me");
 }
 
-export async function apiOAuthLogin(email: string) {
+export async function apiOAuthLogin(email: string, token: string) {
   const res = await fetch(`${API_URL}/auth/oauth-login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email }),
+    body: JSON.stringify({ email, token }),
   });
 
   if (!res.ok) {
