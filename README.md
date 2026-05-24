@@ -152,17 +152,13 @@ curl -X POST http://localhost:8000/ingest \
 
 The pipeline runs as a background job through four stages:
 
-1. **Parse** 
-Docling converts the PDF into semantically chunked nodes using the embedding model's tokenizer.
+1. **Parse** : Docling converts the PDF into semantically chunked nodes using the embedding model's tokenizer.
 
-2. **Enrich** 
-gemma3:1b extracts four metadata fields per chunk: jurisdiction, authority, topic, document\_type.
+2. **Enrich** : gemma3:1b extracts four metadata fields per chunk: jurisdiction, authority, topic, document\_type.
 
-3. **Sanitize** 
-Docling layout data is stripped; metadata is size-capped for Pinecone's 40KB limit.
+3. **Sanitize** : Docling layout data is stripped; metadata is size-capped for Pinecone's 40KB limit.
 
-4. **Upload** 
-Nodes are embedded with nomic-embed-text-v2-moe and upserted to Pinecone with sparse vectors for hybrid search.
+4. **Upload** : Nodes are embedded with nomic-embed-text-v2-moe and upserted to Pinecone with sparse vectors for hybrid search.
 
 Each stage checkpoints its output. If the process is interrupted, it resumes from the last completed stage rather than starting over. Documents are deduplicated by SHA-256 hash so re-uploading the same file is a no-op.
 
@@ -179,14 +175,11 @@ curl http://localhost:8000/ingest/status/JOB_ID \
 
 Each query goes through three steps:
 
-1. **Hybrid search** 
-Pinecone runs BM25 keyword search and dense vector search in parallel, combined at alpha=0.6 (60% semantic, 40% keyword). Top 15 candidates are returned.
+1. **Hybrid search** : Pinecone runs BM25 keyword search and dense vector search in parallel, combined at alpha=0.6 (60% semantic, 40% keyword). Top 15 candidates are returned.
 
-2. **Reranking** 
-A cross-encoder (ms-marco-MiniLM-L-6-v2) re-scores the 15 candidates and keeps the top 3.
+2. **Reranking** : A cross-encoder (ms-marco-MiniLM-L-6-v2) re-scores the 15 candidates and keeps the top 3.
 
-3. **Generation** 
-The top 3 passages are passed to Gemini with a strict prompt that instructs it to answer only from the provided context.
+3. **Generation** : The top 3 passages are passed to Gemini with a strict prompt that instructs it to answer only from the provided context.
 
 Users can optionally filter by `authority` (e.g. SSM, LHDN) or `topic` (e.g. tax, licensing) before retrieval.
 
@@ -196,10 +189,10 @@ Users can optionally filter by `authority` (e.g. SSM, LHDN) or `topic` (e.g. tax
 
 The evaluation notebook is in `evaluation/eval.ipynb`. It uses LlamaIndex built-in evaluatorsto measure four metrics:
 
-- **Faithfulness** — is the answer grounded in the retrieved passages?
-- **Answer Relevancy** — does the answer address the question?
-- **Contextual Precision** — are the retrieved chunks relevant?
-- **Contextual Recall** — did retrieval find all relevant chunks?
+- **Faithfulness** : Is the answer grounded in the retrieved passages?
+- **Answer Relevancy** : Does the answer address the question?
+- **Contextual Precision** : Are the retrieved chunks relevant?
+- **Contextual Recall** : Did retrieval find all relevant chunks?
 
 Use a different model as judge from the one generating answers. If both use the same model, scores will be inflated.
 
