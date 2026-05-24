@@ -1,3 +1,8 @@
+<img width="1763" height="980" alt="Screenshot 2026-05-24 at 6 34 42 PM" src="https://github.com/user-attachments/assets/5439ffeb-fc57-4df1-8517-a0f688d2cb9c" />
+<img width="1920" height="994" alt="Screenshot 2026-05-24 at 6 30 10 PM" src="https://github.com/user-attachments/assets/ecfca571-ca66-422f-a5bd-dc4cd3f419ea" />
+
+
+
 # MyKepatuhan
 
 A RAG-based compliance assistant for Malaysian entrepreneurs. Users ask questions in English or Bahasa Melayu about business registration, licensing, tax, and related regulations. The system retrieves relevant passages from ingested government documents and returns a cited, plain-language answer.
