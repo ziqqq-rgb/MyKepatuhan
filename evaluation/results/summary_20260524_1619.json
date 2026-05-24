@@ -1,0 +1,19 @@
+{
+  "timestamp": "20260524_1619",
+  "n_questions": 5,
+  "scores": {
+    "faithfulness": 1.0,
+    "relevancy": 0.8,
+    "correctness": 4.2
+  },
+  "pass_rates": {
+    "faithfulness": 1.0,
+    "relevancy": 0.8,
+    "correctness": 0.8
+  },
+  "latency": {
+    "mean_ms": 4683.2,
+    "median_ms": 2967.7,
+    "p95_ms": 10388.6
+  }
+}
