@@ -27,7 +27,10 @@ def stage_upload(nodes: list, doc_name: str) -> None:
     pc = Pinecone(api_key=PINECONE_API_KEY)
     pinecone_index = pc.Index("mykepatuhan")
 
-    vector_store = PineconeVectorStore(pinecone_index=pinecone_index)
+    vector_store = PineconeVectorStore(
+        pinecone_index=pinecone_index,
+        add_sparse_vector=True,   
+    )
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
     VectorStoreIndex(

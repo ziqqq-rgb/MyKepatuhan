@@ -17,12 +17,13 @@ class QueryRequest(BaseModel):
     authority: Optional[str] = None
     topic: Optional[str] = None
  
- 
+
 class Citation(BaseModel):
     rank: int
     authority: str
     topic: str
     document_type: str
+    document_title: str
     score: float
     excerpt: str
  
@@ -60,20 +61,21 @@ def query(
         raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
  
     citations = [
-        Citation(
-            rank=i + 1,
-            authority=node.node.metadata.get("authority", "Unknown"),
-            topic=node.node.metadata.get("topic", "Unknown"),
-            document_type=node.node.metadata.get("document_type", "Unknown"),
-            score=round(node.score or 0.0, 4),
-            excerpt=(
-                node.node.text[:300] + "..."
-                if len(node.node.text) > 300
-                else node.node.text
-            ),
-        )
-        for i, node in enumerate(response.source_nodes)
-    ]
+            Citation(
+                rank=i + 1,
+                authority=node.node.metadata.get("authority", "Unknown"),
+                topic=node.node.metadata.get("topic", "Unknown"),
+                document_type=node.node.metadata.get("document_type", "Unknown"),
+                document_title=node.node.metadata.get("source_document", "Unknown source"),
+                score=round(node.score or 0.0, 4),
+                excerpt=(
+                    node.node.text[:300] + "..."
+                    if len(node.node.text) > 300
+                    else node.node.text
+                ),
+            )
+            for i, node in enumerate(response.source_nodes)
+        ]
  
     return QueryResponse(
         question=request.question,

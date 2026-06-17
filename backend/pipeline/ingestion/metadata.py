@@ -2,6 +2,7 @@ import re
 import json
 import asyncio
 import httpx
+from shapely import node
 from pipeline.ingestion.logger import log
 from pipeline.ingestion.checkpointing import checkpoint_exists, load_checkpoint, save_checkpoint, checkpoint_path
 
@@ -9,6 +10,7 @@ CONCURRENT_REQUESTS = 5
 BATCH_SAVE_EVERY    = 50
 OLLAMA_BASE_URL     = "http://localhost:11434"
 ENRICH_MODEL        = "gemma3:1b"
+ENRICHMENT_CONTEXT_CHARS = 2000 
 
 PROMPT_TEMPLATE = """\
 You are an expert Malaysian corporate lawyer. Read the text and extract metadata.
@@ -62,13 +64,18 @@ def _extract_json(raw: str) -> dict:
     raise ValueError(f"No valid JSON found in response: {raw[:200]}")
 
 
+def _is_fallback(node) -> bool:
+    """True if this node's metadata is exactly the fallback defaults — i.e. enrichment failed for it."""
+    return all(node.metadata.get(k) == v for k, v in FALLBACK_METADATA.items())
+
+
 async def enrich_single_node_async(semaphore, node, index: int, total: int):
     """
     Call Ollama /api/generate directly (not /api/chat) so the response
     shape is always { "response": "..." } regardless of parallel settings.
     """
     async with semaphore:
-        prompt = PROMPT_TEMPLATE.format(chunk_text=node.text[:500])
+        prompt = PROMPT_TEMPLATE.format(chunk_text=node.text[:ENRICHMENT_CONTEXT_CHARS])
         try:
             async with httpx.AsyncClient(timeout=120) as client:
                 resp = await client.post(
@@ -144,15 +151,15 @@ def stage_enrich(nodes: list, doc_name: str) -> list:
         f"({CONCURRENT_REQUESTS} at a time) for '{doc_name}'..."
     )
 
-    # No llm object needed — we call httpx directly
     asyncio.run(enrich_batch_async(nodes, start_index, doc_name))
 
+    fallback_count = sum(1 for n in nodes if _is_fallback(n))
+    if fallback_count:
+        pct = fallback_count / len(nodes) * 100
+        log.warning(
+            f"[ENRICHMENT QUALITY] '{doc_name}': {fallback_count}/{len(nodes)} "
+            f"chunks ({pct:.1f}%) fell back to default metadata and will be "
+            f"invisible to authority/topic filters."
+        )
+
     save_checkpoint("nodes_enriched", doc_name, nodes)
-
-    partial_path = checkpoint_path("nodes_enriched_partial", doc_name)
-    if partial_path.exists():
-        partial_path.unlink()
-        log.info(f"[CLEANUP] Removed partial checkpoint for '{doc_name}'.")
-
-    log.info(f"[DONE] Enrichment complete for '{doc_name}'.")
-    return nodes

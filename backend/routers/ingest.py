@@ -32,11 +32,10 @@ class DocumentInfo(BaseModel):
     ingested_at: str
     hash: str
 
-def run_ingestion(job_id: str, file_path: str) -> None:
+def run_ingestion(job_id: str, file_path: str, source_title: str) -> None:
     jobs[job_id]["status"] = "processing"
-
     try:
-        ingest_document(file_path)
+        ingest_document(file_path, source_title=source_title)
         jobs[job_id].update(status="done", finished_at=datetime.now().isoformat())
     except Exception as e:
         jobs[job_id].update(
@@ -73,7 +72,7 @@ async def upload_document(
         "error": None,
     }
  
-    background_tasks.add_task(run_ingestion, job_id, str(save_path))
+    background_tasks.add_task(run_ingestion, job_id, str(save_path), file.filename)
     return jobs[job_id]
  
 @router.get("/status/{job_id}", response_model=JobStatus)

@@ -12,8 +12,27 @@ type UserMessage = { role: "user"; content: string; id: string };
 type AssistantMessage = { role: "assistant"; content: string; citations?: Citation[]; id: string };
 type Message = UserMessage | AssistantMessage;
 
-const AUTHORITIES = ["All", "SSM", "KKM", "DBKL", "MPKj", "LHDN"];
-const TOPICS = ["All", "Registration", "Tax", "Licensing", "Zoning", "Employment"];
+type FilterOption = { value: string; label: string };
+
+const AUTHORITIES: FilterOption[] = [
+  { value: "All", label: "All" },
+  { value: "SSM", label: "SSM" },
+  { value: "KKM", label: "KKM" },
+  { value: "DBKL", label: "DBKL" },
+  { value: "MPKj", label: "MPKj" },
+  { value: "LHDN", label: "LHDN" },
+  { value: "MyIPO", label: "MyIPO" },
+];
+
+const TOPICS: FilterOption[] = [
+  { value: "All", label: "All" },
+  { value: "registration", label: "Registration" },
+  { value: "tax", label: "Tax" },
+  { value: "licensing", label: "Licensing" },
+  { value: "zoning", label: "Zoning" },
+  { value: "employment", label: "Employment" },
+  { value: "compliance", label: "Compliance" },
+];
 
 export default function ChatPage() {
   const { tr } = useLanguage();
@@ -253,7 +272,7 @@ function FilterSelect({
   label: string;
   value: string;
   onChange: (v: string) => void;
-  options: string[];
+  options: FilterOption[];
   allLabel: string;
 }) {
   return (
@@ -265,7 +284,9 @@ function FilterSelect({
         className="bg-transparent text-foreground focus:outline-none"
       >
         {options.map((o) => (
-          <option key={o} value={o}>{o === "All" ? allLabel : o}</option>
+          <option key={o.value} value={o.value}>
+            {o.value === "All" ? allLabel : o.label}
+          </option>
         ))}
       </select>
     </label>
@@ -294,10 +315,13 @@ function AssistantBubble({ message }: { message: AssistantMessage }) {
                 {message.citations!.map((c, i) => (
                   <div key={i} className="rounded-xl bg-secondary p-3 text-xs">
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                      <span className="font-semibold text-foreground">{c.authority}</span>
-                      {c.topic && <span className="text-muted-foreground">· {c.topic}</span>}
-                      {c.document_type && <span className="text-muted-foreground">· {c.document_type}</span>}
+                      <span className="font-semibold text-foreground">{c.document_title}</span>
                       <span className="ml-auto font-mono text-muted-foreground">{c.score.toFixed(2)}</span>
+                    </div>
+                    <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-muted-foreground">
+                      <span>{c.authority}</span>
+                      {c.topic && <span>· {c.topic}</span>}
+                      {c.document_type && <span>· {c.document_type}</span>}
                     </div>
                     {c.excerpt && (
                       <p className="mt-2 font-mono text-[11px] leading-relaxed text-muted-foreground">

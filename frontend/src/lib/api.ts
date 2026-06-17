@@ -102,17 +102,16 @@ export async function apiOAuthLogin(email: string) {
   return res.json();
 }
 
-// ─────────────────────────────────────────
-// QUERY
-// ─────────────────────────────────────────
 export interface Citation {
   rank: number;
   authority: string;
   topic: string;
   document_type: string;
+  document_title: string;
   score: number;
   excerpt: string;
 }
+
 
 export interface QueryResponse {
   question: string;

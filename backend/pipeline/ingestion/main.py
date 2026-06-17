@@ -11,8 +11,10 @@ from pipeline.ingestion.checkpointing import is_duplicate, register_document
 
 load_dotenv()
 
-def ingest_document(file_path: str) -> None:
-    doc_name = Path(file_path).stem
+def ingest_document(file_path: str, source_title: str | None = None) -> None:
+    doc_name = Path(file_path).stem  # internal checkpoint/dedup key — unchanged
+    display_title = Path(source_title).stem if source_title else doc_name
+
     log.info(f"\n{'='*60}")
     log.info(f"INGESTING: {file_path}")
     log.info(f"{'='*60}")
@@ -21,8 +23,10 @@ def ingest_document(file_path: str) -> None:
     if duplicate:
         return
 
-    # Pass the data sequentially through the pipeline
     nodes = stage_parse(file_path)
+    for node in nodes:
+        node.metadata["source_document"] = display_title
+
     nodes = stage_enrich(nodes, doc_name)
     nodes = stage_sanitize(nodes)
     stage_upload(nodes, doc_name)
