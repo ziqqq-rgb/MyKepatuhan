@@ -41,8 +41,11 @@ HYBRID_ALPHA = 0.6
 embed_model = OllamaEmbedding(
     model_name="nomic-embed-text-v2-moe",
     embed_batch_size=50,
+    query_instruction="search_query: ",
+    text_instruction="search_document: ",
 )
 Settings.embed_model = embed_model
+
 
 llm = GoogleGenAI(
     api_key=GEMINI_API_KEY,
@@ -51,10 +54,9 @@ llm = GoogleGenAI(
 )
 Settings.llm = llm
 
-# FIXED: SBERT cross-encoder instead of LLMRerank
-# cross-encoder/ms-marco-MiniLM-L-6-v2 is fast, small, and purpose-built for reranking
+
 reranker = SentenceTransformerRerank(
-    model="cross-encoder/ms-marco-MiniLM-L-6-v2",
+    model="BAAI/bge-reranker-v2-m3",
     top_n=RERANK_TOP_N,
 )
 

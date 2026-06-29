@@ -1,4 +1,6 @@
 import os
+
+from llama_index.core import Settings
 from pipeline.ingestion.logger import log
 from pipeline.ingestion.checkpointing import load_uploaded_log, mark_as_uploaded
 
@@ -21,6 +23,8 @@ def stage_upload(nodes: list, doc_name: str) -> None:
     embed_model = OllamaEmbedding(
         model_name="nomic-embed-text-v2-moe",
         embed_batch_size=50,
+        query_instruction="search_query: ",
+        text_instruction="search_document: ",
     )
     Settings.embed_model = embed_model
 
