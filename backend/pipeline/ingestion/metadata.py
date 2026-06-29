@@ -114,7 +114,7 @@ async def enrich_single_node_async(semaphore, node, index: int, total: int):
         for attempt in range(MAX_RETRIES):
             try:
                 async with httpx.AsyncClient(timeout=120) as client:
-                    resp = await client.post(GEMINI_API_URL, json=payload)
+                    resp = await client.post( json=payload)
 
                 if resp.status_code == 429:
                     wait = 5 * (2 ** attempt)   # 5s → 10s → 20s
