@@ -1,5 +1,12 @@
 from pathlib import Path
+from core import config
 from pipeline.ingestion.logger import log
+from docling.chunking import HybridChunker
+from llama_index.readers.docling import DoclingReader
+from llama_index.node_parser.docling import DoclingNodeParser
+from docling_core.transforms.chunker.tokenizer.huggingface import HuggingFaceTokenizer
+from transformers import AutoTokenizer
+
 from pipeline.ingestion.checkpointing import checkpoint_exists, load_checkpoint, save_checkpoint
 
 def stage_parse(file_path: str) -> list:
@@ -12,20 +19,10 @@ def stage_parse(file_path: str) -> list:
 
     log.info(f"[START] Parsing '{file_path}'...")
 
-    from docling.chunking import HybridChunker
-    from llama_index.readers.docling import DoclingReader
-    from llama_index.node_parser.docling import DoclingNodeParser
-    from llama_index.embeddings.ollama import OllamaEmbedding
-    from docling_core.transforms.chunker.tokenizer.huggingface import HuggingFaceTokenizer
-    from transformers import AutoTokenizer
-
-    # FIX: use the embedding model's own tokenizer, not Qwen
-    EMBED_MODEL_NAME = "nomic-ai/nomic-embed-text-v1.5"
-    MAXTOKEN = 512
 
     tokenizer = HuggingFaceTokenizer(
-        tokenizer=AutoTokenizer.from_pretrained(EMBED_MODEL_NAME),
-        max_tokens=MAXTOKEN,
+        tokenizer=AutoTokenizer.from_pretrained(config.DOCLING_TOKENIZER_MODEL),
+        max_tokens=config.DOCLING_MAX_TOKENS,
     )
 
     chunker = HybridChunker(tokenizer=tokenizer)

@@ -1,9 +1,3 @@
-import os
-from dotenv import load_dotenv
-load_dotenv()
-
-from pinecone import Pinecone
-from llama_index.vector_stores.pinecone import PineconeVectorStore
 from llama_index.core import VectorStoreIndex, Settings
 from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core.vector_stores.types import (
@@ -11,53 +5,32 @@ from llama_index.core.vector_stores.types import (
     MetadataFilters,
     FilterOperator,
 )
-from llama_index.embeddings.ollama import OllamaEmbedding
-from llama_index.llms.google_genai import GoogleGenAI          
+from llama_index.llms.google_genai import GoogleGenAI
 from llama_index.postprocessor.sbert_rerank import SentenceTransformerRerank
 
-
-# ─────────────────────────────────────────
-# CONFIG
-# ─────────────────────────────────────────
-
-PINECONE_API_KEY  = os.getenv("PINECON_KEY")
-GEMINI_API_KEY    = os.getenv("GEMINI_KEY")
-
-# How many candidates to retrieve before reranking
-RETRIEVAL_TOP_K = 15
-
-# How many results to keep after reranking
-RERANK_TOP_N = 3
-
-# Hybrid alpha: 0.0 = pure BM25 (keyword), 1.0 = pure dense (semantic)
-# 0.6 = lean semantic but still respect exact legal terms
-HYBRID_ALPHA = 0.6
+from core import config
+from core.clients import get_embed_model, get_pinecone_index
 
 
 # ─────────────────────────────────────────
 # MODELS
 # ─────────────────────────────────────────
 
-embed_model = OllamaEmbedding(
-    model_name="nomic-embed-text-v2-moe",
-    embed_batch_size=50,
-    query_instruction="search_query: ",
-    text_instruction="search_document: ",
-)
+embed_model = get_embed_model()
 Settings.embed_model = embed_model
 
 
 llm = GoogleGenAI(
-    api_key=GEMINI_API_KEY,
-    model="gemini-3.1-flash-lite",
-    temperature=0.0,
+    api_key=config.GEMINI_API_KEY,
+    model=config.GEMINI_GENERATION_MODEL,
+    temperature=config.GEMINI_GENERATION_TEMPERATURE,
 )
 Settings.llm = llm
 
 
 reranker = SentenceTransformerRerank(
-    model="BAAI/bge-reranker-v2-m3",
-    top_n=RERANK_TOP_N,
+    model=config.RERANKER_MODEL,
+    top_n=config.RERANK_TOP_N,
 )
 
 
@@ -65,12 +38,13 @@ reranker = SentenceTransformerRerank(
 # PINECONE + INDEX
 # ─────────────────────────────────────────
 
-pc = Pinecone(api_key=PINECONE_API_KEY)
-pinecone_index = pc.Index("mykepatuhan")
+from llama_index.vector_stores.pinecone import PineconeVectorStore
+
+pinecone_index = get_pinecone_index()
 
 vector_store = PineconeVectorStore(
     pinecone_index=pinecone_index,
-    #add_sparse_vector=True,   
+    #add_sparse_vector=True,
 )
 
 index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
@@ -96,9 +70,9 @@ def build_retriever(authority: str = None, topic: str = None):
     metadata_filters = MetadataFilters(filters=filters) if filters else None
 
     retriever = index.as_retriever(
-    vector_store_query_mode="default",   # pure dense — hybrid is non-functional on this index
-    similarity_top_k=RETRIEVAL_TOP_K,
-    filters=metadata_filters,
+        vector_store_query_mode="default",   # pure dense — hybrid is non-functional on this index
+        similarity_top_k=config.RETRIEVAL_TOP_K,
+        filters=metadata_filters,
     )
     return retriever
 
@@ -126,4 +100,3 @@ def print_citations(response) -> None:
             f"Type: {meta.get('document_type', 'Unknown')} | "
             f"Score: {node.score:.4f}"
         )
-
