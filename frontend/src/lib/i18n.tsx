@@ -96,6 +96,11 @@ const t = {
   chat_show_sources: { en: "Show sources", bm: "Tunjuk sumber" },
   chat_hide_sources: { en: "Hide sources", bm: "Sembunyikan sumber" },
   chat_error: { en: "Something went wrong. Please try again.", bm: "Sesuatu tidak kena. Sila cuba lagi." },
+  chat_no_results: {
+  en: "I couldn't find any information matching your query under {filters}. Try searching across 'All Authorities' and 'All Topics' instead, or rephrase your question.",
+  bm: "Saya tidak menemui sebarang maklumat yang sepadan dengan pertanyaan anda di bawah {filters}. Cuba cari merentas 'Semua Pihak Berkuasa' dan 'Semua Topik', atau ubah soalan anda.",
+  },
+  chat_no_results_join: { en: "and", bm: "dan" },
   filter_authority: { en: "Authority", bm: "Pihak Berkuasa" },
   filter_topic: { en: "Topic", bm: "Topik" },
   filter_all: { en: "All", bm: "Semua" },
@@ -116,6 +121,7 @@ const t = {
   status_done: { en: "Done", bm: "Selesai" },
   status_failed: { en: "Failed", bm: "Gagal" },
 } as const;
+
 
 export type TranslationKey = keyof typeof t;
 

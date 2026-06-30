@@ -61,33 +61,45 @@ export default function ChatPage() {
   }, [input]);
 
   async function send(question: string) {
-    const trimmed = question.trim();
-    if (!trimmed || loading) return;
+  const trimmed = question.trim();
+  if (!trimmed || loading) return;
 
-    const userMsg: UserMessage = { role: "user", content: trimmed, id: crypto.randomUUID() };
-    setMessages((m) => [...m, userMsg]);
-    setInput("");
-    setLoading(true);
+  const userMsg: UserMessage = { role: "user", content: trimmed, id: crypto.randomUUID() };
+  setMessages((m) => [...m, userMsg]);
+  setInput("");
+  setLoading(true);
 
-    try {
-      const res = await apiQuery(
-        trimmed,
-        authority === "All" ? undefined : authority,
-        topic === "All" ? undefined : topic
-      );
-      setMessages((m) => [
-        ...m,
-        { role: "assistant", content: res.answer, citations: res.citations, id: crypto.randomUUID() },
-      ]);
-    } catch {
-      setMessages((m) => [
-        ...m,
-        { role: "assistant", content: tr("chat_error"), id: crypto.randomUUID() },
-      ]);
-    } finally {
-      setLoading(false);
+  try {
+    const res = await apiQuery(
+      trimmed,
+      authority === "All" ? undefined : authority,
+      topic === "All" ? undefined : topic
+    );
+
+    let answer = res.answer;
+    if (res.no_results) {
+      const parts: string[] = [];
+      if (authority !== "All") parts.push(`${tr("filter_authority")}: ${authority}`);
+      if (topic !== "All") parts.push(`${tr("filter_topic")}: ${topic}`);
+      const filtersStr = parts.length > 0 ? parts.join(` ${tr("chat_no_results_join")} `) : "";
+      answer = tr("chat_no_results").replace("{filters}", filtersStr);
     }
+
+    setMessages((m) => [
+      ...m,
+      { role: "assistant", content: answer, citations: res.citations, id: crypto.randomUUID() },
+    ]);
+  } catch {
+    setMessages((m) => [
+      ...m,
+      { role: "assistant", content: tr("chat_error"), id: crypto.randomUUID() },
+    ]);
+  } finally {
+    setLoading(false);
   }
+  }
+
+  
 
   return (
     <div className="flex h-screen flex-col bg-background">

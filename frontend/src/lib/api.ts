@@ -102,6 +102,13 @@ export async function apiOAuthLogin(email: string) {
   return res.json();
 }
 
+export interface QueryResponse {
+  question: string;
+  answer: string;
+  citations: Citation[];
+  no_results: boolean;
+}
+
 export interface Citation {
   rank: number;
   authority: string;
