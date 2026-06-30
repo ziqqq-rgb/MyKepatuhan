@@ -33,7 +33,7 @@ def stage_upload(nodes: list, doc_name: str) -> None:
 
     vector_store = PineconeVectorStore(
         pinecone_index=pinecone_index,
-        add_sparse_vector=True,   
+        #add_sparse_vector=True,   
     )
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
 

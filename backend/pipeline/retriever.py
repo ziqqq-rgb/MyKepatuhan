@@ -70,7 +70,7 @@ pinecone_index = pc.Index("mykepatuhan")
 
 vector_store = PineconeVectorStore(
     pinecone_index=pinecone_index,
-    add_sparse_vector=True,   
+    #add_sparse_vector=True,   
 )
 
 index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
@@ -96,12 +96,10 @@ def build_retriever(authority: str = None, topic: str = None):
     metadata_filters = MetadataFilters(filters=filters) if filters else None
 
     retriever = index.as_retriever(
-        vector_store_query_mode="hybrid",   
-        similarity_top_k=RETRIEVAL_TOP_K,
-        alpha=HYBRID_ALPHA,
-        filters=metadata_filters,
+    vector_store_query_mode="default",   # pure dense — hybrid is non-functional on this index
+    similarity_top_k=RETRIEVAL_TOP_K,
+    filters=metadata_filters,
     )
-
     return retriever
 
 def build_query_engine(authority: str = None, topic: str = None):
