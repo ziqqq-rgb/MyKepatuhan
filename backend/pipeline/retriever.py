@@ -8,6 +8,8 @@ from llama_index.core.vector_stores.types import (
 from llama_index.llms.google_genai import GoogleGenAI
 from llama_index.postprocessor.sbert_rerank import SentenceTransformerRerank
 from llama_index.vector_stores.pinecone import PineconeVectorStore
+from llama_index.core.prompts import PromptTemplate
+
 from google.genai import types
 
 from core import config
@@ -36,6 +38,33 @@ reranker = SentenceTransformerRerank(
     top_n=config.RERANK_TOP_N,
 )
 
+QA_PROMPT_TEMPLATE = PromptTemplate(
+    """You are a Malaysian legal compliance assistant. Answer using the context below.
+
+Rules:
+- Answer the QUESTION strictly using only the provided Context. 
+- Do not use any external knowledge or make assumptions not directly supported by the context.
+- Never open with "The provided information does not..." or similar hedging.
+  Go straight to the answer.
+- If the context is truly unrelated to the question, respond with exactly:
+  "I cannot find the answer to your question in the provided information.Try again with a different question or provide more context."
+
+
+Formatting (Markdown):
+- "##" for section headers, only if the answer has multiple distinct parts.
+- "-" for bullets. Never "*".
+- "**bold**" only for key terms, amounts, or defined terms — not full sentences.
+- Numbered lists ("1.", "2.") for sequential steps.
+- Short paragraphs (2-4 sentences).
+
+Context:
+---------------------
+{context_str}
+---------------------
+
+Query: {query_str}
+Answer: """
+)
 
 # ─────────────────────────────────────────
 # PINECONE + INDEX
@@ -88,6 +117,7 @@ def build_query_engine(authority: str = None, topic: str = None):
         retriever=retriever,
         node_postprocessors=[reranker],
         llm=llm,
+        text_qa_template=QA_PROMPT_TEMPLATE
     )
     return query_engine
 

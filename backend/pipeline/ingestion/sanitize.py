@@ -12,7 +12,6 @@ def stage_sanitize(nodes: list) -> list:
         # Iterate over a copy of keys so we can safely delete items
         for key in list(node.metadata.keys()):
 
-            # 1. Drop known bloated keys entirely
             if key in config.SANITIZE_KEYS_TO_DROP:
                 del node.metadata[key]
                 continue
