@@ -16,6 +16,7 @@ router = APIRouter(prefix="/ingest", tags=["Ingest (admin)"])
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
+
 class JobStatus(BaseModel):
     job_id: str
     filename: str
@@ -24,11 +25,13 @@ class JobStatus(BaseModel):
     finished_at: str | None = None
     error: str | None = None
 
+
 class DocumentInfo(BaseModel):
     doc_name: str
     filename: str
     ingested_at: str
     hash: str
+
 
 def run_ingestion(job_id: str, file_path: str, source_title: str) -> None:
     job_tracker.mark_processing(job_id)
@@ -41,13 +44,13 @@ def run_ingestion(job_id: str, file_path: str, source_title: str) -> None:
         if Path(file_path).exists():
             Path(file_path).unlink()
 
+
 @router.post("", response_model=JobStatus)
 async def upload_document(
     background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
     admin: User = Depends(get_current_admin),
-    ):
-
+):
     if not file.filename.endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files are accepted.")
 
@@ -61,6 +64,7 @@ async def upload_document(
 
     background_tasks.add_task(run_ingestion, job_id, str(save_path), file.filename)
     return job
+
 
 @router.get("/status/{job_id}", response_model=JobStatus)
 def get_job_status(

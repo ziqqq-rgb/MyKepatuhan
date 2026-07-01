@@ -2,6 +2,7 @@ from llama_index.core import Settings
 from pipeline.ingestion.logger import log
 from pipeline.ingestion.checkpointing import load_uploaded_log, mark_as_uploaded
 
+
 def stage_upload(nodes: list, doc_name: str) -> None:
     """Embed nodes and upload to Pinecone. Skips if already uploaded."""
     uploaded = load_uploaded_log()
@@ -13,7 +14,6 @@ def stage_upload(nodes: list, doc_name: str) -> None:
 
     from llama_index.vector_stores.pinecone import PineconeVectorStore
     from llama_index.core import VectorStoreIndex, StorageContext
-
     from core.clients import get_embed_model, get_pinecone_index
 
     embed_model = get_embed_model()

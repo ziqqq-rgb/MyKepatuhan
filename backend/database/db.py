@@ -12,16 +12,18 @@ engine = create_engine(
     config.DATABASE_URL,
     poolclass=NullPool,
     connect_args={
-        "sslmode":            "require",
-        "connect_timeout":    10,
-        "application_name":   "mykepatuhan",
+        "sslmode":          "require",
+        "connect_timeout":  10,
+        "application_name": "mykepatuhan",
     },
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+
 class Base(DeclarativeBase):
     pass
+
 
 def get_db():
     db = SessionLocal()

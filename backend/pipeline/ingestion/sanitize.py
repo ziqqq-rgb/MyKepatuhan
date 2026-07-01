@@ -2,6 +2,7 @@ import json
 from core import config
 from pipeline.ingestion.logger import log
 
+
 def stage_sanitize(nodes: list) -> list:
     """
     Convert complex metadata values to strings, drop massive Docling layout data,
@@ -11,14 +12,14 @@ def stage_sanitize(nodes: list) -> list:
         # Iterate over a copy of keys so we can safely delete items
         for key in list(node.metadata.keys()):
 
-            # Drop known bloated keys entirely
+            # 1. Drop known bloated keys entirely
             if key in config.SANITIZE_KEYS_TO_DROP:
                 del node.metadata[key]
                 continue
 
             value = node.metadata[key]
 
-            # Stringify complex types (dicts/lists)
+            # 2. Stringify complex types (dicts/lists)
             if isinstance(value, (dict, list)):
                 value = json.dumps(value)
                 node.metadata[key] = value
@@ -27,7 +28,7 @@ def stage_sanitize(nodes: list) -> list:
                 node.metadata[key] = ""
                 value = ""
 
-            # Truncate any unusually long strings (Pinecone limit is 40KB total)
+            # 3. Truncate any unusually long strings (Pinecone limit is 40KB total)
             if isinstance(value, str) and len(value) > config.SANITIZE_MAX_STRING_LENGTH:
                 node.metadata[key] = value[:config.SANITIZE_MAX_STRING_LENGTH] + "...[TRUNCATED]"
 

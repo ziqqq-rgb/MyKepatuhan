@@ -10,7 +10,6 @@ other). Behavior is unchanged — same model name, same args.
 """
 from llama_index.embeddings.ollama import OllamaEmbedding
 from pinecone import Pinecone
-from pinecone.data.index import Index as PineconeIndex
 
 from core import config
 
@@ -24,8 +23,7 @@ def get_embed_model() -> OllamaEmbedding:
         text_instruction=config.EMBED_TEXT_INSTRUCTION,
     )
 
-
-def get_pinecone_index() -> PineconeIndex:
+def get_pinecone_index() -> "Index":
     """Returns the shared 'mykepatuhan' Pinecone index client."""
     pc = Pinecone(api_key=config.PINECONE_API_KEY)
     return pc.Index(config.PINECONE_INDEX_NAME)

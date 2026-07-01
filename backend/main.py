@@ -17,18 +17,16 @@ from routers.query import query_engine_cache
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     models.Base.metadata.create_all(bind=engine)
-
     log.info("Database tables ready.")
     log.info("Loading default query engine...")
-
     query_engine_cache["default"] = build_query_engine()
-
     log.info("Query engine ready.")
-
     yield
+
 
 app = FastAPI(
     title="MyKepatuhan API",
@@ -49,6 +47,7 @@ app.include_router(login_router)
 app.include_router(register_router)
 app.include_router(query_router)
 app.include_router(ingest_router)
+
 
 @app.get("/health", tags=["System"])
 def health():

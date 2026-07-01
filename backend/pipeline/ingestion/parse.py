@@ -6,8 +6,8 @@ from llama_index.readers.docling import DoclingReader
 from llama_index.node_parser.docling import DoclingNodeParser
 from docling_core.transforms.chunker.tokenizer.huggingface import HuggingFaceTokenizer
 from transformers import AutoTokenizer
-
 from pipeline.ingestion.checkpointing import checkpoint_exists, load_checkpoint, save_checkpoint
+
 
 def stage_parse(file_path: str) -> list:
     """Parse PDF using Docling and chunk into nodes."""
