@@ -1,15 +1,16 @@
-from logging import log
+import logging
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
-import asyncio
-import time
-from google.genai.errors import ClientError 
 
 from database.models import User
 from auth.utils import get_current_user
 from pipeline.retriever import build_query_engine, build_retriever
 from services.cache import get_cached_response, set_cached_response
+from services.llm_backoff import call_with_backoff
+from services.citation_builder import Citation, build_citations
+
+log = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/query", tags=["Query"])
 
@@ -23,32 +24,32 @@ class QueryRequest(BaseModel):
     topic: Optional[str] = None
 
 
-class Citation(BaseModel):
-    rank: int
-    authority: str
-    topic: str
-    document_type: str
-    document_title: str
-    score: float
-    excerpt: str
-
-
 class QueryResponse(BaseModel):
     question: str
     answer: str
     citations: list[Citation]
     no_results: bool = False
 
-def _call_with_backoff(fn, *args, max_retries=3, **kwargs):
-    for attempt in range(max_retries):
-        try:
-            return fn(*args, **kwargs)
-        except ClientError as e:
-            if getattr(e, "code", None) == 429 and attempt < max_retries - 1:
-                wait = 5 * (2 ** attempt)
-                time.sleep(wait)
-                continue
-            raise
+
+def _empty_response(question: str) -> QueryResponse:
+    return QueryResponse(question=question, answer="", citations=[], no_results=True)
+
+
+def _get_retriever(authority: Optional[str], topic: Optional[str]):
+    if not authority and not topic:
+        if "default" not in retriever_cache:
+            retriever_cache["default"] = build_retriever()
+        return retriever_cache["default"]
+    return build_retriever(authority=authority, topic=topic)
+
+
+def _get_query_engine(authority: Optional[str], topic: Optional[str]):
+    if not authority and not topic:
+        if "default" not in query_engine_cache:
+            query_engine_cache["default"] = build_query_engine()
+        return query_engine_cache["default"]
+    return build_query_engine(authority=authority, topic=topic)
+
 
 @router.post("", response_model=QueryResponse)
 def query(
@@ -62,13 +63,7 @@ def query(
     if cached:
         return QueryResponse(**cached)
 
-    if not request.authority and not request.topic:
-        retriever = retriever_cache.get("default")
-        if retriever is None:
-            retriever = build_retriever()
-            retriever_cache["default"] = retriever
-    else:
-        retriever = build_retriever(authority=request.authority, topic=request.topic)
+    retriever = _get_retriever(request.authority, request.topic)
 
     try:
         retrieved_nodes = retriever.retrieve(request.question)
@@ -76,56 +71,23 @@ def query(
         raise HTTPException(status_code=500, detail=f"Retrieval failed: {str(e)}")
 
     if not retrieved_nodes:
-        return QueryResponse(
-            question=request.question,
-            answer="",
-            citations=[],
-            no_results=True,
-        )
+        return _empty_response(request.question)
 
-    if not request.authority and not request.topic:
-        engine = query_engine_cache.get("default")
-        if engine is None:
-            engine = build_query_engine()
-            query_engine_cache["default"] = engine
-    else:
-        engine = build_query_engine(authority=request.authority, topic=request.topic)
+    engine = _get_query_engine(request.authority, request.topic)
 
     try:
-        response = _call_with_backoff(engine.query, request.question)
+        response = call_with_backoff(engine.query, request.question)
     except Exception as e:
         log.error(f"Query failed: {e!r}")
         raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
 
     if not response.source_nodes:
-        return QueryResponse(
-            question=request.question,
-            answer="",
-            citations=[],
-            no_results=True,
-        )
-
-    citations = [
-        Citation(
-            rank=i + 1,
-            authority=node.node.metadata.get("authority", "Unknown"),
-            topic=node.node.metadata.get("topic", "Unknown"),
-            document_type=node.node.metadata.get("document_type", "Unknown"),
-            document_title=node.node.metadata.get("source_document", "Unknown source"),
-            score=round(node.score or 0.0, 4),
-            excerpt=(
-                node.node.text[:300] + "..."
-                if len(node.node.text) > 300
-                else node.node.text
-            ),
-        )
-        for i, node in enumerate(response.source_nodes)
-    ]
+        return _empty_response(request.question)
 
     result = QueryResponse(
         question=request.question,
         answer=str(response.response),
-        citations=citations,
+        citations=build_citations(response.source_nodes),
     )
     set_cached_response(request.question, request.authority, request.topic, result.model_dump())
     return result
