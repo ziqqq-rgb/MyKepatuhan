@@ -33,7 +33,7 @@ const markdownComponents = {
     <h3 className="mt-2.5 mb-1 text-sm font-semibold text-foreground">{children}</h3>
   ),
   a: ({ children, href }: any) => (
-    
+    <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
