@@ -1,6 +1,10 @@
+from logging import log
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
+import asyncio
+import time
+from google.genai.errors import ClientError 
 
 from database.models import User
 from auth.utils import get_current_user
@@ -34,6 +38,16 @@ class QueryResponse(BaseModel):
     citations: list[Citation]
     no_results: bool = False
 
+def _call_with_backoff(fn, *args, max_retries=3, **kwargs):
+    for attempt in range(max_retries):
+        try:
+            return fn(*args, **kwargs)
+        except ClientError as e:
+            if getattr(e, "code", None) == 429 and attempt < max_retries - 1:
+                wait = 5 * (2 ** attempt)
+                time.sleep(wait)
+                continue
+            raise
 
 @router.post("", response_model=QueryResponse)
 def query(
@@ -73,8 +87,9 @@ def query(
         engine = build_query_engine(authority=request.authority, topic=request.topic)
 
     try:
-        response = engine.query(request.question)
+        response = _call_with_backoff(engine.query, request.question)
     except Exception as e:
+        log.error(f"Query failed: {e!r}")
         raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
 
     if not response.source_nodes:

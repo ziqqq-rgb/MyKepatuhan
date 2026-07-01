@@ -8,6 +8,7 @@ from llama_index.core.vector_stores.types import (
 from llama_index.llms.google_genai import GoogleGenAI
 from llama_index.postprocessor.sbert_rerank import SentenceTransformerRerank
 from llama_index.vector_stores.pinecone import PineconeVectorStore
+from google.genai import types
 
 from core import config
 from core.clients import get_embed_model, get_pinecone_index
@@ -21,9 +22,12 @@ embed_model = get_embed_model()
 Settings.embed_model = embed_model
 
 llm = GoogleGenAI(
-    api_key=config.GEMINI_API_KEY,
+    api_key=config.GEMINI_GENERATION_API_KEY,
     model=config.GEMINI_GENERATION_MODEL,
     temperature=config.GEMINI_GENERATION_TEMPERATURE,
+    generation_config=types.GenerateContentConfig(
+        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+    ),
 )
 Settings.llm = llm
 
