@@ -78,7 +78,7 @@ ENRICHMENT_MAX_RETRIES = 3
 
 GEMINI_GENERATION_MODEL = "gemini-3.1-flash-lite"
 GEMINI_GENERATION_TEMPERATURE = 0.0
-RAGAS_JUDGE_EMBEDDING_MODEL = "gemini-embedding-002"
+RAGAS_JUDGE_EMBEDDING_MODEL = "gemini-embedding-2"
 
 
 # ─────────────────────────────────────────
