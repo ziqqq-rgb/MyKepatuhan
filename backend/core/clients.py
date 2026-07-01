@@ -10,8 +10,11 @@ other). Behavior is unchanged — same model name, same args.
 """
 from llama_index.embeddings.ollama import OllamaEmbedding
 from pinecone import Pinecone
-
+from upstash_redis import Redis
+import logging
 from core import config
+
+log = logging.getLogger(__name__)
 
 
 def get_embed_model() -> OllamaEmbedding:
@@ -27,3 +30,27 @@ def get_pinecone_index() -> "Index":
     """Returns the shared 'mykepatuhan' Pinecone index client."""
     pc = Pinecone(api_key=config.PINECONE_API_KEY)
     return pc.Index(config.PINECONE_INDEX_NAME)
+
+def get_redis_client() -> "Redis | None":
+    """
+    Returns the shared Upstash Redis client, or None if caching is
+    disabled or misconfigured. Callers must handle None — caching
+    is always optional, never a hard dependency.
+    """
+    if not config.CACHE_ENABLED:
+        return None
+
+    if not config.UPSTASH_REDIS_REST_URL or not config.UPSTASH_REDIS_REST_TOKEN:
+        log.warning("[REDIS] Missing Upstash credentials — caching disabled.")
+        return None
+
+    try:
+        client = Redis(
+            url=config.UPSTASH_REDIS_REST_URL,
+            token=config.UPSTASH_REDIS_REST_TOKEN,
+        )
+        client.ping()  # fail fast at startup, not on first request
+        return client
+    except Exception as e:
+        log.warning(f"[REDIS] Could not connect ({e}) — caching disabled.")
+        return None

@@ -9,6 +9,7 @@ from google.genai.errors import ClientError
 from database.models import User
 from auth.utils import get_current_user
 from pipeline.retriever import build_query_engine, build_retriever
+from services.cache import get_cached_response, set_cached_response
 
 router = APIRouter(prefix="/query", tags=["Query"])
 
@@ -56,6 +57,10 @@ def query(
 ):
     if not request.question.strip():
         raise HTTPException(status_code=400, detail="Question cannot be empty.")
+
+    cached = get_cached_response(request.question, request.authority, request.topic)
+    if cached:
+        return QueryResponse(**cached)
 
     if not request.authority and not request.topic:
         retriever = retriever_cache.get("default")
@@ -117,8 +122,10 @@ def query(
         for i, node in enumerate(response.source_nodes)
     ]
 
-    return QueryResponse(
+    result = QueryResponse(
         question=request.question,
         answer=str(response.response),
         citations=citations,
     )
+    set_cached_response(request.question, request.authority, request.topic, result.model_dump())
+    return result

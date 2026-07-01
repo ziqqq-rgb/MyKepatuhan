@@ -104,3 +104,12 @@ SANITIZE_KEYS_TO_DROP = ["doc_items", "layout", "bounding_box", "paths", "styles
 
 # Pinecone metadata limit is 40KB total; 10,000 chars (~10KB) leaves headroom.
 SANITIZE_MAX_STRING_LENGTH = 10000
+
+# ─────────────────────────────────────────
+# Upstash Redis cache (services/cache.py)
+# ─────────────────────────────────────────
+
+UPSTASH_REDIS_REST_URL = os.getenv("UPSTASH_REDIS_REST_URL")
+UPSTASH_REDIS_REST_TOKEN = os.getenv("UPSTASH_REDIS_REST_TOKEN")
+CACHE_ENABLED = os.getenv("CACHE_ENABLED", "true").lower() == "true"
+CACHE_TTL_SECONDS = int(os.getenv("CACHE_TTL_SECONDS", 60 * 60 * 24))  # 24h
