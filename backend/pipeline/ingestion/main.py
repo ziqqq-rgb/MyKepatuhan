@@ -8,6 +8,7 @@ from pipeline.ingestion.metadata import stage_enrich
 from pipeline.ingestion.sanitize import stage_sanitize
 from pipeline.ingestion.upload import stage_upload
 from pipeline.ingestion.checkpointing import is_duplicate, register_document
+from pipeline.ingestion.metadata import stage_enrich
 
 load_dotenv()
 
