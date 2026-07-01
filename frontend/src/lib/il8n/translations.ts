@@ -1,16 +1,11 @@
-"use client";
-
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
-
+/**
+ * All UI copy for both supported languages (English / Bahasa Melayu).
+ * Pure data — no React/context logic lives here. See LanguageProvider.tsx
+ * for the context that consumes this dictionary.
+ */
 export type Lang = "en" | "bm";
 
-const t = {
+export const t = {
   nav_login: { en: "Login", bm: "Log Masuk" },
   nav_get_started: { en: "Get Started", bm: "Mula Sekarang" },
   nav_logout: { en: "Logout", bm: "Log Keluar" },
@@ -97,8 +92,8 @@ const t = {
   chat_hide_sources: { en: "Hide sources", bm: "Sembunyikan sumber" },
   chat_error: { en: "Something went wrong. Please try again.", bm: "Sesuatu tidak kena. Sila cuba lagi." },
   chat_no_results: {
-  en: "I couldn't find any information matching your query under {filters}. Try searching across 'All Authorities' and 'All Topics' instead, or rephrase your question.",
-  bm: "Saya tidak menemui sebarang maklumat yang sepadan dengan pertanyaan anda di bawah {filters}. Cuba cari merentas 'Semua Pihak Berkuasa' dan 'Semua Topik', atau ubah soalan anda.",
+    en: "I couldn't find any information matching your query under {filters}. Try searching across 'All Authorities' and 'All Topics' instead, or rephrase your question.",
+    bm: "Saya tidak menemui sebarang maklumat yang sepadan dengan pertanyaan anda di bawah {filters}. Cuba cari merentas 'Semua Pihak Berkuasa' dan 'Semua Topik', atau ubah soalan anda.",
   },
   chat_no_results_join: { en: "and", bm: "dan" },
   filter_authority: { en: "Authority", bm: "Pihak Berkuasa" },
@@ -122,41 +117,4 @@ const t = {
   status_failed: { en: "Failed", bm: "Gagal" },
 } as const;
 
-
 export type TranslationKey = keyof typeof t;
-
-type Ctx = {
-  lang: Lang;
-  setLang: (l: Lang) => void;
-  tr: (key: TranslationKey) => string;
-};
-
-const LanguageContext = createContext<Ctx | null>(null);
-
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
-
-  useEffect(() => {
-    const stored = localStorage.getItem("mk_lang");
-    if (stored === "en" || stored === "bm") setLangState(stored);
-  }, []);
-
-  const setLang = (l: Lang) => {
-    setLangState(l);
-    localStorage.setItem("mk_lang", l);
-  };
-
-  const tr = (key: TranslationKey): string => t[key][lang];
-
-  return (
-    <LanguageContext.Provider value={{ lang, setLang, tr }}>
-      {children}
-    </LanguageContext.Provider>
-  );
-}
-
-export function useLanguage() {
-  const ctx = useContext(LanguageContext);
-  if (!ctx) throw new Error("useLanguage must be used within LanguageProvider");
-  return ctx;
-}
