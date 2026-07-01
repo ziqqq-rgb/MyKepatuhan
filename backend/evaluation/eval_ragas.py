@@ -68,7 +68,7 @@ def save_results(scored_rows: list[dict], summary: dict) -> Path:
     return out_dir
 
 
-async def main():
+def main():
     print("Loading RAG pipeline...")
     query_engine = build_query_engine()
 
@@ -80,7 +80,7 @@ async def main():
 
     print("Scoring with Ragas...")
     judge_llm, judge_embeddings = build_judge()
-    scored_rows = await score_rows(rows, judge_llm, judge_embeddings)
+    scored_rows = asyncio.run(score_rows(rows, judge_llm, judge_embeddings))
 
     summary = summarize(scored_rows)
     out_dir = save_results(scored_rows, summary)
@@ -93,4 +93,4 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

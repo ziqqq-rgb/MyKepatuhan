@@ -13,6 +13,12 @@ from core import config
 def build_judge():
     """Returns (judge_llm, judge_embeddings), both backed by Gemini."""
     client = genai.Client(api_key=config.GEMINI_GENERATION_API_KEY)
-    llm = llm_factory(config.GEMINI_GENERATION_MODEL, provider="google", client=client)
+
+    llm = llm_factory(
+        config.GEMINI_GENERATION_MODEL,
+        provider="google",
+        client=client,
+        adapter="litellm",
+    )
     embeddings = GoogleEmbeddings(client=client, model=config.RAGAS_JUDGE_EMBEDDING_MODEL)
     return llm, embeddings
