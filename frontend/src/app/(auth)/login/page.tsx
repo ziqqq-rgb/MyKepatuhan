@@ -39,7 +39,6 @@ export default function LoginPage() {
     setGoogleLoading(true);
     try {
       await stackApp.signInWithOAuth("google");
-      // Stack Auth will redirect automatically; nothing more needed here.
     } catch {
       setError("Google sign-in failed. Please try again.");
       setGoogleLoading(false);
