@@ -38,6 +38,10 @@ reranker = SentenceTransformerRerank(
     top_n=config.RERANK_TOP_N,
 )
 
+# Maps the internal language code (from services/language.py) to the
+# label injected into the prompt.
+_LANGUAGE_LABELS = {"en": "English", "ms": "Bahasa Melayu"}
+
 QA_PROMPT_TEMPLATE = PromptTemplate(
     """You are a Malaysian legal compliance assistant. Answer using the context below.
 
@@ -49,14 +53,11 @@ QA_PROMPT_TEMPLATE = PromptTemplate(
     - The context may be in a different language than the query (e.g. context in
     English, query in Bahasa Melayu). This is normal — never treat a language
     mismatch as a reason the context is "unrelated."
-    - Always answer in the SAME language as the query, regardless of the context's
-    language. Translate the relevant facts, don't just restate them in English.
     - Only use the "cannot find" fallback below if the context is genuinely about a
     different topic than the question — never because of language difference.
     - If the context is truly unrelated to the question, respond with exactly:
     "I cannot find the answer to your question in the provided information. Try
-    again with a different question or provide more context." (respond in the
-    query's language if the query wasn't in English)
+    again with a different question or provide more context." (in {target_language})
     - Use ONLY facts from the context. Do not use outside knowledge.
     - The conversation history below (if any) is for resolving references like
     "it" or "that one" — never treat it as a source of facts. Facts come only
@@ -78,6 +79,12 @@ QA_PROMPT_TEMPLATE = PromptTemplate(
     ---------------------
 
     Query: {query_str}
+
+    LANGUAGE (this instruction overrides anything above): write your entire
+    answer in {target_language}, regardless of what language the Context is
+    written in. Translate any facts you use — do not restate them in the
+    Context's original language.
+
     Answer: """
 ).partial_format(history="")  # default: no history for the module-level cached engine
 
@@ -122,15 +129,22 @@ def build_retriever(authority: str = None, topic: str = None):
     return retriever
 
 
-def build_query_engine(authority: str = None, topic: str = None, history: str = ""):
+def build_query_engine(
+    authority: str = None,
+    topic: str = None,
+    history: str = "",
+    target_language: str = "en",
+):
     """
     Build the full query engine: retriever → SBERT reranker → Gemini.
-    `history` is baked into the prompt template per-call — it's cheap
-    (no model reload) and keeps the retriever/reranker/llm objects shared.
+    `history` and `target_language` are baked into the prompt template
+    per-call — cheap (no model reload) since retriever/reranker/llm stay
+    shared module-level objects.
     """
     retriever = build_retriever(authority=authority, topic=topic)
 
-    prompt = QA_PROMPT_TEMPLATE.partial_format(history=history) if history else QA_PROMPT_TEMPLATE
+    language_label = _LANGUAGE_LABELS.get(target_language, "English")
+    prompt = QA_PROMPT_TEMPLATE.partial_format(history=history, target_language=language_label)
 
     query_engine = RetrieverQueryEngine.from_args(
         retriever=retriever,
