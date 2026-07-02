@@ -40,9 +40,6 @@ export default function ChatPage() {
 
   const skipNextHistoryLoad = useRef(false);
 
-  // Reload the thread whenever the active conversation changes — this is
-  // what makes a page refresh restore the conversation instead of wiping it,
-  // since `activeId` itself is restored from localStorage by the hook.
   useEffect(() => {
     if (!activeId) {
       setMessages([]);
@@ -167,12 +164,6 @@ export default function ChatPage() {
               </div>
             ) : messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center px-4 py-12 text-center">
-                <div
-                  className="flex h-14 w-14 items-center justify-center rounded-2xl text-white"
-                  style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-elegant)" }}
-                >
-                  <ShieldCheck className="h-7 w-7" strokeWidth={2} />
-                </div>
                 <h2 className="mt-5 text-2xl font-semibold tracking-tight text-foreground sm:text-[1.75rem]">
                   {tr("chat_empty_title")}
                 </h2>
@@ -196,12 +187,6 @@ export default function ChatPage() {
                 )}
                 {sending && (
                   <div className="flex items-start gap-2.5">
-                    <div
-                      className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
-                      style={{ background: "var(--gradient-primary)" }}
-                    >
-                      <ShieldCheck className="h-3.5 w-3.5" strokeWidth={2.25} />
-                    </div>
                     <div className="rounded-2xl rounded-tl-md border border-border bg-card px-4 py-3">
                       <TypingDots />
                     </div>

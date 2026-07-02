@@ -25,8 +25,6 @@ export function Navbar({ variant = "app", userEmail, isAdmin }: NavbarProps) {
     }
   }
 
-  // "landing" floats transparently over the hero's own background (no bar,
-  // no border) — "app" (default) keeps the solid bar used on real app pages.
   const navClass =
     variant === "landing"
       ? "absolute inset-x-0 top-0 z-20 flex h-16 shrink-0 items-center justify-between bg-transparent px-4 sm:px-6"
@@ -51,9 +49,6 @@ export function Navbar({ variant = "app", userEmail, isAdmin }: NavbarProps) {
       <div className="flex items-center gap-3">
         {user ? (
           <>
-            <span className="hidden max-w-[220px] truncate rounded-full border border-border bg-secondary/60 px-3 py-1.5 text-xs font-medium text-muted-foreground sm:inline-block">
-              {userEmail ?? user.primaryEmail}
-            </span>
             <button
               onClick={handleLogout}
               className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-destructive/40 hover:bg-destructive/5 hover:text-destructive"
