@@ -13,6 +13,8 @@ from routers.query import router as query_router
 from routers.ingest import router as ingest_router
 from pipeline.retriever import build_query_engine
 from routers.query import query_engine_cache
+from routers.conversations import router as conversations_router
+
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -47,6 +49,7 @@ app.include_router(login_router)
 app.include_router(register_router)
 app.include_router(query_router)
 app.include_router(ingest_router)
+app.include_router(conversations_router)
 
 
 @app.get("/health", tags=["System"])

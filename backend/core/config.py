@@ -114,3 +114,8 @@ UPSTASH_REDIS_REST_URL = os.getenv("UPSTASH_REDIS_REST_URL")
 UPSTASH_REDIS_REST_TOKEN = os.getenv("UPSTASH_REDIS_REST_TOKEN")
 CACHE_ENABLED = os.getenv("CACHE_ENABLED", "true").lower() == "true"
 CACHE_TTL_SECONDS = int(os.getenv("CACHE_TTL_SECONDS", 60 * 60 * 24))  # 24h
+
+# ─────────────────────────────────────────
+# Conversation history (services/conversation_service.py)
+# ─────────────────────────────────────────
+CHAT_HISTORY_TURNS = 3   # user+assistant pairs injected into the prompt
