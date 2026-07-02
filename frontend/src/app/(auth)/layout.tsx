@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShieldCheck } from "lucide-react";
+import Image from "next/image";
 import { LanguageToggle } from "@/components/LanguageToggle";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
@@ -32,13 +32,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 
       {/* Minimal header */}
       <header className="flex h-14 items-center justify-between border-b border-border/50 px-6 backdrop-blur-md">
-        <Link href="/" className="flex items-center gap-2 group">
-          <div
-            className="flex h-7 w-7 items-center justify-center rounded-lg text-white shadow-lg"
-            style={{ background: "var(--gradient-primary)" }}
-          >
-            <ShieldCheck className="h-4 w-4" strokeWidth={2.25} />
-          </div>
+        <Link href="/" className="flex items-center group">
+          <Image src="/logo.svg" alt="MyKepatuhan logo" width={24} height={24} priority />
           <span className="text-sm font-semibold tracking-tight text-foreground">
             My<span
               className="bg-clip-text text-transparent"
