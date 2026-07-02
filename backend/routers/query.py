@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, Field, UUID4
 from sqlalchemy.orm import Session
 
-from backend.database import db
+from database import db
 from core.rate_limit import limiter
 from database.db import get_db
 from database.models import User, Conversation
