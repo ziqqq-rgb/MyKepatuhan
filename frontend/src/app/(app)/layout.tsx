@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useUser } from "@stackframe/stack";
 import { getToken, setToken, apiOAuthLogin } from "@/lib/api";
@@ -10,6 +10,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const user = useUser();
   const [isReady, setIsReady] = useState(false);
+  const syncInFlight = useRef(false);
 
   useEffect(() => {
     if (user === null) {
@@ -20,8 +21,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     const token = getToken();
 
     if (user && !token) {
-      // Stack owns the session; we only need its access token to mint
-      // our own backend JWT once, right after sign-in.
+      if (syncInFlight.current) return;
+      syncInFlight.current = true;
+
       user
         .getAuthJson()
         .then(({ accessToken }) => apiOAuthLogin(accessToken))
@@ -32,6 +34,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         .catch((err) => {
           console.error("Failed to sync OAuth with backend:", err);
           router.replace("/login");
+        })
+        .finally(() => {
+          syncInFlight.current = false;
         });
       return;
     }
