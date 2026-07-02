@@ -30,21 +30,27 @@ export function Navbar({ variant = "app", userEmail, isAdmin }: NavbarProps) {
       ? "absolute inset-x-0 top-0 z-20 flex h-16 shrink-0 items-center justify-between bg-transparent px-4 sm:px-6"
       : "flex h-14 shrink-0 items-center justify-between border-b border-border bg-card/60 px-4 backdrop-blur-md sm:px-6";
 
+  const logo = (
+    <>
+      <Image src="/logo.svg" alt="MyKepatuhan logo" width={28} height={28} priority />
+      <span className="text-[15px] font-semibold tracking-tight text-foreground">
+        My<span
+          className="bg-clip-text text-transparent"
+          style={{ backgroundImage: "var(--gradient-primary)" }}
+        >Kepatuhan</span>
+      </span>
+    </>
+  );
+
   return (
     <nav className={navClass}>
-      <button
-        type="button"
-        onClick={() => router.push("/")}
-        className="flex items-center"
-      >
-        <Image src="/logo.svg" alt="MyKepatuhan logo" width={28} height={28} priority />
-        <span className="text-[15px] font-semibold tracking-tight text-foreground">
-          My<span
-            className="bg-clip-text text-transparent"
-            style={{ backgroundImage: "var(--gradient-primary)" }}
-          >Kepatuhan</span>
-        </span>
-      </button>
+      {variant === "landing" ? (
+        <Link href="/" className="flex items-center">
+          {logo}
+        </Link>
+      ) : (
+        <div className="flex items-center">{logo}</div>
+      )}
 
       <div className="flex items-center gap-3">
         {user ? (
