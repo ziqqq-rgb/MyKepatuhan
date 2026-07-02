@@ -6,6 +6,7 @@ import { useUser } from "@stackframe/stack";
 import { Navbar } from "@/components/Navbar";
 import { TypingDots } from "@/components/TypingDots";
 import { useLanguage } from "@/lib/i18n";
+import { useRoleGate } from "@/lib/hooks/useRoleGate";
 import { apiQuery, apiGetConversationMessages } from "@/lib/api";
 import { useConversations } from "@/lib/hooks/useConversations";
 import { ChatSidebar } from "@/components/chat/ChatSidebar";
@@ -17,6 +18,7 @@ import type { Message, UserMessage } from "@/components/chat/constants";
 export default function ChatPage() {
   const { tr } = useLanguage();
   const user = useUser();
+  const ready = useRoleGate("user", "/admin");
   const {
     conversations,
     activeId,
@@ -36,7 +38,6 @@ export default function ChatPage() {
   const [sending, setSending] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-
 
   const skipNextHistoryLoad = useRef(false);
 
@@ -110,6 +111,14 @@ export default function ChatPage() {
     } finally {
       setSending(false);
     }
+  }
+
+  if (!ready) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-background">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
+      </div>
+    );
   }
 
   return (

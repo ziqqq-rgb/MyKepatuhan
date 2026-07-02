@@ -18,28 +18,34 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    const token = getToken();
+  const token = getToken();
 
-    if (user && !token) {
-      if (syncInFlight.current) return;
-      syncInFlight.current = true;
+  if (user && !token) {
+    if (syncInFlight.current) return;
+    syncInFlight.current = true;
 
-      user
-        .getAuthJson()
-        .then(({ accessToken }) => apiOAuthLogin(accessToken))
-        .then((res) => {
-          setToken(res.access_token);
-          setIsReady(true);
-        })
-        .catch((err) => {
-          console.error("Failed to sync OAuth with backend:", err);
-          router.replace("/login");
-        })
-        .finally(() => {
-          syncInFlight.current = false;
-        });
-      return;
-    }
+    (async () => {
+      try {
+        let accessToken: string | null = null;
+        for (let i = 0; i < 5 && !accessToken; i++) {
+          const authJson = await user.getAuthJson();
+          accessToken = authJson.accessToken;
+          if (!accessToken) await new Promise(r => setTimeout(r, 300));
+        }
+        if (!accessToken) throw new Error("No access token available from Stack session");
+
+        const res = await apiOAuthLogin(accessToken);
+        setToken(res.access_token);
+        setIsReady(true);
+      } catch (err) {
+        console.error("Failed to sync OAuth with backend:", err);
+        router.replace("/login");
+      } finally {
+        syncInFlight.current = false;
+      }
+    })();
+    return;
+  }
 
     setIsReady(true);
   }, [user, router, pathname]);

@@ -27,7 +27,7 @@ class UserResponse(BaseModel):
 
 
 class OAuthLoginRequest(BaseModel):
-    access_token: str  # Stack Auth session token — not a raw Google token
+    access_token: str | None = None
 
 
 @router.post("/login", response_model=TokenResponse)
@@ -61,6 +61,8 @@ def get_me(current_user: User = Depends(get_current_user)):
 
 @router.post("/oauth-login", response_model=TokenResponse)
 def oauth_login(request: OAuthLoginRequest, db: Session = Depends(get_db)):
+    if not request.access_token:
+        raise HTTPException(status_code=401, detail="Missing Stack access token.")
     email = verify_stack_access_token(request.access_token)
 
     user = db.query(User).filter(User.email == email).first()
