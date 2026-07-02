@@ -39,9 +39,12 @@ export function ChatInput({
   }, [input]);
 
   return (
-    <div className="border-t border-border bg-card">
-      <div className="mx-auto w-full max-w-3xl px-4 py-3">
-        <div className="rounded-2xl border border-border bg-background p-2 transition-colors focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10">
+    <div className="border-t border-border bg-card/60 backdrop-blur-md">
+      <div className="mx-auto w-full max-w-3xl px-4 py-4">
+        <div
+          className="rounded-2xl border border-border bg-background/80 p-2.5 transition-all focus-within:border-primary/50"
+          style={{ boxShadow: "var(--shadow-sm)" }}
+        >
           <textarea
             ref={textareaRef}
             value={input}
@@ -56,8 +59,8 @@ export function ChatInput({
             rows={1}
             className="block max-h-[140px] w-full resize-none bg-transparent px-2 py-1.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none"
           />
-          <div className="mt-1 flex items-center justify-between gap-2 px-1">
-            <div className="flex items-center gap-2">
+          <div className="mt-1.5 flex items-center justify-between gap-2 px-1">
+            <div className="flex flex-wrap items-center gap-1.5">
               <FilterSelect
                 label={tr("filter_authority")}
                 value={authority}
@@ -76,14 +79,14 @@ export function ChatInput({
             <button
               onClick={onSend}
               disabled={!input.trim() || loading}
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-white transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-white transition-all hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-30"
               style={{ background: "var(--gradient-primary)" }}
             >
               <ArrowUp className="h-4 w-4" strokeWidth={2.5} />
             </button>
           </div>
         </div>
-        <p className="mt-2 text-center text-xs text-muted-foreground">
+        <p className="mt-2.5 text-center text-xs text-muted-foreground">
           {tr("chat_disclaimer")}
         </p>
       </div>

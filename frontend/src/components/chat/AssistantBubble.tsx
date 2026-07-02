@@ -3,11 +3,10 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
 import type { AssistantMessage } from "./constants";
 
-// Tailwind styling for each Markdown element, kept in one place so the
-// visual language of assistant answers stays consistent.
 const markdownComponents = {
   p: ({ children }: any) => <p className="my-2 leading-relaxed">{children}</p>,
   strong: ({ children }: any) => (
@@ -74,8 +73,11 @@ export function AssistantBubble({ message }: { message: AssistantMessage }) {
   const citationCount = message.citations?.length ?? 0;
 
   return (
-    <div className="flex justify-start">
-      <div className="max-w-[90%] rounded-2xl rounded-tl-md border border-border bg-card px-4 py-3.5 text-sm text-foreground">
+    <div className="flex items-start gap-2.5">
+      <div
+        className="max-w-[90%] rounded-2xl rounded-tl-md border border-border bg-card px-4 py-3.5 text-sm text-foreground"
+        style={{ boxShadow: "var(--shadow-sm)" }}
+      >
         <div className="leading-relaxed [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
           <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
             {message.content}
@@ -86,9 +88,10 @@ export function AssistantBubble({ message }: { message: AssistantMessage }) {
           <div className="mt-3 border-t border-border pt-3">
             <button
               onClick={() => setSourcesOpen((o) => !o)}
-              className="text-xs font-medium text-primary hover:underline"
+              className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80"
             >
               {sourcesOpen ? tr("chat_hide_sources") : tr("chat_show_sources")} ({citationCount})
+              <ChevronDown className={`h-3 w-3 transition-transform ${sourcesOpen ? "rotate-180" : ""}`} />
             </button>
             {sourcesOpen && (
               <div className="mt-3 space-y-2">

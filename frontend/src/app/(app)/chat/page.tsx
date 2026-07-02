@@ -141,19 +141,28 @@ export default function ChatPage() {
 
         {sidebarOpen && (
           <div
-            className="fixed inset-0 z-40 bg-foreground/20 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm md:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
 
-        <main className="flex min-w-0 flex-1 flex-col">
-          <div className="flex items-center border-b border-border bg-card px-3 py-2 md:hidden">
-            <button onClick={() => setSidebarOpen(true)} className="rounded p-1.5 text-muted-foreground hover:bg-secondary">
+        <main className="relative flex min-w-0 flex-1 flex-col">
+          <div className="flex items-center border-b border-border bg-card/60 px-3 py-2 backdrop-blur-md md:hidden">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            >
               <Menu className="h-5 w-5" />
             </button>
           </div>
 
-          <div ref={scrollRef} className="flex-1 overflow-y-auto">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-64 opacity-40"
+            style={{ background: "var(--gradient-hero)" }}
+          />
+
+          <div ref={scrollRef} className="relative flex-1 overflow-y-auto">
             {messagesLoading ? (
               <div className="flex h-full items-center justify-center">
                 <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
@@ -161,18 +170,21 @@ export default function ChatPage() {
             ) : messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center px-4 py-12 text-center">
                 <div
-                  className="flex h-16 w-16 items-center justify-center rounded-2xl border border-border text-white shadow-sm"
-                  style={{ background: "var(--gradient-primary)" }}
+                  className="flex h-14 w-14 items-center justify-center rounded-2xl text-white"
+                  style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-elegant)" }}
                 >
-                  <ShieldCheck className="h-8 w-8" strokeWidth={2} />
+                  <ShieldCheck className="h-7 w-7" strokeWidth={2} />
                 </div>
-                <h2 className="mt-5 text-2xl font-semibold text-foreground sm:text-3xl">{tr("chat_empty_title")}</h2>
+                <h2 className="mt-5 text-2xl font-semibold tracking-tight text-foreground sm:text-[1.75rem]">
+                  {tr("chat_empty_title")}
+                </h2>
                 <div className="mt-8 grid w-full max-w-2xl gap-2.5 sm:grid-cols-3">
                   {(["chat_sugg_1", "chat_sugg_2", "chat_sugg_3"] as const).map((k) => (
                     <button
                       key={k}
                       onClick={() => send(tr(k))}
                       className="rounded-xl border border-border bg-card p-3.5 text-left text-sm text-foreground transition-all hover:border-primary/30 hover:bg-secondary hover:-translate-y-0.5"
+                      style={{ boxShadow: "var(--shadow-sm)" }}
                     >
                       {tr(k)}
                     </button>
@@ -180,12 +192,18 @@ export default function ChatPage() {
                 </div>
               </div>
             ) : (
-              <div className="mx-auto flex w-full max-w-3xl flex-col gap-5 px-4 py-6">
+              <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-6">
                 {messages.map((m) =>
                   m.role === "user" ? <UserBubble key={m.id} message={m} /> : <AssistantBubble key={m.id} message={m} />
                 )}
                 {sending && (
-                  <div className="flex justify-start">
+                  <div className="flex items-start gap-2.5">
+                    <div
+                      className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-white"
+                      style={{ background: "var(--gradient-primary)" }}
+                    >
+                      <ShieldCheck className="h-3.5 w-3.5" strokeWidth={2.25} />
+                    </div>
                     <div className="rounded-2xl rounded-tl-md border border-border bg-card px-4 py-3">
                       <TypingDots />
                     </div>
