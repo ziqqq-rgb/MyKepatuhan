@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { useUser } from "@stackframe/stack";
@@ -26,9 +27,12 @@ export function Navbar({ variant, userEmail, isAdmin }: NavbarProps) {
   }
 
   return (
-    <nav className="flex items-center justify-between border-b border-border bg-background px-6 py-4">
-      <Link href="/" className="text-xl font-bold tracking-tight text-primary">
-        MyKepatuhan
+    <nav className="relative z-10 flex items-center justify-between bg-transparent px-6 py-4">
+      <Link href="/" className="flex items-center">
+        <Image src="/logo.svg" alt="MyKepatuhan logo" width={28} height={28} priority />
+        <span className="text-xl font-bold tracking-tight text-primary">
+          MyKepatuhan
+        </span>
       </Link>
 
       <div className="flex items-center gap-4">
