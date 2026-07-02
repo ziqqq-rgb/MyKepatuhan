@@ -54,16 +54,15 @@ def _empty_response(question: str) -> QueryResponse:
 # ── Conversation resolution ──────────────────────────────
 
 def _resolve_conversation(
-    db: Session, conversation_id: Optional[str], user: User
+    db: Session, conversation_id: Optional[UUID4], user: User
 ) -> Optional[Conversation]:
     """Returns the owned conversation, or None for a stateless request."""
     if not conversation_id:
         return None
-    conversation = conv.get_owned_conversation(db, conversation_id, user.id)
+    conversation = conv.get_owned_conversation(db, str(conversation_id), user.id)
     if conversation is None:
         raise HTTPException(status_code=404, detail="Conversation not found.")
     return conversation
-
 
 # ── Small talk (greetings never enter the RAG pipeline) ─
 
