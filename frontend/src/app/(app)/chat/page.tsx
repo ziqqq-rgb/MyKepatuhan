@@ -6,7 +6,8 @@ import { useUser } from "@stackframe/stack";
 import { Navbar } from "@/components/Navbar";
 import { TypingDots } from "@/components/TypingDots";
 import { useLanguage } from "@/lib/i18n";
-import { apiQuery } from "@/lib/api";
+import { apiQuery, apiGetConversationMessages } from "@/lib/api";
+import { useConversations } from "@/lib/hooks/useConversations";
 import { ChatSidebar } from "@/components/chat/ChatSidebar";
 import { ChatInput } from "@/components/chat/ChatInput";
 import { UserBubble } from "@/components/chat/UserBubble";
@@ -16,21 +17,56 @@ import type { Message, UserMessage } from "@/components/chat/constants";
 export default function ChatPage() {
   const { tr } = useLanguage();
   const user = useUser();
+  const {
+    conversations,
+    activeId,
+    loading: conversationsLoading,
+    select,
+    startNew,
+    createAndSelect,
+    remove,
+    refresh,
+  } = useConversations();
 
   const [messages, setMessages] = useState<Message[]>([]);
+  const [messagesLoading, setMessagesLoading] = useState(false);
   const [input, setInput] = useState("");
   const [authority, setAuthority] = useState("All");
   const [topic, setTopic] = useState("All");
-  const [loading, setLoading] = useState(false);
+  const [sending, setSending] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to the latest message.
+  // When create a conversation ourselves inside send(), the optimistic
+  // user message is already in state — skip the next history fetch so it
+  // doesn't get overwritten by an empty result before the reply lands.
+  const skipNextHistoryLoad = useRef(false);
+
+  // Reload the thread whenever the active conversation changes — this is
+  // what makes a page refresh restore the conversation instead of wiping it,
+  // since `activeId` itself is restored from localStorage by the hook.
+  useEffect(() => {
+    if (!activeId) {
+      setMessages([]);
+      return;
+    }
+    if (skipNextHistoryLoad.current) {
+      skipNextHistoryLoad.current = false;
+      return;
+    }
+    setMessagesLoading(true);
+    apiGetConversationMessages(activeId)
+      .then((history) => {
+        setMessages(history.map((m) => ({ role: m.role, content: m.content, id: m.id }) as Message));
+      })
+      .catch(() => select(null)) // conversation no longer exists — fall back to a fresh chat
+      .finally(() => setMessagesLoading(false));
+  }, [activeId, select]);
+
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, loading]);
+  }, [messages, sending]);
 
-  /** Builds the localized "no results under {filters}" message from active filters. */
   function buildNoResultsMessage(): string {
     const parts: string[] = [];
     if (authority !== "All") parts.push(`${tr("filter_authority")}: ${authority}`);
@@ -41,18 +77,27 @@ export default function ChatPage() {
 
   async function send(question: string) {
     const trimmed = question.trim();
-    if (!trimmed || loading) return;
+    if (!trimmed || sending) return;
+
+    const isFirstMessageInConversation = messages.length === 0;
 
     const userMsg: UserMessage = { role: "user", content: trimmed, id: crypto.randomUUID() };
     setMessages((m) => [...m, userMsg]);
     setInput("");
-    setLoading(true);
+    setSending(true);
 
     try {
+      let conversationId = activeId;
+      if (!conversationId) {
+        skipNextHistoryLoad.current = true;
+        conversationId = await createAndSelect();
+      }
+
       const res = await apiQuery(
         trimmed,
         authority === "All" ? undefined : authority,
-        topic === "All" ? undefined : topic
+        topic === "All" ? undefined : topic,
+        conversationId
       );
 
       const answer = res.no_results ? buildNoResultsMessage() : res.answer;
@@ -61,13 +106,14 @@ export default function ChatPage() {
         ...m,
         { role: "assistant", content: answer, citations: res.citations, id: crypto.randomUUID() },
       ]);
+
+      // Backend sets the conversation's title from the first question —
+      // refresh the sidebar so "New conversation" doesn't linger there.
+      if (isFirstMessageInConversation) refresh();
     } catch {
-      setMessages((m) => [
-        ...m,
-        { role: "assistant", content: tr("chat_error"), id: crypto.randomUUID() },
-      ]);
+      setMessages((m) => [...m, { role: "assistant", content: tr("chat_error"), id: crypto.randomUUID() }]);
     } finally {
-      setLoading(false);
+      setSending(false);
     }
   }
 
@@ -79,10 +125,18 @@ export default function ChatPage() {
         <ChatSidebar
           open={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
-          onNewChat={() => {
-            setMessages([]);
+          conversations={conversations}
+          activeId={activeId}
+          loading={conversationsLoading}
+          onSelect={(id) => {
+            select(id);
             setSidebarOpen(false);
           }}
+          onNewChat={() => {
+            startNew();
+            setSidebarOpen(false);
+          }}
+          onDelete={remove}
         />
 
         {sidebarOpen && (
@@ -94,16 +148,17 @@ export default function ChatPage() {
 
         <main className="flex min-w-0 flex-1 flex-col">
           <div className="flex items-center border-b border-border bg-card px-3 py-2 md:hidden">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="rounded p-1.5 text-muted-foreground hover:bg-secondary"
-            >
+            <button onClick={() => setSidebarOpen(true)} className="rounded p-1.5 text-muted-foreground hover:bg-secondary">
               <Menu className="h-5 w-5" />
             </button>
           </div>
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto">
-            {messages.length === 0 ? (
+            {messagesLoading ? (
+              <div className="flex h-full items-center justify-center">
+                <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
+              </div>
+            ) : messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center px-4 py-12 text-center">
                 <div
                   className="flex h-16 w-16 items-center justify-center rounded-2xl border border-border text-white shadow-sm"
@@ -111,9 +166,7 @@ export default function ChatPage() {
                 >
                   <ShieldCheck className="h-8 w-8" strokeWidth={2} />
                 </div>
-                <h2 className="mt-5 text-2xl font-semibold text-foreground sm:text-3xl">
-                  {tr("chat_empty_title")}
-                </h2>
+                <h2 className="mt-5 text-2xl font-semibold text-foreground sm:text-3xl">{tr("chat_empty_title")}</h2>
                 <div className="mt-8 grid w-full max-w-2xl gap-2.5 sm:grid-cols-3">
                   {(["chat_sugg_1", "chat_sugg_2", "chat_sugg_3"] as const).map((k) => (
                     <button
@@ -129,13 +182,9 @@ export default function ChatPage() {
             ) : (
               <div className="mx-auto flex w-full max-w-3xl flex-col gap-5 px-4 py-6">
                 {messages.map((m) =>
-                  m.role === "user" ? (
-                    <UserBubble key={m.id} message={m} />
-                  ) : (
-                    <AssistantBubble key={m.id} message={m} />
-                  )
+                  m.role === "user" ? <UserBubble key={m.id} message={m} /> : <AssistantBubble key={m.id} message={m} />
                 )}
-                {loading && (
+                {sending && (
                   <div className="flex justify-start">
                     <div className="rounded-2xl rounded-tl-md border border-border bg-card px-4 py-3">
                       <TypingDots />
@@ -154,7 +203,7 @@ export default function ChatPage() {
             onAuthorityChange={setAuthority}
             topic={topic}
             onTopicChange={setTopic}
-            loading={loading}
+            loading={sending}
           />
         </main>
       </div>

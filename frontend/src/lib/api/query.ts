@@ -20,7 +20,8 @@ export interface QueryResponse {
 export async function apiQuery(
   question: string,
   authority?: string,
-  topic?: string
+  topic?: string,
+  conversationId?: string
 ): Promise<QueryResponse> {
   return apiFetch<QueryResponse>("/query", {
     method: "POST",
@@ -28,6 +29,7 @@ export async function apiQuery(
       question,
       authority: authority || undefined,
       topic: topic || undefined,
+      conversation_id: conversationId || undefined,
     }),
   });
 }

@@ -23,10 +23,6 @@ function authHeaders(): Record<string, string> {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
-/**
- * Generic authenticated JSON fetch. Adds the bearer token, redirects to
- * /login on 401, and throws with the server's error detail on failure.
- */
 export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
   const res = await fetch(`${API_URL}${path}`, {
     ...options,
@@ -48,8 +44,12 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
     throw new Error(err.detail ?? `Request failed (${res.status})`);
   }
 
+  // DELETE endpoints return 204 with an empty body — res.json() would throw on that.
+  if (res.status === 204) {
+    return undefined as T;
+  }
+
   return res.json();
 }
 
-/** Exposed for resource files that need to build raw fetch calls (e.g. multipart uploads, form-encoded bodies). */
 export { API_URL, authHeaders };

@@ -81,6 +81,7 @@ export const t = {
 
   // Chat
   chat_convos: { en: "Conversations", bm: "Perbualan" },
+  chat_no_convos: { en: "No saved conversations yet.", bm: "Belum ada perbualan disimpan." },
   chat_new: { en: "New Chat", bm: "Perbualan Baharu" },
   chat_empty_title: { en: "What would you like to know?", bm: "Apa yang anda ingin ketahui?" },
   chat_sugg_1: { en: "How do I register an Sdn Bhd?", bm: "Bagaimana saya mendaftar Sdn Bhd?" },
