@@ -20,8 +20,8 @@ GEMINI_API_KEY = GEMINI_ENRICH_API_KEY
 PINECONE_API_KEY = get_env_or_fail("PINECON_KEY")
 JWT_SECRET_KEY = get_env_or_fail("JWT_SECRET_KEY")
 DATABASE_URL = get_env_or_fail("DATABASE_URL")
-GOOGLE_CLIENT_ID = get_env_or_fail("GOOGLE_CLIENT_ID")
-GOOGLE_CLIENT_SECRET = get_env_or_fail("GOOGLE_CLIENT_SECRET")
+STACK_PROJECT_ID = get_env_or_fail("STACK_PROJECT_ID")
+STACK_SECRET_SERVER_KEY = get_env_or_fail("STACK_SECRET_SERVER_KEY")
 
 # Strict CORS: Remove the "*" fallback. If it's empty, default to localhost for dev safely.
 _raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000")
@@ -32,8 +32,6 @@ ALLOWED_ORIGINS = [origin.strip() for origin in _raw_origins.split(",") if origi
 # ─────────────────────────────────────────
 JWT_ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
-
-GOOGLE_REDIRECT_URI = "http://localhost:8000/auth/callback"
 
 # ─────────────────────────────────────────
 # Embedding model

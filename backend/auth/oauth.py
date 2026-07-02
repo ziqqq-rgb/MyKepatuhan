@@ -1,31 +1,50 @@
-from google.oauth2 import id_token as google_id_token
-from google.auth.transport import requests as google_requests
+"""
+Verifies a Stack Auth session by calling Stack's server API.
+
+The frontend authenticates the user entirely through Stack Auth (Google
+sign-in is configured in the Stack dashboard, not here). This module's
+only job is confirming the access token the frontend hands us belongs
+to a real, currently-valid Stack session before we mint our own JWT.
+"""
+import httpx
 from fastapi import HTTPException, status
 
 from core import config
 
-_google_request = google_requests.Request()
+STACK_USER_URL = "https://api.stack-auth.com/api/v1/users/me"
 
 
-def verify_google_id_token(token: str) -> str:
-    """
-    Verifies a Google-issued ID token and returns the verified email.
-    Raises 401 if the token is invalid, expired, or not meant for this app.
-    """
+def verify_stack_access_token(access_token: str) -> str:
+    """Returns the verified email for a valid Stack Auth session, or raises 401."""
+    headers = {
+        "x-stack-access-type": "server",
+        "x-stack-project-id": config.STACK_PROJECT_ID,
+        "x-stack-secret-server-key": config.STACK_SECRET_SERVER_KEY,
+        "x-stack-access-token": access_token,
+    }
+
     try:
-        claims = google_id_token.verify_oauth2_token(
-            token, _google_request, config.GOOGLE_OAUTH_CLIENT_ID
-        )
-    except ValueError:
+        response = httpx.get(STACK_USER_URL, headers=headers, timeout=10)
+    except httpx.RequestError:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or expired Google token.",
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Could not reach the authentication provider.",
         )
 
-    if not claims.get("email_verified"):
+    if response.status_code != 200:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Google account email is not verified.",
+            detail="Invalid or expired session.",
         )
 
-    return claims["email"]
+    # Stack's REST response field is snake_case in most of their API; the
+    # JS SDK exposes it as primaryEmail. Checking both makes this robust
+    # to either casing — confirm the actual field with one manual test call.
+    body = response.json()
+    email = body.get("primary_email") or body.get("primaryEmail")
+    if not email:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Stack Auth account has no associated email.",
+        )
+    return email
