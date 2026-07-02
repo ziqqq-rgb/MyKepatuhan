@@ -1,5 +1,6 @@
 import logging
 from typing import Optional
+from unittest import result
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel, Field, UUID4
 from sqlalchemy.orm import Session
@@ -153,20 +154,19 @@ def query(
         if conversation else ""
     )
 
-    # Cache is for stateless queries only — conversation turns are persisted
-    # in Postgres instead, since their answer depends on prior context.
     if not conversation:
-        cached = get_cached_response(request.question, request.authority, request.topic)
+        cached = get_cached_response(query_req.question, query_req.authority, query_req.topic)
         if cached:
             return QueryResponse(**cached)
 
-    retriever = _get_retriever(request.authority, request.topic)
+    retriever = _get_retriever(query_req.authority, query_req.topic)
     retrieved_nodes = _retrieve_or_500(retriever, question)
+
     if not retrieved_nodes:
         return _empty_response(question)
 
     target_language = detect_language(question)
-    engine = _get_query_engine(request.authority, request.topic, history, target_language)
+    engine = _get_query_engine(query_req.authority, query_req.topic, history, target_language)
     response = _generate_or_500(engine, question)
     if not response.source_nodes:
         return _empty_response(question)
@@ -180,6 +180,6 @@ def query(
     if conversation:
         conv.record_turn(db, conversation, question, result.answer)
     else:
-        set_cached_response(request.question, request.authority, request.topic, result.model_dump())
+        set_cached_response(query_req.question, query_req.authority, query_req.topic, result.model_dump())
 
     return result

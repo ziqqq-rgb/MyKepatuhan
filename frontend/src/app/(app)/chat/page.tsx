@@ -37,9 +37,7 @@ export default function ChatPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // When create a conversation ourselves inside send(), the optimistic
-  // user message is already in state — skip the next history fetch so it
-  // doesn't get overwritten by an empty result before the reply lands.
+
   const skipNextHistoryLoad = useRef(false);
 
   // Reload the thread whenever the active conversation changes — this is
