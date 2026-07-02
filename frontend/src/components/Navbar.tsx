@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,12 +7,12 @@ import { useUser } from "@stackframe/stack";
 import { clearToken } from "@/lib/api";
 
 type NavbarProps = {
-  variant?: string;
+  variant?: "app" | "landing";
   userEmail?: string;
   isAdmin?: boolean;
 };
 
-export function Navbar({ variant, userEmail, isAdmin }: NavbarProps) {
+export function Navbar({ variant = "app", userEmail, isAdmin }: NavbarProps) {
   const user = useUser();
   const router = useRouter();
 
@@ -26,17 +25,28 @@ export function Navbar({ variant, userEmail, isAdmin }: NavbarProps) {
     }
   }
 
+  // "landing" floats transparently over the hero's own background (no bar,
+  // no border) — "app" (default) keeps the solid bar used on real app pages.
+  const navClass =
+    variant === "landing"
+      ? "absolute inset-x-0 top-0 z-20 flex h-16 shrink-0 items-center justify-between bg-transparent px-4 sm:px-6"
+      : "flex h-14 shrink-0 items-center justify-between border-b border-border bg-card/60 px-4 backdrop-blur-md sm:px-6";
+
   return (
-    <nav className="flex h-14 shrink-0 items-center justify-between border-b border-border bg-card/60 px-4 backdrop-blur-md sm:px-6">
-      <Link href="/" className="flex items-center">
-       <Image src="/logo.svg" alt="MyKepatuhan logo" width={28} height={28} priority />
+    <nav className={navClass}>
+      <button
+        type="button"
+        onClick={() => router.push("/")}
+        className="flex items-center"
+      >
+        <Image src="/logo.svg" alt="MyKepatuhan logo" width={28} height={28} priority />
         <span className="text-[15px] font-semibold tracking-tight text-foreground">
           My<span
             className="bg-clip-text text-transparent"
             style={{ backgroundImage: "var(--gradient-primary)" }}
           >Kepatuhan</span>
         </span>
-      </Link>
+      </button>
 
       <div className="flex items-center gap-3">
         {user ? (

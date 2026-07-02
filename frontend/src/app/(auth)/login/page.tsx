@@ -74,12 +74,6 @@ export default function LoginPage() {
     <div className="w-full max-w-100 animate-fade-in">
       {/* Logo mark */}
       <div className="mb-8 flex flex-col items-center text-center">
-        <div
-          className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-lg"
-          style={{ background: "var(--gradient-primary)", boxShadow: "var(--shadow-elegant)" }}
-        >
-          <ShieldCheck className="h-6 w-6" strokeWidth={2} />
-        </div>
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           {tr("login_title")}
         </h1>

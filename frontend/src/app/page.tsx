@@ -17,13 +17,13 @@ export default function HomePage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <Navbar variant="marketing" />
-
-      {/* ── Hero ── */}
+      {/* ── Hero (relative wrapper so the floating navbar has something to sit on) ── */}
       <section
         className="relative overflow-hidden border-b border-border"
         style={{ background: "var(--gradient-hero)" }}
       >
+        <Navbar variant="landing" />
+
         {/* Glow orb */}
         <div
           aria-hidden
@@ -42,7 +42,7 @@ export default function HomePage() {
           }}
         />
 
-        <div className="relative mx-auto max-w-6xl px-4 pb-24 pt-20 sm:px-6 sm:pb-32 sm:pt-28">
+        <div className="relative mx-auto max-w-6xl px-4 pb-24 pt-32 sm:px-6 sm:pb-32 sm:pt-36">
           <div className="mx-auto max-w-3xl text-center">
             {/* Badge */}
             <span className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/80 px-3 py-1 text-xs font-medium text-foreground shadow-sm backdrop-blur">
