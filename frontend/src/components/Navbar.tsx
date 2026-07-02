@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { LogOut } from "lucide-react";
 import { useUser } from "@stackframe/stack";
+import { clearToken } from "@/lib/api";
 
 type NavbarProps = {
   variant?: string;
@@ -11,42 +14,47 @@ type NavbarProps = {
 
 export function Navbar({ variant, userEmail, isAdmin }: NavbarProps) {
   const user = useUser();
+  const router = useRouter();
+
+  async function handleLogout() {
+    clearToken();
+    try {
+      await user?.signOut();
+    } finally {
+      router.push("/");
+    }
+  }
 
   return (
     <nav className="flex items-center justify-between border-b border-border bg-background px-6 py-4">
       <Link href="/" className="text-xl font-bold tracking-tight text-primary">
         MyKepatuhan
       </Link>
-      
+
       <div className="flex items-center gap-4">
         {user ? (
           <>
-            <Link 
-              href="/chat" 
-              className="text-sm font-medium text-muted-foreground hover:text-foreground"
-            >
-              Chat
-            </Link>
-            <Link 
-              href="/admin" 
-              className="text-sm font-medium text-muted-foreground hover:text-foreground"
-            >
-              Admin
-            </Link>
             <span className="text-sm font-semibold text-primary">
-              {user.primaryEmail}
+              {userEmail ?? user.primaryEmail}
             </span>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:border-destructive/40 hover:text-destructive"
+            >
+              <LogOut className="h-3.5 w-3.5" strokeWidth={2} />
+              Logout
+            </button>
           </>
         ) : (
           <>
-            <Link 
-              href="/login" 
+            <Link
+              href="/login"
               className="text-sm font-medium text-muted-foreground hover:text-foreground"
             >
               Log in
             </Link>
-            <Link 
-              href="/register" 
+            <Link
+              href="/register"
               className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
             >
               Sign up
