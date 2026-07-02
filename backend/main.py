@@ -1,10 +1,14 @@
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi.errors import RateLimitExceeded
+from slowapi import _rate_limit_exceeded_handler
 
 from core import config
+from core.rate_limit import limiter
 from database.db import engine
 from database import models
 from routers.login import router as login_router
@@ -37,9 +41,25 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# Security: Rate Limiting Registration
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# Security: Global Exception Handler
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    log.error(f"Unhandled exception on {request.method} {request.url}: {exc}", exc_info=True)
+    
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "An unexpected internal server error occurred."},
+    )
+
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=config.ALLOWED_ORIGINS,  # set ALLOWED_ORIGINS=https://yourdomain.com in production
+    allow_origins=config.ALLOWED_ORIGINS,  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -50,7 +70,6 @@ app.include_router(register_router)
 app.include_router(query_router)
 app.include_router(ingest_router)
 app.include_router(conversations_router)
-
 
 @app.get("/health", tags=["System"])
 def health():

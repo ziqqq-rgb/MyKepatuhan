@@ -1,9 +1,11 @@
 import logging
 from typing import Optional
-from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
+from fastapi import APIRouter, Depends, HTTPException, Request
+from pydantic import BaseModel, Field, UUID4
 from sqlalchemy.orm import Session
 
+from backend.database import db
+from core.rate_limit import limiter
 from database.db import get_db
 from database.models import User, Conversation
 from auth.utils import get_current_user
@@ -24,10 +26,18 @@ retriever_cache: dict = {}
 
 
 class QueryRequest(BaseModel):
-    question: str
+    question: str = Field(
+        ..., 
+        min_length=1, 
+        max_length=500, 
+        description="The user compliance query or question."
+    )
     authority: Optional[str] = None
     topic: Optional[str] = None
-    conversation_id: Optional[str] = None  # omit for a stateless, cacheable query
+    conversation_id: Optional[UUID4] = Field(
+        None, 
+        description="Optional existing conversation thread ID."
+    )
 
 
 class QueryResponse(BaseModel):
@@ -103,30 +113,38 @@ def _retrieve_or_500(retriever, question: str):
     try:
         return retriever.retrieve(question)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Retrieval failed: {str(e)}")
-
+        log.error(f"Retrieval failed for question '{question}': {e}", exc_info=True)
+        raise HTTPException(
+            status_code=500, 
+            detail="An internal system error occurred during document retrieval."
+        )
 
 def _generate_or_500(engine, question: str):
     try:
         return call_with_backoff(engine.query, question)
     except Exception as e:
-        log.error(f"Query failed: {e!r}")
-        raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
+        log.error(f"LLM Query generation failed: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=500, 
+            detail="An internal system error occurred during response generation."
+        )
 
 
 # ── Route ─────────────────────────────────────────────────
 
 @router.post("", response_model=QueryResponse)
+@limiter.limit("5/minute")
 def query(
-    request: QueryRequest,
+    request: Request,                     
+    query_req: QueryRequest,              
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    question = request.question.strip()
+    question = query_req.question.strip()
     if not question:
         raise HTTPException(status_code=400, detail="Question cannot be empty.")
 
-    conversation = _resolve_conversation(db, request.conversation_id, current_user)
+    conversation = _resolve_conversation(db, query_req.conversation_id, current_user)
 
     if small_talk.is_greeting(question):
         return _handle_greeting(db, conversation, question)
