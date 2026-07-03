@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { UploadCloud } from "lucide-react";
 import { ErrorBanner } from "@/components/ErrorBanner";
 import { StatusBadge } from "./StatusBadge";
 import { useLanguage } from "@/lib/i18n";
-import { apiUploadDocument, apiGetJobStatus, type IngestJob } from "@/lib/api";
+import { useIngestJobPolling } from "@/lib/hooks/useIngestJobPolling";
+import { isValidUploadFile } from "@/lib/documents/validateUpload";
+import { apiUploadDocument } from "@/lib/api";
 
 type DocumentUploadCardProps = {
   /** Called when a job finishes successfully, so the parent can refresh the documents table. */
@@ -18,42 +20,26 @@ export function DocumentUploadCard({ onIngestComplete }: DocumentUploadCardProps
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [job, setJob] = useState<IngestJob | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { job, start: startPolling } = useIngestJobPolling(onIngestComplete);
 
-  // Poll job status every 3s until it settles into done/failed.
-  useEffect(() => {
-    if (!job || job.status === "done" || job.status === "failed") return;
-    const interval = setInterval(async () => {
-      try {
-        const updated = await apiGetJobStatus(job.job_id);
-        setJob(updated);
-        if (updated.status === "done") onIngestComplete();
-      } catch {
-        // keep polling — a transient network error shouldn't abandon the job
-      }
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [job, onIngestComplete]);
-
-  function handleFile(f: File | null | undefined) {
+  function handleFile(selected: File | null | undefined) {
     setError(null);
-    if (!f) return;
-    if (!f.name.toLowerCase().endsWith(".pdf")) {
+    if (!selected) return;
+    if (!isValidUploadFile(selected)) {
       setError(tr("admin_wrong_type"));
       return;
     }
-    setFile(f);
+    setFile(selected);
   }
 
   async function handleUpload() {
     if (!file) return;
     setUploading(true);
     setError(null);
-    setJob(null);
     try {
       const result = await apiUploadDocument(file);
-      setJob(result);
+      startPolling(result);
       setFile(null);
       if (inputRef.current) inputRef.current.value = "";
     } catch (e) {
