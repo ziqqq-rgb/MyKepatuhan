@@ -3,11 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, Check, ShieldCheck } from "lucide-react";
+import { Eye, EyeOff, Check } from "lucide-react";
 import { useStackApp } from "@stackframe/stack";
 import { useLanguage } from "@/lib/i18n";
 import { ErrorBanner } from "@/components/ErrorBanner";
-import { apiRegister, apiLogin, setToken } from "@/lib/api";
+import { apiRegister, apiLogin, setToken, ApiError } from "@/lib/api";
 import { GoogleIcon } from "@/components/icons/GoogleIcon";
 
 export default function RegisterPage() {
@@ -56,12 +56,19 @@ export default function RegisterPage() {
       const authResponse = await apiLogin(email, password);
       setToken(authResponse.access_token);
       router.push("/chat");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Registration failed.");
-    } finally {
-      setLoading(false);
-    }
+        } catch (err) {
+        setError(
+          err instanceof ApiError && err.status === 429
+            ? tr("error_rate_limited")
+            : err instanceof Error
+            ? err.message
+            : "Registration failed."
+        );
+      } finally {
+        setLoading(false);
+      }
   }
+      
 
   return (
     <div className="w-full max-w-100 animate-fade-in">

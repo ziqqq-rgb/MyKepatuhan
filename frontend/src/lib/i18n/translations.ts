@@ -142,6 +142,15 @@ export const t = {
   status_processing: { en: "Processing", bm: "Memproses" },
   status_done: { en: "Done", bm: "Selesai" },
   status_failed: { en: "Failed", bm: "Gagal" },
+
+  error_rate_limited: {
+  en: "You're sending requests too quickly. Please wait a moment and try again.",
+  bm: "Anda menghantar permintaan terlalu pantas. Sila tunggu sebentar dan cuba lagi.",
+  },
+  error_network: {
+    en: "Could not reach the server. Please check your connection and try again.",
+    bm: "Tidak dapat menghubungi pelayan. Sila semak sambungan anda dan cuba lagi.",
+  },
 } as const;
 
 export type TranslationKey = keyof typeof t;

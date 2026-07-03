@@ -1,4 +1,4 @@
-export { getToken, setToken, clearToken, apiFetch } from "./client";
+export { getToken, setToken, clearToken, apiFetch, ApiError } from "./client";
 export { apiRegister, apiLogin, apiGetMe, apiOAuthLogin } from "./auth";
 export type { AuthResponse, UserProfile } from "./auth";
 export { apiQuery } from "./query";

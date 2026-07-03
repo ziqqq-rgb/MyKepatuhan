@@ -7,7 +7,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useStackApp } from "@stackframe/stack";
 import { useLanguage } from "@/lib/i18n";
 import { ErrorBanner } from "@/components/ErrorBanner";
-import { apiLogin, setToken } from "@/lib/api";
+import { ApiError,apiLogin, setToken } from "@/lib/api";
 import { GoogleIcon } from "@/components/icons/GoogleIcon";
 
 export default function LoginPage() {
@@ -40,20 +40,18 @@ export default function LoginPage() {
     setError(null);
     setLoading(true);
     try {
-      // 1. Sign in with Neon Auth (Stack Auth)
       const result = await stackApp.signInWithCredential({ email, password });
       if (result.status === "error") {
         setError(tr("login_error"));
         return;
       }
 
-      // 2. Exchange for a FastAPI JWT
       const authResponse = await apiLogin(email, password);
       setToken(authResponse.access_token);
-      
+
       window.location.href = "/chat";
-    } catch {
-      setError(tr("login_error"));
+    } catch (err) {
+      setError(err instanceof ApiError && err.status === 429 ? tr("error_rate_limited") : tr("login_error"));
     } finally {
       setLoading(false);
     }

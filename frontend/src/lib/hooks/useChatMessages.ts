@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { apiQuery, apiGetConversationMessages } from "@/lib/api";
+import { apiQuery, apiGetConversationMessages, ApiError } from "@/lib/api";
 import { buildNoResultsMessage } from "@/lib/chat/noResultsMessage";
 import { useLanguage } from "@/lib/i18n";
 import type { Message, UserMessage } from "@/components/chat/constants";
@@ -32,9 +32,6 @@ export function useChatMessages({
   const [messages, setMessages] = useState<Message[]>([]);
   const [messagesLoading, setMessagesLoading] = useState(false);
   const [sending, setSending] = useState(false);
-
-  // Skip the history fetch right after we create a conversation locally —
-  // there's nothing on the backend to load yet.
   const skipNextHistoryLoad = useRef(false);
 
   useEffect(() => {
@@ -85,12 +82,18 @@ export function useChatMessages({
       ]);
 
       if (isFirstMessageInConversation) onFirstMessageSent();
-    } catch {
-      setMessages((m) => [...m, { role: "assistant", content: tr("chat_error"), id: crypto.randomUUID() }]);
-    } finally {
-      setSending(false);
+      } catch (err) {
+        const content =
+          err instanceof ApiError && err.status === 429
+            ? tr("error_rate_limited")
+            : err instanceof ApiError && err.status === 0
+            ? tr("error_network")
+            : tr("chat_error");
+        setMessages((m) => [...m, { role: "assistant", content, id: crypto.randomUUID() }]);
+      } finally {
+        setSending(false);
+      }
     }
-  }
 
   return { messages, messagesLoading, sending, send };
 }

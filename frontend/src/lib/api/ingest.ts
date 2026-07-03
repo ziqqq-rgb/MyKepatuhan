@@ -1,4 +1,4 @@
-import { apiFetch, API_URL, authHeaders } from "./client";
+import { apiFetch, API_URL, authHeaders, rawFetch, throwApiError } from "./client";
 
 export interface IngestJob {
   job_id: string;
@@ -19,15 +19,12 @@ export interface IngestedDocument {
 export async function apiUploadDocument(file: File): Promise<IngestJob> {
   const fd = new FormData();
   fd.append("file", file);
-  const res = await fetch(`${API_URL}/ingest`, {
+  const res = await rawFetch(`${API_URL}/ingest`, {
     method: "POST",
     headers: authHeaders(),
     body: fd,
   });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ detail: "Upload failed" }));
-    throw new Error(err.detail ?? "Upload failed");
-  }
+  if (!res.ok) await throwApiError(res);
   return res.json();
 }
 

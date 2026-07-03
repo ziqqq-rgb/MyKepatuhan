@@ -5,10 +5,9 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi.errors import RateLimitExceeded
-from slowapi import _rate_limit_exceeded_handler
 
 from core import config
-from core.rate_limit import limiter
+from core.rate_limit import limiter, rate_limit_exceeded_handler
 from database.db import engine
 from database import models
 from routers.login import router as login_router
@@ -41,7 +40,7 @@ app = FastAPI(
 )
 
 app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_exception_handler(RateLimitExceeded, rate_limit_exceeded_handler)
 
 
 @app.exception_handler(Exception)
