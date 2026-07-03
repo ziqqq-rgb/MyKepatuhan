@@ -9,6 +9,7 @@ from database.models import User
 from auth.utils import get_current_admin
 from pipeline.ingestion.main import ingest_document
 from pipeline.ingestion.checkpointing import load_hash_registry
+from services.file_validation import save_validated_pdf
 from services import job_tracker
 
 router = APIRouter(prefix="/ingest", tags=["Ingest (admin)"])
@@ -57,8 +58,9 @@ async def upload_document(
     job_id = str(uuid.uuid4())
     save_path = UPLOAD_DIR / f"{job_id}_{file.filename}"
 
-    with open(save_path, "wb") as f:
-        shutil.copyfileobj(file.file, f)
+    # Raises HTTPException itself on a bad file or oversized upload —
+    # nothing is enqueued for ingestion until this passes.
+    await save_validated_pdf(file, save_path)
 
     job = job_tracker.create_job(job_id, file.filename)
 
@@ -67,10 +69,7 @@ async def upload_document(
 
 
 @router.get("/status/{job_id}", response_model=JobStatus)
-def get_job_status(
-    job_id: str,
-    admin: User = Depends(get_current_admin),
-):
+def get_job_status(job_id: str, admin: User = Depends(get_current_admin)):
     """Check ingestion job status. Admin only."""
     job = job_tracker.get_job(job_id)
     if job is None:
