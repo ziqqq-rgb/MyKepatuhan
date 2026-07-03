@@ -22,10 +22,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 from pipeline.retriever import build_query_engine
-from questions import TEST_QUESTIONS
-from judge import build_judge
-from pipeline_runner import run_questions
-from scoring import score_rows
+from backend.test.evaluation.questions import TEST_QUESTIONS
+from backend.test.evaluation.judge import build_judge
+from backend.test.evaluation.pipeline_runner import run_questions
+from backend.test.evaluation.scoring import score_rows
 
 METRIC_NAMES = ["faithfulness", "answer_relevancy", "answer_correctness"]
 
