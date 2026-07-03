@@ -1,48 +1,87 @@
 "use client";
 
-import { FileUp, MessagesSquare, ListChecks, type LucideIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage, type TranslationKey } from "@/lib/i18n";
 
-const STEPS: { Icon: LucideIcon; key: TranslationKey }[] = [
-  { Icon: FileUp, key: "how_1" },
-  { Icon: MessagesSquare, key: "how_2" },
-  { Icon: ListChecks, key: "how_3" },
+const STEP_KEYS: TranslationKey[] = ["how_1", "how_2", "how_3"];
+
+// phase 0 = idle/reset, 1 = step1 lit, 2 = line1 growing,
+// 3 = step2 lit, 4 = line2 growing, 5 = step3 lit (held longest, then loops)
+const SEQUENCE: { phase: number; delay: number }[] = [
+  { phase: 0, delay: 400 },
+  { phase: 1, delay: 500 },
+  { phase: 2, delay: 700 },
+  { phase: 3, delay: 500 },
+  { phase: 4, delay: 700 },
+  { phase: 5, delay: 2200 },
 ];
 
 export function HowItWorks() {
   const { tr } = useLanguage();
+  const [phase, setPhase] = useState(0);
+  const idxRef = useRef(0);
+
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    const run = () => {
+      setPhase(SEQUENCE[idxRef.current].phase);
+      timeoutId = setTimeout(() => {
+        idxRef.current = (idxRef.current + 1) % SEQUENCE.length;
+        run();
+      }, SEQUENCE[idxRef.current].delay);
+    };
+    run();
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  const stepLit = (i: number) => phase >= i * 2 + 1;
+  const lineGrown = (i: number) => phase >= i * 2 + 2;
 
   return (
     <section id="how" className="border-b border-border">
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <div className="mx-auto max-w-5xl px-4 py-20 sm:px-6">
         <h2 className="text-center text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
           {tr("how_title")}
         </h2>
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {STEPS.map(({ Icon, key }, i) => (
-            <div
-              key={key}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
-            >
-              <div
-                aria-hidden
-                className="absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-0 blur-2xl transition-opacity group-hover:opacity-40"
-                style={{ background: "var(--gradient-primary)" }}
-              />
-              <div className="relative">
+
+        <div className="mt-16 flex items-start">
+          {STEP_KEYS.map((key, i) => (
+            <div key={key} className="flex flex-1 items-start last:flex-none">
+              <div className="flex w-20 flex-col items-center text-center sm:w-48">
                 <div
-                  className="flex h-12 w-12 items-center justify-center rounded-xl text-white"
-                  style={{ background: "var(--gradient-primary)" }}
+                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 text-lg font-semibold transition-all duration-500 ${
+                    stepLit(i)
+                      ? "scale-110 border-primary text-white"
+                      : "border-border bg-card text-muted-foreground"
+                  }`}
+                  style={stepLit(i) ? { background: "var(--gradient-primary)" } : undefined}
                 >
-                  <Icon className="h-5 w-5" strokeWidth={2.25} />
+                  {i + 1}
                 </div>
-                <div className="mt-5 text-xs font-semibold uppercase tracking-widest text-primary">
+                <div
+                  className={`mt-4 text-xs font-semibold uppercase tracking-widest transition-colors duration-500 ${
+                    stepLit(i) ? "text-primary" : "text-muted-foreground"
+                  }`}
+                >
                   Step 0{i + 1}
                 </div>
-                <p className="mt-2 text-lg font-medium leading-snug text-foreground">
+                <p
+                  className={`mt-1.5 text-sm font-medium leading-snug transition-colors duration-500 sm:text-base ${
+                    stepLit(i) ? "text-foreground" : "text-muted-foreground"
+                  }`}
+                >
                   {tr(key)}
                 </p>
               </div>
+
+              {i < STEP_KEYS.length - 1 && (
+                <div className="relative mt-6 h-0.5 flex-1 overflow-hidden rounded-full bg-border">
+                  <div
+                    className="absolute inset-y-0 left-0 rounded-full bg-primary transition-all duration-700 ease-out"
+                    style={{ width: lineGrown(i) ? "100%" : "0%" }}
+                  />
+                </div>
+              )}
             </div>
           ))}
         </div>

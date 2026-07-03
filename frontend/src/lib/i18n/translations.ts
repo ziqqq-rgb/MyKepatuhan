@@ -33,7 +33,7 @@ export const t = {
   },
   mock_cite: { en: "Sourced from SSM Companies Act 2016", bm: "Sumber: Akta Syarikat SSM 2016" },
 
-  // Why MyKepatuhan (replaces the old stats strip)
+  // Why MyKepatuhan 
   why_kicker: { en: "Not Just Another Chatbot", bm: "Bukan Sekadar Chatbot Biasa" },
   why_title: { en: "Built to Answer Compliance Questions Correctly", bm: "Dibina Untuk Jawab Soalan Kepatuhan Dengan Tepat" },
   why_sub: {
