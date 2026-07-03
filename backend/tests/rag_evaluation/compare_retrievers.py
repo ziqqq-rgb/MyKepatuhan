@@ -1,21 +1,25 @@
 """
-Compares dense / sparse / hybrid retrieval on the same golden question set.
-Resumable — if quota runs out mid-run, just re-run this script later;
-checkpoint.py skips whatever's already scored.
+Compares dense / sparse / hybrid retrieval. Every Gemini call shares one
+RateLimiter, so pacing is correct no matter which retriever is fastest.
+Resumable via checkpoint.py.
 
 Run: python compare_retrievers.py
 """
 import asyncio
 import json
 import time
+from functools import partial
 from pathlib import Path
 
 from pipeline.retriever import build_query_engine
 from tests.rag_evaluation.golden_dataset import TEST_QUESTIONS
 from tests.rag_evaluation.retrievers import RETRIEVAL_STRATEGIES
-from tests.rag_evaluation.pipeline_runner import run_questions
+from tests.rag_evaluation.retrieval_scoring import score_retrieval_row
+from tests.rag_evaluation.evaluation_loop import run_scored_evaluation
 from tests.rag_evaluation.judge import build_judge
-from tests.rag_evaluation.retrieval_scoring import score_retrieval_rows
+from tests.rag_evaluation.rate_limiter import RateLimiter
+
+GEMINI_FREE_TIER_RPM = 15
 
 
 def _summarize(rows: list[dict]) -> dict:
@@ -27,27 +31,25 @@ def _summarize(rows: list[dict]) -> dict:
     }
 
 
-def main():
-    judge_llm, _ = build_judge()
+async def main():
+    limiter = RateLimiter(max_calls=GEMINI_FREE_TIER_RPM)
+    judge_llm, _ = build_judge(limiter)
     summary = {}
 
     for name, build_retriever_fn in RETRIEVAL_STRATEGIES.items():
         print(f"\n=== Strategy: {name} ===")
-
         query_engine = build_query_engine(retriever=build_retriever_fn())
-        rows = run_questions(query_engine, TEST_QUESTIONS)  # local models only, no quota used
-        if not rows:
-            print(f"  [SKIP] '{name}' returned no contexts for any question.")
-            continue
+        score_fn = partial(score_retrieval_row, judge_llm=judge_llm)
 
         try:
-            scored = asyncio.run(score_retrieval_rows(rows, judge_llm, strategy=name))
+            rows = await run_scored_evaluation(name, TEST_QUESTIONS, query_engine, limiter, score_fn)
         except Exception as e:
             print(f"  [STOPPED] '{name}' failed: {e}")
-            print(f"  Progress is saved. Re-run this script later to resume '{name}'.")
+            print("  Progress is saved. Re-run this script later to resume.")
             return
 
-        summary[name] = _summarize(scored)
+        if rows:
+            summary[name] = _summarize(rows)
 
     print("\n=== RETRIEVAL STRATEGY COMPARISON ===")
     for name, s in summary.items():
@@ -55,10 +57,11 @@ def main():
 
     if summary:
         out_dir = Path(__file__).parent / "results"
+        out_dir.mkdir(exist_ok=True)
         ts = time.strftime("%Y%m%d_%H%M")
         (out_dir / f"retrieval_comparison_{ts}.json").write_text(json.dumps(summary, indent=2))
         print(f"\nSaved to {out_dir}")
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

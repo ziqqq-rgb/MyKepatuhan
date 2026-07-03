@@ -1,91 +1,69 @@
 """
-RAG evaluation entry point.
+Full RAG evaluation: Faithfulness, Answer Relevancy, Answer Correctness on
+the production (dense) retriever. Resumable via checkpoint.py.
 
-Wires together pipeline_runner -> judge -> scoring, then reports and
-saves results. All the actual logic lives in those three modules.
-
-Install:
-    pip install ragas google-genai
-
-Run (from evaluation/):
-    python eval_ragas.py
+Run: python eval_ragas.py
 """
 import asyncio
 import csv
 import json
-import logging
-import sys
 import time
+from functools import partial
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-logging.basicConfig(level=logging.INFO, format="%(message)s")
-
 from pipeline.retriever import build_query_engine
-from tests.rag_evaluation.questions import TEST_QUESTIONS
+from tests.rag_evaluation.golden_dataset import TEST_QUESTIONS
+from tests.rag_evaluation.scoring import score_row
+from tests.rag_evaluation.evaluation_loop import run_scored_evaluation
 from tests.rag_evaluation.judge import build_judge
-from tests.rag_evaluation.pipeline_runner import run_questions
-from tests.rag_evaluation.scoring import score_rows
-from tests.rag_evaluation.retrievers import RETRIEVAL_STRATEGIES
+from tests.rag_evaluation.rate_limiter import RateLimiter
 
-
+GEMINI_FREE_TIER_RPM = 15
 METRIC_NAMES = ["faithfulness", "answer_relevancy", "answer_correctness"]
+CHECKPOINT_KEY = "full_eval"
 
 
-def summarize(scored_rows: list[dict]) -> dict:
-    """Averages each metric across all rows, plus mean latency."""
-    n = len(scored_rows)
+def _summarize(rows: list[dict]) -> dict:
+    n = len(rows)
     return {
         "n_questions": n,
-        "scores": {
-            name: round(sum(r["scores"][name] for r in scored_rows) / n, 4)
-            for name in METRIC_NAMES
-        },
-        "mean_latency_ms": round(sum(r["latency_ms"] for r in scored_rows) / n, 1),
+        "scores": {name: round(sum(r["scores"][name] for r in rows) / n, 4) for name in METRIC_NAMES},
+        "mean_latency_ms": round(sum(r["latency_ms"] for r in rows) / n, 1),
     }
 
 
-def save_results(scored_rows: list[dict], summary: dict) -> Path:
-    """Writes per-row CSV and a summary JSON, timestamped, to results/."""
+def _save_results(rows: list[dict], summary: dict) -> Path:
     ts = time.strftime("%Y%m%d_%H%M")
     out_dir = Path(__file__).parent / "results"
     out_dir.mkdir(exist_ok=True)
 
-    csv_path = out_dir / f"ragas_eval_{ts}.csv"
-    with open(csv_path, "w", newline="") as f:
+    with open(out_dir / f"ragas_eval_{ts}.csv", "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=["question", "answer", "reference", "latency_ms", *METRIC_NAMES])
         writer.writeheader()
-        for row in scored_rows:
+        for row in rows:
             writer.writerow({
-                "question": row["question"],
-                "answer": row["answer"],
-                "reference": row["reference"],
-                "latency_ms": row["latency_ms"],
+                "question": row["question"], "answer": row["answer"],
+                "reference": row["reference"], "latency_ms": row["latency_ms"],
                 **row["scores"],
             })
 
-    summary_path = out_dir / f"ragas_summary_{ts}.json"
-    summary_path.write_text(json.dumps({**summary, "timestamp": ts}, indent=2))
-
+    (out_dir / f"ragas_summary_{ts}.json").write_text(json.dumps({**summary, "timestamp": ts}, indent=2))
     return out_dir
 
 
-def main():
-    print("Loading RAG pipeline...")
-    query_engine = build_query_engine(retriever=RETRIEVAL_STRATEGIES["sparse"]())
+async def main():
+    limiter = RateLimiter(max_calls=GEMINI_FREE_TIER_RPM)
+    judge_llm, judge_embeddings = build_judge(limiter)
+    query_engine = build_query_engine()  # production dense retriever
+    score_fn = partial(score_row, judge_llm=judge_llm, judge_embeddings=judge_embeddings)
 
-    print(f"Running {len(TEST_QUESTIONS)} questions...")
-    rows = run_questions(query_engine, TEST_QUESTIONS)
+    rows = await run_scored_evaluation(CHECKPOINT_KEY, TEST_QUESTIONS, query_engine, limiter, score_fn)
     if not rows:
-        print("No rows produced contexts — aborting.")
+        print("No rows scored — aborting.")
         return
 
-    print("Scoring with Ragas...")
-    judge_llm, judge_embeddings = build_judge()
-    scored_rows = asyncio.run(score_rows(rows, judge_llm, judge_embeddings))
-
-    summary = summarize(scored_rows)
-    out_dir = save_results(scored_rows, summary)
+    summary = _summarize(rows)
+    out_dir = _save_results(rows, summary)
 
     print("\n=== RESULTS ===")
     for name, value in summary["scores"].items():
@@ -95,4 +73,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
