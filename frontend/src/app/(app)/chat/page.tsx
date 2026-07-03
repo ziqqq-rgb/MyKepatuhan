@@ -1,24 +1,24 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Menu, ShieldCheck } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useUser } from "@stackframe/stack";
 import { Navbar } from "@/components/Navbar";
 import { TypingDots } from "@/components/TypingDots";
 import { useLanguage } from "@/lib/i18n";
 import { useRoleGate } from "@/lib/hooks/useRoleGate";
-import { apiQuery, apiGetConversationMessages } from "@/lib/api";
 import { useConversations } from "@/lib/hooks/useConversations";
+import { useChatMessages } from "@/lib/hooks/useChatMessages";
 import { ChatSidebar } from "@/components/chat/ChatSidebar";
 import { ChatInput } from "@/components/chat/ChatInput";
 import { UserBubble } from "@/components/chat/UserBubble";
 import { AssistantBubble } from "@/components/chat/AssistantBubble";
-import type { Message, UserMessage } from "@/components/chat/constants";
 
 export default function ChatPage() {
   const { tr } = useLanguage();
   const user = useUser();
   const ready = useRoleGate("user", "/admin");
+
   const {
     conversations,
     activeId,
@@ -30,87 +30,28 @@ export default function ChatPage() {
     refresh,
   } = useConversations();
 
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [messagesLoading, setMessagesLoading] = useState(false);
   const [input, setInput] = useState("");
   const [authority, setAuthority] = useState("All");
   const [topic, setTopic] = useState("All");
-  const [sending, setSending] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const skipNextHistoryLoad = useRef(false);
-
-  useEffect(() => {
-    if (!activeId) {
-      setMessages([]);
-      return;
-    }
-    if (skipNextHistoryLoad.current) {
-      skipNextHistoryLoad.current = false;
-      return;
-    }
-    setMessagesLoading(true);
-    apiGetConversationMessages(activeId)
-      .then((history) => {
-        setMessages(history.map((m) => ({ role: m.role, content: m.content, id: m.id }) as Message));
-      })
-      .catch(() => select(null)) // conversation no longer exists — fall back to a fresh chat
-      .finally(() => setMessagesLoading(false));
-  }, [activeId, select]);
+  const { messages, messagesLoading, sending, send } = useChatMessages({
+    activeId,
+    select,
+    createAndSelect,
+    onFirstMessageSent: refresh,
+    authority,
+    topic,
+  });
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, sending]);
 
-  function buildNoResultsMessage(): string {
-    const parts: string[] = [];
-    if (authority !== "All") parts.push(`${tr("filter_authority")}: ${authority}`);
-    if (topic !== "All") parts.push(`${tr("filter_topic")}: ${topic}`);
-    const filtersStr = parts.length > 0 ? parts.join(` ${tr("chat_no_results_join")} `) : "";
-    return tr("chat_no_results").replace("{filters}", filtersStr);
-  }
-
-  async function send(question: string) {
-    const trimmed = question.trim();
-    if (!trimmed || sending) return;
-
-    const isFirstMessageInConversation = messages.length === 0;
-
-    const userMsg: UserMessage = { role: "user", content: trimmed, id: crypto.randomUUID() };
-    setMessages((m) => [...m, userMsg]);
+  function handleSend() {
+    send(input);
     setInput("");
-    setSending(true);
-
-    try {
-      let conversationId = activeId;
-      if (!conversationId) {
-        skipNextHistoryLoad.current = true;
-        conversationId = await createAndSelect();
-      }
-
-      const res = await apiQuery(
-        trimmed,
-        authority === "All" ? undefined : authority,
-        topic === "All" ? undefined : topic,
-        conversationId
-      );
-
-      const answer = res.no_results ? buildNoResultsMessage() : res.answer;
-
-      setMessages((m) => [
-        ...m,
-        { role: "assistant", content: answer, citations: res.citations, id: crypto.randomUUID() },
-      ]);
-
-      // Backend sets the conversation's title from the first question —
-      // refresh the sidebar so "New conversation" doesn't linger there.
-      if (isFirstMessageInConversation) refresh();
-    } catch {
-      setMessages((m) => [...m, { role: "assistant", content: tr("chat_error"), id: crypto.randomUUID() }]);
-    } finally {
-      setSending(false);
-    }
   }
 
   if (!ready) {
@@ -208,7 +149,7 @@ export default function ChatPage() {
           <ChatInput
             input={input}
             onInputChange={setInput}
-            onSend={() => send(input)}
+            onSend={handleSend}
             authority={authority}
             onAuthorityChange={setAuthority}
             topic={topic}
