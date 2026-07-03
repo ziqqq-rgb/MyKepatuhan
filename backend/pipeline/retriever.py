@@ -93,8 +93,10 @@ def build_query_engine(
     topic: str = None,
     history: str = "",
     target_language: str = "en",
+    retriever=None,  # lets eval code inject sparse/hybrid variants
 ):
-    retriever = build_retriever(authority=authority, topic=topic)
+    if retriever is None:
+        retriever = build_retriever(authority=authority, topic=topic)
     language_label = LANGUAGE_LABELS.get(target_language, "English")
     prompt = QA_PROMPT_TEMPLATE.partial_format(history=history, target_language=language_label)
 
@@ -104,7 +106,6 @@ def build_query_engine(
         llm=llm,
         text_qa_template=prompt,
     )
-
 
 def print_citations(response) -> None:
     print("\n--- CITATIONS ---")
