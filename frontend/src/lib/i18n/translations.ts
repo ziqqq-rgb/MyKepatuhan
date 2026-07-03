@@ -11,14 +11,14 @@ export const t = {
   nav_logout: { en: "Logout", bm: "Log Keluar" },
   nav_admin: { en: "Admin", bm: "Admin" },
 
-  hero_badge: { en: "AI-Powered Compliance Assistant", bm: "Pembantu Kepatuhan Berkuasa AI" },
+  hero_badge: { en: "Your AI-Powered Compliance Assistant", bm: "Pembantu Kepatuhan Berkuasa AI Anda" },
   hero_title: {
     en: "Understand Malaysian Business Laws. Without the Jargon.",
     bm: "Faham Undang-Undang Perniagaan Malaysia. Tanpa Kerumitan.",
   },
   hero_sub: {
-    en: "MyKepatuhan turns complex government regulations — from SSM to KKM to local municipal bylaws — into simple, step-by-step answers. Grounded in verified documents. Cited every time.",
-    bm: "MyKepatuhan tukarkan peraturan kerajaan yang kompleks — dari SSM hingga KKM hingga undang-undang pihak berkuasa tempatan — kepada jawapan mudah langkah demi langkah. Berdasarkan dokumen yang disahkan. Dipetik setiap masa.",
+    en: "MyKepatuhan turns complex government regulations into simple, step-by-step answers. Grounded in verified documents. Cited every time.",
+    bm: "MyKepatuhan tukarkan peraturan kerajaan yang kompleks kepada jawapan mudah langkah demi langkah. Berdasarkan dokumen yang disahkan. Dipetik setiap masa.",
   },
   cta_start: { en: "Start For Free", bm: "Mula Percuma" },
   cta_how: { en: "See How It Works", bm: "Lihat Cara Berfungsi" },
@@ -26,9 +26,6 @@ export const t = {
     en: "Free to use · No legal background required · Answers in English & BM",
     bm: "Percuma · Tiada latar belakang undang-undang diperlukan · Jawapan dalam BI & BM",
   },
-  stat_docs: { en: "Official documents indexed", bm: "Dokumen rasmi diindeks" },
-  stat_authorities: { en: "Government authorities", bm: "Pihak berkuasa kerajaan" },
-  stat_answers: { en: "Cited answers delivered", bm: "Jawapan dengan rujukan" },
   mock_q: { en: "How do I register an Sdn Bhd?", bm: "Bagaimana saya mendaftar Sdn Bhd?" },
   mock_a: {
     en: "1. Reserve a company name with SSM via MyCoID.\n2. Prepare your Superform (Section 14) and pay RM1,010.\n3. Receive your Notice of Registration — usually within 1 business day.",
@@ -36,9 +33,37 @@ export const t = {
   },
   mock_cite: { en: "Sourced from SSM Companies Act 2016", bm: "Sumber: Akta Syarikat SSM 2016" },
 
+  // Why MyKepatuhan (replaces the old stats strip)
+  why_kicker: { en: "Not Just Another Chatbot", bm: "Bukan Sekadar Chatbot Biasa" },
+  why_title: { en: "Built to Answer Compliance Questions Correctly", bm: "Dibina Untuk Jawab Soalan Kepatuhan Dengan Tepat" },
+  why_sub: {
+    en: "General AI tools answer from broad internet knowledge, which can be outdated, generic, or simply wrong for Malaysian regulations. MyKepatuhan is built differently.",
+    bm: "Alat AI umum menjawab berdasarkan pengetahuan internet yang luas, yang boleh jadi lapuk, generik, atau salah untuk peraturan Malaysia. MyKepatuhan dibina secara berbeza.",
+  },
+  why_1_t: { en: "Grounded in Official Sources", bm: "Berdasarkan Sumber Rasmi" },
+  why_1_d: {
+    en: "Every answer is drawn from official Malaysian documents, not general internet knowledge.",
+    bm: "Setiap jawapan diambil dari dokumen rasmi Malaysia, bukan pengetahuan internet umum.",
+  },
+  why_2_t: { en: "Cited, Not Guessed", bm: "Dipetik, Bukan Diteka" },
+  why_2_d: {
+    en: "Each answer links back to the exact document it came from, so you can verify it yourself.",
+    bm: "Setiap jawapan dipaut kembali ke dokumen sebenar, supaya anda boleh sahkan sendiri.",
+  },
+  why_3_t: { en: "Malaysia-Specific, Not Generic", bm: "Khusus Malaysia, Bukan Generik" },
+  why_3_d: {
+    en: "Purpose-built around Malaysian regulatory bodies and processes, not a general assistant stretched to fit.",
+    bm: "Dibina khusus mengikut pihak berkuasa dan proses kerajaan Malaysia, bukan pembantu umum yang diubahsuai sekadarnya.",
+  },
+  why_4_t: { en: "Kept Current", bm: "Sentiasa Terkini" },
+  why_4_d: {
+    en: "Our document index is refreshed as regulations change, instead of relying on stale training data.",
+    bm: "Indeks dokumen kami dikemas kini apabila peraturan berubah, tidak bergantung pada data lapuk.",
+  },
+
   how_title: { en: "How It Works", bm: "Cara Ia Berfungsi" },
   how_1: { en: "We ingest official government documents", bm: "Kami muatkan dokumen kerajaan rasmi" },
-  how_2: { en: "You ask in plain language", bm: "Anda bertanya dalam bahasa biasa" },
+  how_2: { en: "Get instant answers to your queries.", bm: "Dapatkan jawapan segera untuk soalan anda." },
   how_3: { en: "Get cited, step-by-step answers", bm: "Dapatkan jawapan langkah demi langkah dengan rujukan" },
 
   who_title: { en: "Built for Malaysian Entrepreneurs", bm: "Dibina untuk Usahawan Malaysia" },
@@ -48,6 +73,7 @@ export const t = {
   who_2_d: { en: "Know exactly which health, halal and municipal approvals you need before opening.", bm: "Ketahui kelulusan kesihatan, halal dan majlis tempatan yang anda perlukan sebelum dibuka." },
   who_3_t: { en: "Freelancers & Sole Proprietors", bm: "Pekerja Bebas & Pemilik Tunggal" },
   who_3_d: { en: "Stay compliant on income tax, SST and ROB renewals without a lawyer on retainer.", bm: "Patuhi cukai pendapatan, SST dan pembaharuan ROB tanpa peguam tetap." },
+  who_more: { en: "And many more — if your business touches Malaysian regulation, we're built for you.", bm: "Dan banyak lagi — jika perniagaan anda melibatkan peraturan Malaysia, kami dibina untuk anda." },
 
   auth_title: { en: "Documents We Cover", bm: "Dokumen Yang Kami Liputi" },
   auth_note: { en: "Sourced directly from official government portals", bm: "Diambil terus dari portal kerajaan rasmi" },
