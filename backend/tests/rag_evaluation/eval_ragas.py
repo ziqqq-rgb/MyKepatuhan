@@ -22,10 +22,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 from pipeline.retriever import build_query_engine
-from backend.test.evaluation.questions import TEST_QUESTIONS
-from backend.test.evaluation.judge import build_judge
-from backend.test.evaluation.pipeline_runner import run_questions
-from backend.test.evaluation.scoring import score_rows
+from tests.rag_evaluation.questions import TEST_QUESTIONS
+from tests.rag_evaluation.judge import build_judge
+from tests.rag_evaluation.pipeline_runner import run_questions
+from tests.rag_evaluation.scoring import score_rows
+from tests.rag_evaluation.retrievers import RETRIEVAL_STRATEGIES
+
 
 METRIC_NAMES = ["faithfulness", "answer_relevancy", "answer_correctness"]
 
@@ -70,7 +72,7 @@ def save_results(scored_rows: list[dict], summary: dict) -> Path:
 
 def main():
     print("Loading RAG pipeline...")
-    query_engine = build_query_engine()
+    query_engine = build_query_engine(retriever=RETRIEVAL_STRATEGIES["sparse"]())
 
     print(f"Running {len(TEST_QUESTIONS)} questions...")
     rows = run_questions(query_engine, TEST_QUESTIONS)
