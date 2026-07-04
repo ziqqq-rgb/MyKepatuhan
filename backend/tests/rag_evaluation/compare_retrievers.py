@@ -38,10 +38,9 @@ async def main():
 
     for name, build_retriever_fn in RETRIEVAL_STRATEGIES.items():
         print(f"\n=== Strategy: {name} ===")
-        query_engine = build_query_engine(retriever=build_retriever_fn())
-        score_fn = partial(score_retrieval_row, judge_llm=judge_llm)
-
         try:
+            query_engine = build_query_engine(retriever=build_retriever_fn())
+            score_fn = partial(score_retrieval_row, judge_llm=judge_llm)
             rows = await run_scored_evaluation(name, TEST_QUESTIONS, query_engine, limiter, score_fn)
         except Exception as e:
             print(f"  [STOPPED] '{name}' failed: {e}")

@@ -33,7 +33,7 @@ async def run_scored_evaluation(
 
     for i, item in enumerate(pending):
         print(f"  -> [{checkpoint_key}] {i + 1}/{len(pending)}: {item['question'][:60]}")
-        row = run_single_question(query_engine, item, limiter)
+        row = await run_single_question(query_engine, item, limiter)       
         if row is None:
             print("     [SKIP] no contexts retrieved")
             continue

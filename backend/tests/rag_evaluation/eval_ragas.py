@@ -11,6 +11,7 @@ import time
 from functools import partial
 from pathlib import Path
 
+from tests.rag_evaluation.retrievers import RETRIEVAL_STRATEGIES
 from pipeline.retriever import build_query_engine
 from tests.rag_evaluation.golden_dataset import TEST_QUESTIONS
 from tests.rag_evaluation.scoring import score_row
@@ -54,7 +55,7 @@ def _save_results(rows: list[dict], summary: dict) -> Path:
 async def main():
     limiter = RateLimiter(max_calls=GEMINI_FREE_TIER_RPM)
     judge_llm, judge_embeddings = build_judge(limiter)
-    query_engine = build_query_engine()  # production dense retriever
+    query_engine = build_query_engine(retriever=RETRIEVAL_STRATEGIES["hybrid"]())
     score_fn = partial(score_row, judge_llm=judge_llm, judge_embeddings=judge_embeddings)
 
     rows = await run_scored_evaluation(CHECKPOINT_KEY, TEST_QUESTIONS, query_engine, limiter, score_fn)
