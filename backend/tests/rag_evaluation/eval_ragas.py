@@ -1,9 +1,16 @@
 """
-Full RAG evaluation: Faithfulness, Answer Relevancy, Answer Correctness on
-the production (dense) retriever. Resumable via checkpoint.py.
+Full RAG evaluation: Faithfulness, Answer Relevancy, Answer Correctness for
+a single retrieval strategy. Resumable via checkpoint.py.
 
-Run: python eval_ragas.py
+Checkpoint key is scoped to --strategy so switching retrievers never reuses
+another strategy's saved rows.
+
+Run:
+    python eval_ragas.py                     # dense (default)
+    python eval_ragas.py --strategy sparse
+    python eval_ragas.py --strategy hybrid
 """
+import argparse
 import asyncio
 import csv
 import json
@@ -11,9 +18,9 @@ import time
 from functools import partial
 from pathlib import Path
 
-from tests.rag_evaluation.retrievers import RETRIEVAL_STRATEGIES
 from pipeline.retriever import build_query_engine
 from tests.rag_evaluation.golden_dataset import TEST_QUESTIONS
+from tests.rag_evaluation.retrievers import RETRIEVAL_STRATEGIES
 from tests.rag_evaluation.scoring import score_row
 from tests.rag_evaluation.evaluation_loop import run_scored_evaluation
 from tests.rag_evaluation.judge import build_judge
@@ -21,7 +28,6 @@ from tests.rag_evaluation.rate_limiter import RateLimiter
 
 GEMINI_FREE_TIER_RPM = 15
 METRIC_NAMES = ["faithfulness", "answer_relevancy", "answer_correctness"]
-CHECKPOINT_KEY = "full_eval"
 
 
 def _summarize(rows: list[dict]) -> dict:
@@ -33,12 +39,12 @@ def _summarize(rows: list[dict]) -> dict:
     }
 
 
-def _save_results(rows: list[dict], summary: dict) -> Path:
+def _save_results(strategy: str, rows: list[dict], summary: dict) -> Path:
     ts = time.strftime("%Y%m%d_%H%M")
     out_dir = Path(__file__).parent / "results"
     out_dir.mkdir(exist_ok=True)
 
-    with open(out_dir / f"ragas_eval_{ts}.csv", "w", newline="") as f:
+    with open(out_dir / f"ragas_eval_{strategy}_{ts}.csv", "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=["question", "answer", "reference", "latency_ms", *METRIC_NAMES])
         writer.writeheader()
         for row in rows:
@@ -48,25 +54,30 @@ def _save_results(rows: list[dict], summary: dict) -> Path:
                 **row["scores"],
             })
 
-    (out_dir / f"ragas_summary_{ts}.json").write_text(json.dumps({**summary, "timestamp": ts}, indent=2))
+    (out_dir / f"ragas_summary_{strategy}_{ts}.json").write_text(
+        json.dumps({**summary, "strategy": strategy, "timestamp": ts}, indent=2)
+    )
     return out_dir
 
 
-async def main():
+async def main(strategy: str):
     limiter = RateLimiter(max_calls=GEMINI_FREE_TIER_RPM)
     judge_llm, judge_embeddings = build_judge(limiter)
-    query_engine = build_query_engine(retriever=RETRIEVAL_STRATEGIES["hybrid"]())
+
+    build_retriever_fn = RETRIEVAL_STRATEGIES[strategy]
+    query_engine = build_query_engine(retriever=build_retriever_fn())
     score_fn = partial(score_row, judge_llm=judge_llm, judge_embeddings=judge_embeddings)
 
-    rows = await run_scored_evaluation(CHECKPOINT_KEY, TEST_QUESTIONS, query_engine, limiter, score_fn)
+    checkpoint_key = f"full_eval_{strategy}"  # <-- the actual fix
+    rows = await run_scored_evaluation(checkpoint_key, TEST_QUESTIONS, query_engine, limiter, score_fn)
     if not rows:
         print("No rows scored — aborting.")
         return
 
     summary = _summarize(rows)
-    out_dir = _save_results(rows, summary)
+    out_dir = _save_results(strategy, rows, summary)
 
-    print("\n=== RESULTS ===")
+    print(f"\n=== RESULTS ({strategy}) ===")
     for name, value in summary["scores"].items():
         print(f"  {name:<20} {value}")
     print(f"  {'mean_latency_ms':<20} {summary['mean_latency_ms']}")
@@ -74,4 +85,7 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--strategy", choices=list(RETRIEVAL_STRATEGIES.keys()), default="dense")
+    args = parser.parse_args()
+    asyncio.run(main(args.strategy))

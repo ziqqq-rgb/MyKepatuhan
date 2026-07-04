@@ -1,0 +1,11 @@
+{
+  "n_questions": 60,
+  "scores": {
+    "faithfulness": 0.786,
+    "answer_relevancy": 0.7032,
+    "answer_correctness": 0.6549
+  },
+  "mean_latency_ms": 6259.4,
+  "strategy": "hybrid",
+  "timestamp": "20260704_1505"
+}
