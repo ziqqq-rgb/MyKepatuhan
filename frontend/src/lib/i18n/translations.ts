@@ -126,6 +126,10 @@ export const t = {
   filter_authority: { en: "Authority", bm: "Pihak Berkuasa" },
   filter_topic: { en: "Topic", bm: "Topik" },
   filter_all: { en: "All", bm: "Semua" },
+  thinking_status_1: { en: "Thinking...", bm: "Sedang berfikir..." },
+  thinking_status_2: { en: "Searching documents...", bm: "Mencari dokumen..." },
+  thinking_status_3: { en: "Checking regulations...", bm: "Menyemak peraturan..." },
+  thinking_status_4: { en: "Almost there...", bm: "Hampir siap..." },
 
   // Admin
   admin_title: { en: "Document Management", bm: "Pengurusan Dokumen" },

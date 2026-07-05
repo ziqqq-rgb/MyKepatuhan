@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Menu } from "lucide-react";
 import { useUser } from "@stackframe/stack";
 import { Navbar } from "@/components/Navbar";
-import { TypingDots } from "@/components/TypingDots";
+import { ThinkingIndicator } from "@/components/chat/ThinkingIndicator";
 import { useLanguage } from "@/lib/i18n";
 import { useRoleGate } from "@/lib/hooks/useRoleGate";
 import { useConversations } from "@/lib/hooks/useConversations";
@@ -138,7 +138,7 @@ export default function ChatPage() {
                 {sending && (
                   <div className="flex items-start gap-2.5">
                     <div className="rounded-2xl rounded-tl-md border border-border bg-card px-4 py-3">
-                      <TypingDots />
+                      <ThinkingIndicator />
                     </div>
                   </div>
                 )}
