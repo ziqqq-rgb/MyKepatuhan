@@ -17,6 +17,12 @@ GEMINI_ENRICH_API_KEY = get_env_or_fail("GEMINI_KEY")
 GEMINI_GENERATION_API_KEY = os.getenv("GEMINI_GENERATION_KEY", GEMINI_ENRICH_API_KEY)
 GEMINI_API_KEY = GEMINI_ENRICH_API_KEY
 
+_raw_generation_keys = os.getenv("GEMINI_GENERATION_KEYS", "")
+GEMINI_GENERATION_API_KEYS = (
+    [k.strip() for k in _raw_generation_keys.split(",") if k.strip()]
+    or [GEMINI_GENERATION_API_KEY]
+)
+
 PINECONE_API_KEY = get_env_or_fail("PINECON_KEY")
 JWT_SECRET_KEY = get_env_or_fail("JWT_SECRET_KEY")
 DATABASE_URL = get_env_or_fail("DATABASE_URL")

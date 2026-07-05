@@ -15,33 +15,38 @@ from google.genai import types
 from core import config
 from core.clients import get_embed_model, get_pinecone_index
 from pipeline.prompts import QA_PROMPT_TEMPLATE, LANGUAGE_LABELS
+from services.key_rotation import RoundRobinPool
 
-
-# ─────────────────────────────────────────
-# MODELS
-# ─────────────────────────────────────────
 
 embed_model = get_embed_model()
 Settings.embed_model = embed_model
 
-llm = GoogleGenAI(
-    api_key=config.GEMINI_GENERATION_API_KEY,
-    model=config.GEMINI_GENERATION_MODEL,
-    temperature=config.GEMINI_GENERATION_TEMPERATURE,
-    generation_config=types.GenerateContentConfig(
-        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
-    ),
-)
-Settings.llm = llm
+
+def _build_llm(api_key: str) -> GoogleGenAI:
+    return GoogleGenAI(
+        api_key=api_key,
+        model=config.GEMINI_GENERATION_MODEL,
+        temperature=config.GEMINI_GENERATION_TEMPERATURE,
+        generation_config=types.GenerateContentConfig(
+            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+        ),
+    )
+
+
+# One client per Gemini project key, built once at import — rotating
+# pre-built clients avoids the construction cost on every request.
+_llm_pool = RoundRobinPool([_build_llm(key) for key in config.GEMINI_GENERATION_API_KEYS])
+
+# LlamaIndex internals that read Settings.llm directly need a default;
+# actual per-request rotation happens via get_next_llm().
+Settings.llm = _llm_pool.items[0]
 
 reranker = SentenceTransformerRerank(
     model=config.RERANKER_MODEL,
     top_n=config.RERANK_TOP_N,
 )
 
-# ─────────────────────────────────────────
 # PINECONE + INDEX
-# ─────────────────────────────────────────
 
 pinecone_index = get_pinecone_index()
 
@@ -51,6 +56,16 @@ vector_store = PineconeVectorStore(
 )
 
 index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
+
+
+def get_next_llm() -> GoogleGenAI:
+    """Rotates round-robin across Gemini generation keys so no single
+    project's RPM/RPD quota takes all the traffic."""
+    return _llm_pool.next()
+
+
+def llm_pool_size() -> int:
+    return len(_llm_pool)
 
 
 def build_retriever(authority: str = None, topic: str = None):
@@ -76,16 +91,17 @@ def rerank_nodes(nodes: list[NodeWithScore], question: str) -> list[NodeWithScor
     return reranker.postprocess_nodes(nodes, query_bundle=QueryBundle(query_str=question))
 
 
-def build_response_synthesizer(history: str = "", target_language: str = "en"):
+def build_response_synthesizer(llm: GoogleGenAI = None, history: str = "", target_language: str = "en"):
     """
-    This function generates an answer from nodes it's given —
-    it does NOT retrieve on its own. This is what lets the live query path
-    reuse already-retrieved, already-reranked nodes instead of retrieving
-    twice (once directly, once inside a query engine).
+    Generates an answer from nodes it's given — never retrieves on its own,
+    so the live query path can reuse already-retrieved, already-reranked
+    nodes instead of hitting Pinecone twice.
+
+    `llm` defaults to the next rotated client if not passed explicitly.
     """
     language_label = LANGUAGE_LABELS.get(target_language, "English")
     prompt = QA_PROMPT_TEMPLATE.partial_format(history=history, target_language=language_label)
-    return get_response_synthesizer(llm=llm, text_qa_template=prompt)
+    return get_response_synthesizer(llm=llm or get_next_llm(), text_qa_template=prompt)
 
 
 def build_query_engine(
@@ -93,7 +109,7 @@ def build_query_engine(
     topic: str = None,
     history: str = "",
     target_language: str = "en",
-    retriever=None,  # lets eval code inject sparse/hybrid variants
+    retriever=None,  
 ):
     if retriever is None:
         retriever = build_retriever(authority=authority, topic=topic)
@@ -103,7 +119,7 @@ def build_query_engine(
     return RetrieverQueryEngine.from_args(
         retriever=retriever,
         node_postprocessors=[reranker],
-        llm=llm,
+        llm=get_next_llm(),
         text_qa_template=prompt,
     )
 

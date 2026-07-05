@@ -5,9 +5,13 @@ Split into two functions (retrieve_and_rerank, generate_answer) instead of
 one query engine so the same nodes can be reused for both generation and
 citations, without retrieving from Pinecone a second time.
 """
+from google.genai.errors import ClientError
 from llama_index.core.schema import NodeWithScore
 
-from pipeline.retriever import build_retriever, rerank_nodes, build_response_synthesizer
+from pipeline.retriever import (
+    build_retriever, rerank_nodes, build_response_synthesizer,
+    get_next_llm, llm_pool_size,
+)
 from services.llm_backoff import call_with_backoff
 
 _default_retriever = None
@@ -42,8 +46,29 @@ def retrieve_and_rerank(
 def generate_answer(
     question: str, nodes: list[NodeWithScore], history: str, target_language: str
 ) -> str:
-    """Synthesizes an answer from nodes already retrieved by the caller.
-    Never re-retrieves — pass the output of retrieve_and_rerank() here."""
-    synthesizer = build_response_synthesizer(history=history, target_language=target_language)
-    response = call_with_backoff(synthesizer.synthesize, question, nodes=nodes)
-    return str(response)
+    """
+    Synthesizes an answer from nodes already retrieved by the caller.
+    Never re-retrieves — pass the output of retrieve_and_rerank() here.
+
+    Tries each Gemini key once, round-robin: on a 429, move to the next
+    key immediately instead of sleeping, since spare quota is likely
+    sitting idle on the others. Only the final key in the pass gets
+    call_with_backoff's full exponential retry, as a last resort if
+    every key is exhausted.
+    """
+    pool_size = llm_pool_size()
+    for key_attempt in range(pool_size):
+        is_last_key = key_attempt == pool_size - 1
+        llm = get_next_llm()
+        synthesizer = build_response_synthesizer(llm, history=history, target_language=target_language)
+        try:
+            max_retries = 3 if is_last_key else 1
+            response = call_with_backoff(
+                synthesizer.synthesize, question, nodes=nodes, max_retries=max_retries
+            )
+            return str(response)
+        except ClientError as e:
+            is_rate_limited = getattr(e, "code", None) == 429
+            if is_rate_limited and not is_last_key:
+                continue
+            raise
