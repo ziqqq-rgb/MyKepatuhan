@@ -28,8 +28,8 @@ export const t = {
   },
   mock_q: { en: "How do I register an Sdn Bhd?", bm: "Bagaimana saya mendaftar Sdn Bhd?" },
   mock_a: {
-    en: "1. Reserve a company name with SSM via MyCoID.\n2. Prepare your Superform (Section 14) and pay RM1,010.\n3. Receive your Notice of Registration — usually within 1 business day.",
-    bm: "1. Tempah nama syarikat dengan SSM melalui MyCoID.\n2. Sediakan Superform (Seksyen 14) dan bayar RM1,010.\n3. Terima Notis Pendaftaran — biasanya dalam 1 hari bekerja.",
+    en: "1. Log in to MyCoID and select \"Direct Incorporation\" to save the RM50 reservation fee.\n2. Prepare your Superform (Section 14) and pay RM1,010.\n3. Receive your Notice of Registration (Section 15) via email.",
+    bm: "1. Log masuk ke MyCoID dan pilih \"Pendirian Terus\" untuk menyimpan yuran tempahan RM50.\n2. Sediakan Superform (Seksyen 14) dan bayar RM1,010.\n3. Terima Notis Pendaftaran (Seksyen 15) melalui emel.",
   },
   mock_cite: { en: "Sourced from SSM Companies Act 2016", bm: "Sumber: Akta Syarikat SSM 2016" },
 

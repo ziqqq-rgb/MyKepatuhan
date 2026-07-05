@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
 import { chatMarkdownComponents } from "./markdownComponents";
+import { visibleCitationTags } from "@/lib/chat/citationMeta";
 import type { AssistantMessage } from "./constants";
 
 export function AssistantBubble({ message }: { message: AssistantMessage }) {
@@ -36,24 +37,24 @@ export function AssistantBubble({ message }: { message: AssistantMessage }) {
             </button>
             {sourcesOpen && (
               <div className="mt-3 space-y-2">
-                {message.citations!.map((c, i) => (
-                  <div key={i} className="rounded-xl bg-secondary p-3 text-xs">
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                      <span className="font-semibold text-foreground">{c.document_title}</span>
-                      <span className="ml-auto font-mono text-muted-foreground">{c.score.toFixed(2)}</span>
+                {message.citations!.map((c, i) => {
+                  const tags = visibleCitationTags(c);
+                  return (
+                    <div key={i} className="rounded-xl bg-secondary p-3 text-xs">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <span className="font-semibold text-foreground">{c.document_title}</span>
+                      </div>
+                      {tags.length > 0 && (
+                        <div className="mt-0.5 text-muted-foreground">{tags.join(" · ")}</div>
+                      )}
+                      {c.excerpt && (
+                        <p className="mt-2 font-mono text-[11px] leading-relaxed text-muted-foreground">
+                          {c.excerpt}
+                        </p>
+                      )}
                     </div>
-                    <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-muted-foreground">
-                      <span>{c.authority}</span>
-                      {c.topic && <span>· {c.topic}</span>}
-                      {c.document_type && <span>· {c.document_type}</span>}
-                    </div>
-                    {c.excerpt && (
-                      <p className="mt-2 font-mono text-[11px] leading-relaxed text-muted-foreground">
-                        {c.excerpt}
-                      </p>
-                    )}
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
