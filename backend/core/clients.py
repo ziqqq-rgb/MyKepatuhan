@@ -1,29 +1,41 @@
 """
 Shared client/model factories used by both the ingestion pipeline
-(upload.py) and the retrieval pipeline (retriever.py).
-
-Previously, both files independently constructed an identical
-OllamaEmbedding instance and Pinecone index client. Factoring them
-here removes that duplication so the two pipelines can't silently
-drift apart (e.g. one side changing instruction prefixes without the
-other). Behavior is unchanged — same model name, same args.
+(upload.py) and the retrieval pipeline (retriever.py). Factoring them
+here means both sides always use the identical embedding model, dims,
+and reranker config — no silent drift between ingest-time and
+query-time behavior.
 """
-from llama_index.embeddings.ollama import OllamaEmbedding
+from google.genai import types
+from llama_index.embeddings.google_genai import GoogleGenAIEmbedding
+from llama_index.postprocessor.jinaai_rerank import JinaRerank
 from pinecone import Pinecone
 from upstash_redis import Redis
 import logging
 from core import config
 
+
 log = logging.getLogger(__name__)
 
 
-def get_embed_model() -> OllamaEmbedding:
-    """Returns the shared nomic-embed-text-v2-moe embedding model."""
-    return OllamaEmbedding(
-        model_name=config.EMBED_MODEL_NAME,
+def get_embed_model() -> GoogleGenAIEmbedding:
+    """Returns the shared Gemini Embedding model. Query vs. document task
+    type (RETRIEVAL_QUERY / RETRIEVAL_DOCUMENT) is handled automatically
+    by the base class depending on which method is called."""
+    return GoogleGenAIEmbedding(
+        model_name=config.GEMINI_EMBED_MODEL,
+        api_key=config.GEMINI_EMBED_API_KEY,
         embed_batch_size=config.EMBED_BATCH_SIZE,
-        query_instruction=config.EMBED_QUERY_INSTRUCTION,
-        text_instruction=config.EMBED_TEXT_INSTRUCTION,
+        embedding_config=types.EmbedContentConfig(
+            output_dimensionality=config.EMBED_OUTPUT_DIMENSIONALITY,
+        ),
+     )
+    
+def get_reranker() -> JinaRerank:
+    """Returns the shared Jina reranker client — hosted API, no local model."""
+    return JinaRerank(
+        model=config.JINA_RERANK_MODEL,
+        api_key=config.JINA_API_KEY,
+        top_n=config.RERANK_TOP_N,
     )
 
 def get_pinecone_index() -> "Index":

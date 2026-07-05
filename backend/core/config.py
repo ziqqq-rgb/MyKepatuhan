@@ -4,9 +4,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def get_env_or_fail(var_name: str) -> str:
-    """
-    Raises an immediate error if missing to prevent silent security failures.
-    """
+  
+    #Raises an immediate error if missing to prevent silent security failures.
     value = os.getenv(var_name)
     if not value:
         raise ValueError(f"CRITICAL SECURITY ERROR: Missing required environment variable '{var_name}'")
@@ -16,6 +15,8 @@ def get_env_or_fail(var_name: str) -> str:
 GEMINI_ENRICH_API_KEY = get_env_or_fail("GEMINI_KEY")
 GEMINI_GENERATION_API_KEY = os.getenv("GEMINI_GENERATION_KEY", GEMINI_ENRICH_API_KEY)
 GEMINI_API_KEY = GEMINI_ENRICH_API_KEY
+GEMINI_EMBED_API_KEY = os.getenv("GEMINI_EMBED_KEY", GEMINI_API_KEY) 
+JINA_API_KEY = get_env_or_fail("JINA_API_KEY")
 
 _raw_generation_keys = os.getenv("GEMINI_GENERATION_KEYS", "")
 GEMINI_GENERATION_API_KEYS = (
@@ -42,11 +43,10 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60
 # ─────────────────────────────────────────
 # Embedding model
 # ─────────────────────────────────────────
-EMBED_MODEL_NAME = "nomic-embed-text-v2-moe"
+GEMINI_EMBED_MODEL = "gemini-embedding-001"
+EMBED_OUTPUT_DIMENSIONALITY = 1536
 EMBED_BATCH_SIZE = 50
-EMBED_QUERY_INSTRUCTION = "search_query: "
-EMBED_TEXT_INSTRUCTION = "search_document: "
-DOCLING_TOKENIZER_MODEL = "nomic-ai/nomic-embed-text-v1.5"
+DOCLING_TOKENIZER_MODEL = "nomic-ai/nomic-embed-text-v1.5"  
 DOCLING_MAX_TOKENS = 512
 
 # ─────────────────────────────────────────
@@ -76,7 +76,7 @@ RAGAS_JUDGE_EMBEDDING_MODEL = "gemini-embedding-2"
 # ─────────────────────────────────────────
 RETRIEVAL_TOP_K = 15          
 RERANK_TOP_N = 3              
-RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
+JINA_RERANK_MODEL = "jina-reranker-v2-base-multilingual"  
 HYBRID_ALPHA = 0.6
 
 # ─────────────────────────────────────────

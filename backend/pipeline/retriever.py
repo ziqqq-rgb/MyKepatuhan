@@ -7,13 +7,12 @@ from llama_index.core.vector_stores.types import (
     FilterOperator,
 )
 from llama_index.llms.google_genai import GoogleGenAI
-from llama_index.postprocessor.sbert_rerank import SentenceTransformerRerank
 from llama_index.vector_stores.pinecone import PineconeVectorStore
 
 from google.genai import types
 
 from core import config
-from core.clients import get_embed_model, get_pinecone_index
+from core.clients import get_embed_model, get_pinecone_index, get_reranker
 from pipeline.prompts import QA_PROMPT_TEMPLATE, LANGUAGE_LABELS
 from services.key_rotation import RoundRobinPool
 
@@ -41,13 +40,9 @@ _llm_pool = RoundRobinPool([_build_llm(key) for key in config.GEMINI_GENERATION_
 # actual per-request rotation happens via get_next_llm().
 Settings.llm = _llm_pool.items[0]
 
-reranker = SentenceTransformerRerank(
-    model=config.RERANKER_MODEL,
-    top_n=config.RERANK_TOP_N,
-)
+reranker = get_reranker()
 
 # PINECONE + INDEX
-
 pinecone_index = get_pinecone_index()
 
 vector_store = PineconeVectorStore(
