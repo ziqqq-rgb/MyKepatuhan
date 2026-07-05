@@ -1,16 +1,16 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
-from sqlalchemy.pool import NullPool
+from sqlalchemy.pool import QueuePool
 
 from core import config
 
-# Neon suspends connections after ~5 min idle — keepalives don't help because
-# Neon kills the SSL session server-side before they fire.
-# NullPool = never hold a connection open between requests; get a fresh one
-# each time. Slightly slower per-request but eliminates all SSL drop errors.
 engine = create_engine(
-    config.DATABASE_URL,
-    poolclass=NullPool,
+    config.DATABASE_URL,       # use the "-pooler" host from Neon dashboard
+    poolclass=QueuePool,
+    pool_size=3,
+    max_overflow=2,
+    pool_pre_ping=True,        # discard dead connections instead of erroring
+    pool_recycle=280,          # recycle before Neon's ~5min idle cutoff
     connect_args={
         "sslmode":          "require",
         "connect_timeout":  10,
