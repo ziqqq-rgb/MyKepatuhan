@@ -1,41 +1,47 @@
+import logging
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
+log = logging.getLogger(__name__)
+
 
 def get_env_or_fail(var_name: str) -> str:
-  
-    #Raises an immediate error if missing to prevent silent security failures.
+    """Raises immediately if a required var is missing, instead of
+    failing later with a confusing downstream error."""
     value = os.getenv(var_name)
     if not value:
         raise ValueError(f"CRITICAL SECURITY ERROR: Missing required environment variable '{var_name}'")
     return value
 
 
-GEMINI_ENRICH_API_KEY = get_env_or_fail("GEMINI_KEY")
-GEMINI_GENERATION_API_KEY = os.getenv("GEMINI_GENERATION_KEY", GEMINI_ENRICH_API_KEY)
-GEMINI_API_KEY = GEMINI_ENRICH_API_KEY
-GEMINI_EMBED_API_KEY = os.getenv("GEMINI_EMBED_KEY", GEMINI_API_KEY) 
+def load_key_pool(env_var: str) -> list[str]:
+    """
+    Parses a comma-separated list of API keys from one env var.
+    Each key should belong to a separate provider project — rotation
+    only adds real capacity if the keys don't share a quota bucket.
+    """
+    raw = os.getenv(env_var, "")
+    keys = [k.strip() for k in raw.split(",") if k.strip()]
+    if not keys:
+        raise ValueError(f"CRITICAL SECURITY ERROR: '{env_var}' must contain at least one API key.")
+    return keys
+
+
+# ─────────────────────────────────────────
+# Gemini — one rotation pool per workload. Generation runs per user
+# query; enrichment runs in bulk during ingestion, so it's usually the
+# one that needs more keys / hits limits first.
+# ─────────────────────────────────────────
+GEMINI_GENERATION_API_KEYS = load_key_pool("GEMINI_GENERATION_KEYS")
+GEMINI_ENRICH_API_KEYS = load_key_pool("GEMINI_ENRICH_KEYS")
+
+log.info(
+    f"[CONFIG] Gemini pools loaded — generation: {len(GEMINI_GENERATION_API_KEYS)} key(s), "
+    f"enrichment: {len(GEMINI_ENRICH_API_KEYS)} key(s)."
+)
+
 JINA_API_KEY = get_env_or_fail("JINA_API_KEY")
-
-_raw_generation_keys = os.getenv("GEMINI_GENERATION_KEYS", "")
-GEMINI_GENERATION_API_KEYS = (
-    [k.strip() for k in _raw_generation_keys.split(",") if k.strip()]
-    or [GEMINI_GENERATION_API_KEY]
-)
-
-_raw_embed_keys = os.getenv("GEMINI_EMBED_KEYS", "")
-GEMINI_EMBED_API_KEYS = (
-    [k.strip() for k in _raw_embed_keys.split(",") if k.strip()]
-    or [GEMINI_EMBED_API_KEY]
-)
-
-_raw_enrich_keys = os.getenv("GEMINI_ENRICH_KEYS", "")
-GEMINI_ENRICH_API_KEYS = (
-    [k.strip() for k in _raw_enrich_keys.split(",") if k.strip()]
-    or [GEMINI_ENRICH_API_KEY]
-)
-
 PINECONE_API_KEY = get_env_or_fail("PINECON_KEY")
 JWT_SECRET_KEY = get_env_or_fail("JWT_SECRET_KEY")
 DATABASE_URL = get_env_or_fail("DATABASE_URL")

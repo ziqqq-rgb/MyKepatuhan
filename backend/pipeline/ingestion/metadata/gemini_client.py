@@ -1,37 +1,19 @@
 """
-Gemini Flash Lite REST client for metadata enrichment.
-
-Calls the generateContent endpoint directly (rather than the SDK) with
-responseMimeType=application/json for structured output. Rotates across
-every configured enrichment key on a 429 — only the last key in the
-pool falls back to exponential backoff — so one exhausted quota doesn't
-poison a chunk's metadata with fallback values.
+Orchestrates enrichment calls: pairs each key with its own rate
+limiter, rotates on 429, and falls back to default metadata only if
+every key is exhausted.
 """
 import asyncio
-import httpx
+import logging
+from dataclasses import dataclass
 
 from core import config
 from pipeline.ingestion.logger import log
-from pipeline.ingestion.metadata.json_extraction import extract_json
+from pipeline.ingestion.metadata.gemini_payload import build_enrichment_payload
+from pipeline.ingestion.metadata.gemini_request import call_gemini, RateLimited
 from services.key_rotation import RoundRobinPool
+from services.gemini_rate_limiter import AsyncRateLimiter
 
-PROMPT_TEMPLATE = """\
-You are an expert Malaysian corporate lawyer. Read the text and extract metadata.
-Respond ONLY with a valid JSON object. No markdown, no explanation, no code fences.
-If the text does NOT fit the examples, do NOT use "unknown". Instead, dynamically generate a highly specific, accurate category based on the text.
-
-
-{{
-  "jurisdiction": "Use 'federal', 'state', or 'local'. If none fit, generate a specific jurisdiction type.",
-  "authority":    "Use 'SSM', 'KKM', 'DBKL', 'MPKj', 'LHDN', or 'MyIPO'. If another body issued this, output that specific agency acronym (e.g., 'KWSP', 'PERKESO', 'DOSH').",
-  "topic":        "Use 'tax', 'licensing', 'zoning', 'employment', 'registration', or 'compliance'. If it covers a different legal topic, create a precise corporate law topic name (e.g., 'foreign equity', 'data protection').",
-  "document_type":"Use 'act', 'guideline', 'form', or 'fee_schedule'. If it is a different document class, generate the exact type (e.g., 'gazette', 'circular', 'appeal letter')."
-}}
-
-TEXT:
-{chunk_text}"""
-
-# Fallback values remain as hard system failures (e.g., if API completely times out or crashes)
 FALLBACK_METADATA = {
     "jurisdiction":  "unclassified",
     "authority":     "unclassified",
@@ -40,14 +22,21 @@ FALLBACK_METADATA = {
 }
 
 
+@dataclass
+class KeySlot:
+    """One API key plus its own independent rate-limit budget."""
+    api_key: str
+    limiter: AsyncRateLimiter
 
-# One key per rotation slot, built once at import — same pattern as the
-# generation LLM pool in pipeline/retriever.py.
-_key_pool = RoundRobinPool(config.GEMINI_ENRICH_API_KEYS)
 
-
-class _RateLimited(Exception):
-    """Raised internally when Gemini returns 429, to trigger a retry/rotation."""
+_key_pool = RoundRobinPool([
+    KeySlot(key, AsyncRateLimiter(config.GEMINI_ENRICH_MAX_RPM_PER_KEY))
+    for key in config.GEMINI_ENRICH_API_KEYS
+])
+log.info(
+    f"[ENRICH] Gemini key pool: {len(_key_pool)} key(s), "
+    f"{config.GEMINI_ENRICH_MAX_RPM_PER_KEY} req/min budget each."
+)
 
 
 def is_fallback(node) -> bool:
@@ -55,68 +44,35 @@ def is_fallback(node) -> bool:
     return all(node.metadata.get(k) == v for k, v in FALLBACK_METADATA.items())
 
 
-def _build_payload(chunk_text: str) -> dict:
-    prompt = PROMPT_TEMPLATE.format(chunk_text=chunk_text)
-    return {
-        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-        "generationConfig": {
-            "temperature": 0.1,
-            "responseMimeType": "application/json",  # Gemini native JSON mode — forces valid JSON output
-        },
-    }
-
-
-async def _request_metadata_once(payload: dict, api_key: str) -> dict:
-    """
-    Makes a single Gemini call with the given key and parses the result.
-    Raises _RateLimited on HTTP 429, or ValueError/KeyError if the
-    response is missing expected fields.
-    """
-    url = f"{config.GEMINI_ENRICH_URL_BASE}?key={api_key}"
-    async with httpx.AsyncClient(timeout=120) as client:
-        resp = await client.post(url, json=payload)
-
-    if resp.status_code == 429:
-        raise _RateLimited()
-
-    resp.raise_for_status()
-
-    candidates = resp.json().get("candidates", [])
-    if not candidates:
-        raise ValueError("Empty candidates list in Gemini response")
-
-    raw = candidates[0]["content"]["parts"][0]["text"]
-    return extract_json(raw)
-
-
 async def _fetch_with_key_rotation(payload: dict, index: int, total: int) -> dict | None:
     """
-    Tries each enrichment key once, round-robin. A 429 rotates to the
-    next key immediately; the last key in the pool gets full exponential
-    backoff (ENRICHMENT_MAX_RETRIES attempts) as a final fallback.
-    Returns None only if every key is rate-limited.
+    Tries each key once, round-robin, waiting for that key's own rate
+    budget before every attempt. A 429 rotates to the next key
+    immediately; only the last key in the pool falls back to full
+    exponential backoff. Returns None if every key is exhausted.
     """
     pool_size = len(_key_pool)
 
     for key_attempt in range(pool_size):
         is_last_key = key_attempt == pool_size - 1
-        api_key = _key_pool.next()
+        slot = _key_pool.next()
         retries = config.ENRICHMENT_MAX_RETRIES if is_last_key else 1
 
         for attempt in range(retries):
+            await slot.limiter.acquire()
             try:
-                return await _request_metadata_once(payload, api_key)
-            except _RateLimited:
+                return await call_gemini(payload, slot.api_key)
+            except RateLimited as e:
                 if not is_last_key:
                     log.warning(
                         f"  [{index + 1}/{total}] Rate limited on key "
                         f"{key_attempt + 1}/{pool_size} — rotating to next key."
                     )
                     break
-                wait = 5 * (2 ** attempt)
+                wait = e.retry_after_seconds or 5 * (2 ** attempt)
                 log.warning(
                     f"  [{index + 1}/{total}] Rate limited — "
-                    f"retrying in {wait}s (attempt {attempt + 1}/{retries})"
+                    f"retrying in {wait:.0f}s (attempt {attempt + 1}/{retries})"
                 )
                 await asyncio.sleep(wait)
 
@@ -124,9 +80,10 @@ async def _fetch_with_key_rotation(payload: dict, index: int, total: int) -> dic
 
 
 async def enrich_single_node_async(semaphore, node, index: int, total: int):
-    """Calls Gemini 3.1 Flash Lite via the REST generateContent endpoint."""
+    """Calls Gemini 3.1 Flash Lite for one node, falling back to default
+    metadata on parse failure or total quota exhaustion."""
     async with semaphore:
-        payload = _build_payload(node.text[:config.ENRICHMENT_CONTEXT_CHARS])
+        payload = build_enrichment_payload(node.text)
 
         try:
             extracted = await _fetch_with_key_rotation(payload, index, total)
