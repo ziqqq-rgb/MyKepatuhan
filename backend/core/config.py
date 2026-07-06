@@ -57,8 +57,8 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60
 # Embedding model 
 # ─────────────────────────────────────────
 JINA_EMBED_MODEL = "jina-embeddings-v3"
-EMBED_OUTPUT_DIMENSIONALITY = 1024   # Jina default; Matryoshka-adjustable (512, 256, ...)
-EMBED_BATCH_SIZE = 100               # well under Jina's 2048 max, and 100 × 512 tokens/node ≈ 51K, under the 100K TPM cap
+EMBED_OUTPUT_DIMENSIONALITY = 1024   # Jina default
+EMBED_BATCH_SIZE = 100             # well under Jina's 2048 max, and 100 × 512 tokens/node ≈ 51K, under the 100K TPM cap
 DOCLING_TOKENIZER_MODEL = "nomic-ai/nomic-embed-text-v1.5"  
 DOCLING_MAX_TOKENS = 512
 

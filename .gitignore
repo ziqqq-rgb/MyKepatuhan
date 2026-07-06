@@ -3,6 +3,8 @@ backend/.checkpoints/
 backend/uploads/
 backend/ingest.log
 backend/pipeline/ingestion/ingest.log
+backend/scripts/batch1
+backend/scripts/batch2
 
 # DeepEval
 .deepeval/
