@@ -1,4 +1,14 @@
-from llama_index.core import Settings
+"""
+Embeds nodes and upserts them to Pinecone via the shared Jina AI
+embedding client (see core/embeddings.py). Jina's limits (100 RPM /
+100K TPM) comfortably cover a full document's chunks in a handful of
+batched requests — no manual pacing needed.
+"""
+from llama_index.core import Settings, VectorStoreIndex, StorageContext
+from llama_index.vector_stores.pinecone import PineconeVectorStore
+
+from core.clients import get_pinecone_index
+from core.embeddings import get_document_embed_model
 from pipeline.ingestion.logger import log
 from pipeline.ingestion.checkpointing import load_uploaded_log, mark_as_uploaded
 
@@ -12,19 +22,10 @@ def stage_upload(nodes: list, doc_name: str) -> None:
 
     log.info(f"[START] Embedding and uploading '{doc_name}' ({len(nodes)} nodes) to Pinecone...")
 
-    from llama_index.vector_stores.pinecone import PineconeVectorStore
-    from llama_index.core import VectorStoreIndex, StorageContext
-    from core.clients import get_embed_model, get_pinecone_index
-
-    embed_model = get_embed_model()
+    embed_model = get_document_embed_model()
     Settings.embed_model = embed_model
 
-    pinecone_index = get_pinecone_index()
-
-    vector_store = PineconeVectorStore(
-        pinecone_index=pinecone_index,
-        #add_sparse_vector=True,
-    )
+    vector_store = PineconeVectorStore(pinecone_index=get_pinecone_index())
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
     VectorStoreIndex(

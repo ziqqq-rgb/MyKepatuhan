@@ -17,18 +17,18 @@ from core import config
 log = logging.getLogger(__name__)
 
 
-def get_embed_model() -> GoogleGenAIEmbedding:
-    """Returns the shared Gemini Embedding model. Query vs. document task
-    type (RETRIEVAL_QUERY / RETRIEVAL_DOCUMENT) is handled automatically
-    by the base class depending on which method is called."""
+def get_embed_model(api_key: str | None = None) -> GoogleGenAIEmbedding:
+    """Returns a Gemini Embedding client. Defaults to the primary embed
+    key; pass `api_key` to build one client per key for a rotation pool
+    (see pipeline/ingestion/upload.py)."""
     return GoogleGenAIEmbedding(
         model_name=config.GEMINI_EMBED_MODEL,
-        api_key=config.GEMINI_EMBED_API_KEY,
+        api_key=api_key or config.GEMINI_EMBED_API_KEY,
         embed_batch_size=config.EMBED_BATCH_SIZE,
         embedding_config=types.EmbedContentConfig(
             output_dimensionality=config.EMBED_OUTPUT_DIMENSIONALITY,
         ),
-     )
+    )
     
 def get_reranker() -> JinaRerank:
     """Returns the shared Jina reranker client — hosted API, no local model."""

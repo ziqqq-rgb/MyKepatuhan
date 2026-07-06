@@ -12,12 +12,12 @@ from llama_index.vector_stores.pinecone import PineconeVectorStore
 from google.genai import types
 
 from core import config
-from core.clients import get_embed_model, get_pinecone_index, get_reranker
 from pipeline.prompts import QA_PROMPT_TEMPLATE, LANGUAGE_LABELS
 from services.key_rotation import RoundRobinPool
+from core.clients import get_pinecone_index, get_reranker
+from core.embeddings import get_query_embed_model
 
-
-embed_model = get_embed_model()
+embed_model = get_query_embed_model()
 Settings.embed_model = embed_model
 
 

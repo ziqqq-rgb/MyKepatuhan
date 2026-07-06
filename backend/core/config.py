@@ -24,6 +24,18 @@ GEMINI_GENERATION_API_KEYS = (
     or [GEMINI_GENERATION_API_KEY]
 )
 
+_raw_embed_keys = os.getenv("GEMINI_EMBED_KEYS", "")
+GEMINI_EMBED_API_KEYS = (
+    [k.strip() for k in _raw_embed_keys.split(",") if k.strip()]
+    or [GEMINI_EMBED_API_KEY]
+)
+
+_raw_enrich_keys = os.getenv("GEMINI_ENRICH_KEYS", "")
+GEMINI_ENRICH_API_KEYS = (
+    [k.strip() for k in _raw_enrich_keys.split(",") if k.strip()]
+    or [GEMINI_ENRICH_API_KEY]
+)
+
 PINECONE_API_KEY = get_env_or_fail("PINECON_KEY")
 JWT_SECRET_KEY = get_env_or_fail("JWT_SECRET_KEY")
 DATABASE_URL = get_env_or_fail("DATABASE_URL")
@@ -40,12 +52,13 @@ ALLOWED_ORIGINS = [origin.strip() for origin in _raw_origins.split(",") if origi
 JWT_ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
+
 # ─────────────────────────────────────────
-# Embedding model
+# Embedding model 
 # ─────────────────────────────────────────
-GEMINI_EMBED_MODEL = "gemini-embedding-001"
-EMBED_OUTPUT_DIMENSIONALITY = 1536
-EMBED_BATCH_SIZE = 50
+JINA_EMBED_MODEL = "jina-embeddings-v3"
+EMBED_OUTPUT_DIMENSIONALITY = 1024   # Jina default; Matryoshka-adjustable (512, 256, ...)
+EMBED_BATCH_SIZE = 100               # well under Jina's 2048 max, and 100 × 512 tokens/node ≈ 51K, under the 100K TPM cap
 DOCLING_TOKENIZER_MODEL = "nomic-ai/nomic-embed-text-v1.5"  
 DOCLING_MAX_TOKENS = 512
 
@@ -58,9 +71,9 @@ PINECONE_INDEX_NAME = "mykepatuhan"
 # Gemini Settings
 # ─────────────────────────────────────────
 GEMINI_ENRICH_MODEL = "gemini-3.1-flash-lite"
-GEMINI_API_URL = (
+GEMINI_ENRICH_URL_BASE = (
     f"https://generativelanguage.googleapis.com/v1beta/models/"
-    f"{GEMINI_ENRICH_MODEL}:generateContent?key={GEMINI_API_KEY}"
+    f"{GEMINI_ENRICH_MODEL}:generateContent"
 )
 ENRICHMENT_CONCURRENT_REQUESTS = 5   
 ENRICHMENT_BATCH_SAVE_EVERY = 50
