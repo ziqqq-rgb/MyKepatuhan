@@ -5,6 +5,8 @@ export { apiQuery, apiQueryStream } from "./query";
 export type { QueryResponse, Citation, StreamTokenEvent, StreamErrorEvent } from "./query";
 export { readSseStream } from "./stream";
 export type { SseMessage } from "./stream";
+export { apiUploadDocument, apiGetJobStatus, apiGetDocuments } from "./ingest";
+export type { IngestJob, IngestedDocument } from "./ingest";
 export {
   apiCreateConversation,
   apiListConversations,

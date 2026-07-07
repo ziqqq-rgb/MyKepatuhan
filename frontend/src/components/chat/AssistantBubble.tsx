@@ -27,7 +27,10 @@ export function AssistantBubble({ message, isPending = false }: AssistantBubbleP
         className="max-w-[90%] rounded-2xl rounded-tl-md border border-border bg-card px-4 py-3.5 text-sm text-foreground"
         style={{ boxShadow: "var(--shadow-sm)" }}
       >
-        <div className="leading-relaxed [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
+        <div
+          key={isPending ? "pending" : "content"}
+          className="animate-fade-in leading-relaxed [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
+        >
           {isPending ? (
             <ThinkingIndicator />
           ) : (
