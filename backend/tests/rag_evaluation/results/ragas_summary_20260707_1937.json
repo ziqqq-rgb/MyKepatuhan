@@ -1,0 +1,10 @@
+{
+  "n_questions": 60,
+  "scores": {
+    "faithfulness": 0.7565,
+    "answer_relevancy": 0.7025,
+    "answer_correctness": 0.6592
+  },
+  "mean_latency_ms": 4529.8,
+  "timestamp": "20260707_1937"
+}
