@@ -1,10 +1,10 @@
 export { getToken, setToken, clearToken, apiFetch, ApiError } from "./client";
 export { apiRegister, apiLogin, apiGetMe, apiOAuthLogin } from "./auth";
 export type { AuthResponse, UserProfile } from "./auth";
-export { apiQuery } from "./query";
-export type { QueryResponse, Citation } from "./query";
-export { apiUploadDocument, apiGetJobStatus, apiGetDocuments } from "./ingest";
-export type { IngestJob, IngestedDocument } from "./ingest";
+export { apiQuery, apiQueryStream } from "./query";
+export type { QueryResponse, Citation, StreamTokenEvent, StreamErrorEvent } from "./query";
+export { readSseStream } from "./stream";
+export type { SseMessage } from "./stream";
 export {
   apiCreateConversation,
   apiListConversations,

@@ -1,8 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { apiQuery, apiGetConversationMessages, ApiError } from "@/lib/api";
+import {
+  apiQueryStream,
+  apiGetConversationMessages,
+  readSseStream,
+  ApiError,
+  type QueryResponse,
+  type StreamTokenEvent,
+  type StreamErrorEvent,
+} from "@/lib/api";
 import { buildNoResultsMessage } from "@/lib/chat/noResultsMessage";
+import { appendToMessage, finalizeMessage } from "@/lib/chat/messageUpdates";
 import { useLanguage } from "@/lib/i18n";
 import type { Message, UserMessage } from "@/components/chat/constants";
 
@@ -10,15 +19,15 @@ type UseChatMessagesArgs = {
   activeId: string | null;
   select: (id: string | null) => void;
   createAndSelect: () => Promise<string>;
-  onFirstMessageSent: () => void; // lets the sidebar refresh once the backend sets a real title
+  onFirstMessageSent: () => void;
   authority: string;
   topic: string;
 };
 
 /**
  * Owns the message list for the active conversation: loads history when
- * the active conversation changes, and sends new questions. Conversation
- * *identity* stays in useConversations — this hook only owns its messages.
+ * the active conversation changes, and streams new answers token-by-token
+ * from POST /query/stream.
  */
 export function useChatMessages({
   activeId,
@@ -48,9 +57,25 @@ export function useChatMessages({
       .then((history) => {
         setMessages(history.map((m) => ({ role: m.role, content: m.content, id: m.id }) as Message));
       })
-      .catch(() => select(null)) // conversation no longer exists — fall back to a fresh chat
+      .catch(() => select(null))
       .finally(() => setMessagesLoading(false));
   }, [activeId, select]);
+
+  /** Applies each SSE event from one /query/stream response to the given assistant message. */
+  async function consumeStream(response: Response, assistantId: string, isFirstMessage: boolean) {
+    for await (const { event, data } of readSseStream<StreamTokenEvent | QueryResponse | StreamErrorEvent>(response)) {
+      if (event === "token") {
+        setMessages((m) => appendToMessage(m, assistantId, (data as StreamTokenEvent).text));
+      } else if (event === "done") {
+        const result = data as QueryResponse;
+        const text = result.no_results ? buildNoResultsMessage(tr, authority, topic) : result.answer;
+        setMessages((m) => finalizeMessage(m, assistantId, text, result.citations));
+        if (isFirstMessage) onFirstMessageSent();
+      } else if (event === "error") {
+        setMessages((m) => finalizeMessage(m, assistantId, tr("chat_error")));
+      }
+    }
+  }
 
   async function send(question: string) {
     const trimmed = question.trim();
@@ -58,7 +83,8 @@ export function useChatMessages({
 
     const isFirstMessageInConversation = messages.length === 0;
     const userMsg: UserMessage = { role: "user", content: trimmed, id: crypto.randomUUID() };
-    setMessages((m) => [...m, userMsg]);
+    const assistantId = crypto.randomUUID();
+    setMessages((m) => [...m, userMsg, { role: "assistant", content: "", id: assistantId }]);
     setSending(true);
 
     try {
@@ -68,32 +94,25 @@ export function useChatMessages({
         conversationId = await createAndSelect();
       }
 
-      const res = await apiQuery(
+      const response = await apiQueryStream(
         trimmed,
         authority === "All" ? undefined : authority,
         topic === "All" ? undefined : topic,
         conversationId
       );
-
-      const answer = res.no_results ? buildNoResultsMessage(tr, authority, topic) : res.answer;
-      setMessages((m) => [
-        ...m,
-        { role: "assistant", content: answer, citations: res.citations, id: crypto.randomUUID() },
-      ]);
-
-      if (isFirstMessageInConversation) onFirstMessageSent();
-      } catch (err) {
-        const content =
-          err instanceof ApiError && err.status === 429
-            ? tr("error_rate_limited")
-            : err instanceof ApiError && err.status === 0
-            ? tr("error_network")
-            : tr("chat_error");
-        setMessages((m) => [...m, { role: "assistant", content, id: crypto.randomUUID() }]);
-      } finally {
-        setSending(false);
-      }
+      await consumeStream(response, assistantId, isFirstMessageInConversation);
+    } catch (err) {
+      const content =
+        err instanceof ApiError && err.status === 429
+          ? tr("error_rate_limited")
+          : err instanceof ApiError && err.status === 0
+          ? tr("error_network")
+          : tr("chat_error");
+      setMessages((m) => finalizeMessage(m, assistantId, content));
+    } finally {
+      setSending(false);
     }
+  }
 
   return { messages, messagesLoading, sending, send };
 }

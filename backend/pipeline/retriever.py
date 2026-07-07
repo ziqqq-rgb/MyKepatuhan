@@ -129,3 +129,17 @@ def print_citations(response) -> None:
             f"Type: {meta.get('document_type', 'Unknown')} | "
             f"Score: {node.score:.4f}"
         )
+
+def build_response_synthesizer(llm: GoogleGenAI = None, history: str = "", target_language: str = "en", streaming: bool = False):
+    """
+    Generates an answer from nodes it's given — never retrieves on its own,
+    so the live query path can reuse already-retrieved, already-reranked
+    nodes instead of hitting Pinecone twice.
+
+    `llm` defaults to the next rotated client if not passed explicitly.
+    `streaming=True` returns a response whose `.response_gen` yields tokens
+    incrementally, instead of blocking until the full answer is ready.
+    """
+    language_label = LANGUAGE_LABELS.get(target_language, "English")
+    prompt = QA_PROMPT_TEMPLATE.partial_format(history=history, target_language=language_label)
+    return get_response_synthesizer(llm=llm or get_next_llm(), text_qa_template=prompt, streaming=streaming)

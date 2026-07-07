@@ -72,3 +72,19 @@ def generate_answer(
             if is_rate_limited and not is_last_key:
                 continue
             raise
+
+def generate_answer_stream(question: str, nodes: list[NodeWithScore], history: str, target_language: str):
+    """
+    Same inputs as generate_answer(), but yields the answer token-by-token
+    instead of returning it in one block.
+
+    Trade-off vs generate_answer(): no key-rotation retry *within* a single
+    request. Once the first token has reached the client, switching keys
+    and restarting would mean re-sending an answer from scratch — worse UX
+    than occasionally letting one attempt fail. Rotation still happens
+    *across* requests via get_next_llm().
+    """
+    llm = get_next_llm()
+    synthesizer = build_response_synthesizer(llm, history=history, target_language=target_language, streaming=True)
+    response = synthesizer.synthesize(question, nodes=nodes)
+    yield from response.response_gen

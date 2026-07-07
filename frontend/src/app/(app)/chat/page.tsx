@@ -4,18 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import { Menu } from "lucide-react";
 import { useUser } from "@stackframe/stack";
 import { Navbar } from "@/components/Navbar";
-import { ThinkingIndicator } from "@/components/chat/ThinkingIndicator";
-import { useLanguage } from "@/lib/i18n";
 import { useRoleGate } from "@/lib/hooks/useRoleGate";
 import { useConversations } from "@/lib/hooks/useConversations";
 import { useChatMessages } from "@/lib/hooks/useChatMessages";
 import { ChatSidebar } from "@/components/chat/ChatSidebar";
 import { ChatInput } from "@/components/chat/ChatInput";
-import { UserBubble } from "@/components/chat/UserBubble";
-import { AssistantBubble } from "@/components/chat/AssistantBubble";
+import { ChatEmptyState } from "@/components/chat/ChatEmptyState";
+import { ChatMessageList } from "@/components/chat/ChatMessageList";
 
 export default function ChatPage() {
-  const { tr } = useLanguage();
   const user = useUser();
   const ready = useRoleGate("user", "/admin");
 
@@ -45,6 +42,8 @@ export default function ChatPage() {
     topic,
   });
 
+  // Keep the transcript pinned to the newest message as it grows,
+  // including token-by-token while an answer is streaming in.
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, sending]);
@@ -54,13 +53,17 @@ export default function ChatPage() {
     setInput("");
   }
 
-  if (!ready) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-background">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
-      </div>
-    );
+  function handleSelectConversation(id: string) {
+    select(id);
+    setSidebarOpen(false);
   }
+
+  function handleNewChat() {
+    startNew();
+    setSidebarOpen(false);
+  }
+
+  if (!ready) return <FullScreenSpinner />;
 
   return (
     <div className="flex h-screen flex-col bg-background">
@@ -73,14 +76,8 @@ export default function ChatPage() {
           conversations={conversations}
           activeId={activeId}
           loading={conversationsLoading}
-          onSelect={(id) => {
-            select(id);
-            setSidebarOpen(false);
-          }}
-          onNewChat={() => {
-            startNew();
-            setSidebarOpen(false);
-          }}
+          onSelect={handleSelectConversation}
+          onNewChat={handleNewChat}
           onDelete={remove}
         />
 
@@ -92,14 +89,7 @@ export default function ChatPage() {
         )}
 
         <main className="relative flex min-w-0 flex-1 flex-col">
-          <div className="flex items-center border-b border-border bg-card/60 px-3 py-2 backdrop-blur-md md:hidden">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-            >
-              <Menu className="h-5 w-5" />
-            </button>
-          </div>
+          <MobileSidebarToggle onOpen={() => setSidebarOpen(true)} />
 
           <div
             aria-hidden
@@ -110,39 +100,12 @@ export default function ChatPage() {
           <div ref={scrollRef} className="relative flex-1 overflow-y-auto">
             {messagesLoading ? (
               <div className="flex h-full items-center justify-center">
-                <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
+                <Spinner />
               </div>
             ) : messages.length === 0 ? (
-              <div className="flex h-full flex-col items-center justify-center px-4 py-12 text-center">
-                <h2 className="mt-5 text-2xl font-semibold tracking-tight text-foreground sm:text-[1.75rem]">
-                  {tr("chat_empty_title")}
-                </h2>
-                <div className="mt-8 grid w-full max-w-2xl gap-2.5 sm:grid-cols-3">
-                  {(["chat_sugg_1", "chat_sugg_2", "chat_sugg_3"] as const).map((k) => (
-                    <button
-                      key={k}
-                      onClick={() => send(tr(k))}
-                      className="rounded-xl border border-border bg-card p-3.5 text-left text-sm text-foreground transition-all hover:border-primary/30 hover:bg-secondary hover:-translate-y-0.5"
-                      style={{ boxShadow: "var(--shadow-sm)" }}
-                    >
-                      {tr(k)}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <ChatEmptyState onSuggestionClick={send} />
             ) : (
-              <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-6">
-                {messages.map((m) =>
-                  m.role === "user" ? <UserBubble key={m.id} message={m} /> : <AssistantBubble key={m.id} message={m} />
-                )}
-                {sending && (
-                  <div className="flex items-start gap-2.5">
-                    <div className="rounded-2xl rounded-tl-md border border-border bg-card px-4 py-3">
-                      <ThinkingIndicator />
-                    </div>
-                  </div>
-                )}
-              </div>
+              <ChatMessageList messages={messages} sending={sending} />
             )}
           </div>
 
@@ -158,6 +121,34 @@ export default function ChatPage() {
           />
         </main>
       </div>
+    </div>
+  );
+}
+
+/** Spinning ring, unstyled by container — callers decide sizing/centering. */
+function Spinner() {
+  return <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />;
+}
+
+/** Full-viewport variant of Spinner, shown while the role gate resolves. */
+function FullScreenSpinner() {
+  return (
+    <div className="flex h-screen items-center justify-center bg-background">
+      <Spinner />
+    </div>
+  );
+}
+
+/** Hamburger button that opens the conversation sidebar; hidden on desktop where the sidebar is always visible. */
+function MobileSidebarToggle({ onOpen }: { onOpen: () => void }) {
+  return (
+    <div className="flex items-center border-b border-border bg-card/60 px-3 py-2 backdrop-blur-md md:hidden">
+      <button
+        onClick={onOpen}
+        className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+      >
+        <Menu className="h-5 w-5" />
+      </button>
     </div>
   );
 }
