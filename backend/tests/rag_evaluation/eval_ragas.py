@@ -8,10 +8,10 @@ Resumable via checkpoint.py — safe to re-run after a crash or quota error.
 Run (from backend/):
     python -m tests.rag_evaluation.eval_ragas
 """
-import asyncio
 import csv
 import json
 import time
+import asyncio
 from functools import partial
 from pathlib import Path
 
@@ -29,14 +29,10 @@ CHECKPOINT_KEY = "full_generation_eval"
 
 
 def _summarize(rows: list[dict]) -> dict:
-    """Averages each metric across all rows, plus mean latency."""
     n = len(rows)
     return {
         "n_questions": n,
-        "scores": {
-            name: round(sum(r["scores"][name] for r in rows) / n, 4)
-            for name in METRIC_NAMES
-        },
+        "scores": {m: round(sum(r["scores"][m] for r in rows) / n, 4) for m in METRIC_NAMES},
         "mean_latency_ms": round(sum(r["latency_ms"] for r in rows) / n, 1),
     }
 
@@ -47,16 +43,13 @@ def _save_results(rows: list[dict], summary: dict) -> Path:
     out_dir = Path(__file__).parent / "results"
     out_dir.mkdir(exist_ok=True)
 
-    csv_path = out_dir / f"ragas_eval_{ts}.csv"
-    with open(csv_path, "w", newline="") as f:
+    with open(out_dir / f"ragas_eval_{ts}.csv", "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=["question", "answer", "reference", "latency_ms", *METRIC_NAMES])
         writer.writeheader()
         for row in rows:
             writer.writerow({
-                "question": row["question"],
-                "answer": row["answer"],
-                "reference": row["reference"],
-                "latency_ms": row["latency_ms"],
+                "question": row["question"], "answer": row["answer"],
+                "reference": row["reference"], "latency_ms": row["latency_ms"],
                 **row["scores"],
             })
 
@@ -70,9 +63,7 @@ async def main():
     score_fn = partial(score_row, judge_llm=judge_llm, judge_embeddings=judge_embeddings)
 
     print(f"Running {len(TEST_QUESTIONS)} questions against the production pipeline...")
-    rows = await run_scored_evaluation(
-        CHECKPOINT_KEY, TEST_QUESTIONS, build_retriever(), limiter, score_fn
-    )
+    rows = await run_scored_evaluation(CHECKPOINT_KEY, TEST_QUESTIONS, build_retriever(), limiter, score_fn)
 
     if not rows:
         print("No rows produced contexts — aborting.")

@@ -1,0 +1,17 @@
+{
+  "dense": {
+    "context_precision": 0.8389,
+    "context_recall": 0.9333,
+    "mean_latency_ms": 5135.1
+  },
+  "sparse": {
+    "context_precision": 0.1444,
+    "context_recall": 0.2,
+    "mean_latency_ms": 1525.9
+  },
+  "hybrid": {
+    "context_precision": 0.8333,
+    "context_recall": 0.9167,
+    "mean_latency_ms": 3754.6
+  }
+}
