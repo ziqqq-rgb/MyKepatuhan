@@ -1,15 +1,20 @@
-"""Runs one question through the RAG pipeline: retrieve -> rerank -> generate."""
 import time
+
+from pipeline.retriever import build_query_engine
 from tests.rag_evaluation.rate_limiter import RateLimiter
 
 
-async def run_single_question(query_engine, item: dict, limiter: RateLimiter) -> dict | None:
-    """Returns None if retrieval came back empty — Ragas can't score
-    faithfulness without context."""
-    await limiter.wait_if_needed()  # generation is one Gemini call
+async def run_single_question(retriever, item: dict, limiter: RateLimiter) -> dict | None:
+    """Builds a fresh query engine per question — cheap, just reuses the
+    already-built retriever/reranker/LLM-pool — so generation rotates to
+    the next Gemini key every call instead of pinning the whole run to
+    one key. Returns None if retrieval came back empty."""
+    await limiter.wait_if_needed()
+
+    query_engine = build_query_engine(retriever=retriever)
 
     t0 = time.perf_counter()
-    response = await query_engine.aquery(item["question"])  # async: avoids nested event loop
+    response = await query_engine.aquery(item["question"])
     latency_ms = round((time.perf_counter() - t0) * 1000, 1)
 
     contexts = [n.node.text for n in response.source_nodes if n.node.text.strip()]

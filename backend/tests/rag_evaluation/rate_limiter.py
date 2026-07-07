@@ -1,13 +1,10 @@
-"""
-Sliding-window rate limiter shared by every Gemini call in the eval suite —
-generation and judge calls use the same API key, so they draw from the
-same 15 RPM free-tier quota and must share one counter.
-"""
 import asyncio
 import time
 from collections import deque
 
 import httpx
+
+from services.key_rotation import RoundRobinPool
 
 
 class RateLimiter:
@@ -17,8 +14,6 @@ class RateLimiter:
         self._call_times: deque[float] = deque()
 
     async def wait_if_needed(self) -> None:
-        """Blocks just long enough to keep calls under `max_calls` within
-        the trailing window. Call immediately before any Gemini request."""
         now = time.monotonic()
         while self._call_times and now - self._call_times[0] > self.period_seconds:
             self._call_times.popleft()
@@ -32,16 +27,18 @@ class RateLimiter:
 
 class RateLimitedTransport(httpx.AsyncHTTPTransport):
     """
-    Wraps the OpenAI client's real transport so every outgoing request is
-    throttled — including the multiple internal calls a single Ragas metric
-    can fire (e.g. ContextPrecision calls the judge once per context). This
-    is the only place that reliably sees every call, since pacing at the
-    orchestration layer can't see what happens inside a library.
+    Paces every outgoing request, and (if given a key_pool) rewrites the
+    Authorization header per request to rotate across Gemini keys — same
+    round-robin pattern as enrichment/generation, applied at the transport
+    so no per-call code needs to know rotation is happening.
     """
-    def __init__(self, limiter: RateLimiter, **kwargs):
+    def __init__(self, limiter: RateLimiter, key_pool: RoundRobinPool[str] | None = None, **kwargs):
         super().__init__(**kwargs)
         self._limiter = limiter
+        self._key_pool = key_pool
 
     async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
         await self._limiter.wait_if_needed()
+        if self._key_pool is not None:
+            request.headers["Authorization"] = f"Bearer {self._key_pool.next()}"
         return await super().handle_async_request(request)
