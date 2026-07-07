@@ -1,10 +1,7 @@
 """
-Proactive per-key request throttle for Gemini calls.
-
-Reacting to 429s with backoff only kicks in *after* a key's quota
-window is already blown. This limiter instead makes each key wait for
-an open slot before sending, so five concurrent enrichment calls
-can't all pile onto the same key's per-minute budget at once.
+Sliding-window async rate limiter for a shared request budget (e.g. one
+Gemini project's RPM, shared across a pool of API keys). Generic on
+purpose — not tied to enrichment specifically.
 """
 import asyncio
 import time

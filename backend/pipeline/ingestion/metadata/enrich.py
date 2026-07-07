@@ -12,11 +12,16 @@ from pipeline.ingestion.checkpointing import (
     checkpoint_exists, load_checkpoint, save_checkpoint
 )
 from pipeline.ingestion.metadata.gemini_client import (
-    enrich_single_node_async, is_fallback
+    build_enrichment_state, enrich_single_node_async, is_fallback
 )
 
 
 async def enrich_batch_async(nodes: list, start_index: int, doc_name: str) -> None:
+    # Built fresh inside this coroutine. asyncio.run() (see stage_enrich)
+    # gives each document its own event loop, so state bound to a loop
+    # (the rate limiter's internal Lock) must never be a module-level
+    # singleton reused across documents — see gemini_client.py docstring.
+    state = build_enrichment_state()
     semaphore = asyncio.Semaphore(config.ENRICHMENT_CONCURRENT_REQUESTS)
     remaining = nodes[start_index:]
     total     = len(nodes)
@@ -29,7 +34,7 @@ async def enrich_batch_async(nodes: list, start_index: int, doc_name: str) -> No
         )
 
         tasks = [
-            enrich_single_node_async(semaphore, node, idx, total)
+            enrich_single_node_async(semaphore, node, idx, total, state)
             for node, idx in zip(batch, actual_indices)
         ]
         results = await asyncio.gather(*tasks)

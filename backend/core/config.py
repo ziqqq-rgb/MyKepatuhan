@@ -35,10 +35,12 @@ def load_key_pool(env_var: str) -> list[str]:
 # ─────────────────────────────────────────
 GEMINI_GENERATION_API_KEYS = load_key_pool("GEMINI_GENERATION_KEYS")
 GEMINI_ENRICH_API_KEYS = load_key_pool("GEMINI_ENRICH_KEYS")
+GEMINI_ENRICH_MAX_RPM = int(os.getenv("GEMINI_ENRICH_MAX_RPM", 12))
 
 log.info(
     f"[CONFIG] Gemini pools loaded — generation: {len(GEMINI_GENERATION_API_KEYS)} key(s), "
-    f"enrichment: {len(GEMINI_ENRICH_API_KEYS)} key(s)."
+    f"enrichment: {len(GEMINI_ENRICH_API_KEYS)} key(s), "
+    f"{GEMINI_ENRICH_MAX_RPM} req/min budget per enrichment key."
 )
 
 JINA_API_KEY = get_env_or_fail("JINA_API_KEY")
@@ -64,7 +66,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60
 # ─────────────────────────────────────────
 JINA_EMBED_MODEL = "jina-embeddings-v3"
 EMBED_OUTPUT_DIMENSIONALITY = 1024   # Jina default
-EMBED_BATCH_SIZE = 100             # well under Jina's 2048 max, and 100 × 512 tokens/node ≈ 51K, under the 100K TPM cap
+EMBED_BATCH_SIZE = 1            # well under Jina's 2048 max, and 100 × 512 tokens/node ≈ 51K, under the 100K TPM cap
 DOCLING_TOKENIZER_MODEL = "nomic-ai/nomic-embed-text-v1.5"  
 DOCLING_MAX_TOKENS = 512
 
