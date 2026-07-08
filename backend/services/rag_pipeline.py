@@ -5,8 +5,7 @@ Split into two functions (retrieve_and_rerank, generate_answer) instead of
 one query engine so the same nodes can be reused for both generation and
 citations, without retrieving from Pinecone a second time.
 """
-# from google.genai.errors import ClientError  # swapped for Groq
-from openai import RateLimitError
+from google.genai.errors import ClientError
 from llama_index.core.schema import NodeWithScore
 
 from pipeline.retriever import (
@@ -51,7 +50,7 @@ def generate_answer(
     Synthesizes an answer from nodes already retrieved by the caller.
     Never re-retrieves — pass the output of retrieve_and_rerank() here.
 
-    Tries each Groq key once, round-robin: on a 429, move to the next
+    Tries each Gemini key once, round-robin: on a 429, move to the next
     key immediately instead of sleeping, since spare quota is likely
     sitting idle on the others. Only the final key in the pass gets
     call_with_backoff's full exponential retry, as a last resort if
@@ -68,8 +67,9 @@ def generate_answer(
                 synthesizer.synthesize, question, nodes=nodes, max_retries=max_retries
             )
             return str(response)
-        except RateLimitError:
-            if not is_last_key:
+        except ClientError as e:
+            is_rate_limited = getattr(e, "code", None) == 429
+            if is_rate_limited and not is_last_key:
                 continue
             raise
 

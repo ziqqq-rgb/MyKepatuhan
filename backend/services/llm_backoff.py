@@ -1,13 +1,14 @@
 """
-Generic retry-with-backoff wrapper for rate-limited API calls (e.g. Groq).
+Generic retry-with-backoff wrapper for rate-limited API calls (e.g. Gemini).
 Not tied to any specific endpoint — reusable wherever a call can 429.
 """
 import time
 import logging
-# from google.genai.errors import ClientError  # swapped for Groq
-from openai import RateLimitError
+from google.genai.errors import ClientError
 
 log = logging.getLogger(__name__)
+
+RATE_LIMIT_STATUS = 429
 
 
 def call_with_backoff(fn, *args, max_retries: int = 3, **kwargs):
@@ -19,9 +20,11 @@ def call_with_backoff(fn, *args, max_retries: int = 3, **kwargs):
     for attempt in range(max_retries):
         try:
             return fn(*args, **kwargs)
-        except RateLimitError:
+        except ClientError as e:
+            is_rate_limited = getattr(e, "code", None) == RATE_LIMIT_STATUS
             is_last_attempt = attempt == max_retries - 1
-            if is_last_attempt:
+
+            if not is_rate_limited or is_last_attempt:
                 raise
 
             wait = 5 * (2 ** attempt)

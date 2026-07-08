@@ -29,26 +29,19 @@ def load_key_pool(env_var: str) -> list[str]:
 
 
 # ─────────────────────────────────────────
-# Gemini — now used only for metadata enrichment during ingestion (bulk
-# calls, usually the workload that needs more keys / hits limits first).
-# Generation used to run on Gemini too — swapped for Groq below.
+# Gemini — one rotation pool per workload. Generation runs per user
+# query; enrichment runs in bulk during ingestion, so it's usually the
+# one that needs more keys / hits limits first.
 # ─────────────────────────────────────────
-# GEMINI_GENERATION_API_KEYS = load_key_pool("GEMINI_GENERATION_KEYS")  # moved to Groq
+GEMINI_GENERATION_API_KEYS = load_key_pool("GEMINI_GENERATION_KEYS")
 GEMINI_ENRICH_API_KEYS = load_key_pool("GEMINI_ENRICH_KEYS")
 GEMINI_ENRICH_MAX_RPM = int(os.getenv("GEMINI_ENRICH_MAX_RPM", 12))
 
-# ─────────────────────────────────────────
-# Groq — generation LLM (query-time answer synthesis). Same rotation-pool
-# pattern the Gemini keys used: one client per key, round-robin, so a
-# single project's RPM/RPD quota doesn't take all the traffic.
-# ─────────────────────────────────────────
-GROQ_GENERATION_API_KEYS = load_key_pool("GROQ_GENERATION_KEYS")
-
 log.info(
-    f"[CONFIG] Gemini enrichment pool loaded — {len(GEMINI_ENRICH_API_KEYS)} key(s), "
-    f"{GEMINI_ENRICH_MAX_RPM} req/min budget per key."
+    f"[CONFIG] Gemini pools loaded — generation: {len(GEMINI_GENERATION_API_KEYS)} key(s), "
+    f"enrichment: {len(GEMINI_ENRICH_API_KEYS)} key(s), "
+    f"{GEMINI_ENRICH_MAX_RPM} req/min budget per enrichment key."
 )
-log.info(f"[CONFIG] Groq generation pool loaded — {len(GROQ_GENERATION_API_KEYS)} key(s).")
 
 JINA_API_KEY = get_env_or_fail("JINA_API_KEY")
 PINECONE_API_KEY = get_env_or_fail("PINECON_KEY")
@@ -83,7 +76,7 @@ DOCLING_MAX_TOKENS = 512
 PINECONE_INDEX_NAME = "mykepatuhan"
 
 # ─────────────────────────────────────────
-# Gemini Settings (metadata enrichment only)
+# Gemini Settings
 # ─────────────────────────────────────────
 GEMINI_ENRICH_MODEL = "gemini-3.1-flash-lite"
 GEMINI_ENRICH_URL_BASE = (
@@ -95,15 +88,8 @@ ENRICHMENT_BATCH_SAVE_EVERY = 50
 ENRICHMENT_CONTEXT_CHARS = 2000
 ENRICHMENT_MAX_RETRIES = 3
 
-# GEMINI_GENERATION_MODEL = "gemini-3.1-flash-lite"   # moved to Groq
-# GEMINI_GENERATION_TEMPERATURE = 0.0
-
-# ─────────────────────────────────────────
-# Groq Settings (query-time generation)
-# ─────────────────────────────────────────
-GROQ_GENERATION_MODEL = "qwen/qwen3.6-27b"
-GROQ_GENERATION_TEMPERATURE = 0.0
-
+GEMINI_GENERATION_MODEL = "gemini-3.1-flash-lite"
+GEMINI_GENERATION_TEMPERATURE = 0.0
 RAGAS_JUDGE_EMBEDDING_MODEL = "gemini-embedding-2"
 RAGAS_JUDGE_MAX_TOKENS = int(os.getenv("RAGAS_JUDGE_MAX_TOKENS", 8192))  # instructor defaults to 1024, too low for Faithfulness on long contexts
 

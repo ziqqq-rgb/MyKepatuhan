@@ -6,10 +6,10 @@ from llama_index.core.vector_stores.types import (
     MetadataFilters,
     FilterOperator,
 )
-# from llama_index.llms.google_genai import GoogleGenAI  # swapped for Groq
-from llama_index.llms.groq import Groq
+from llama_index.llms.google_genai import GoogleGenAI
 from llama_index.vector_stores.pinecone import PineconeVectorStore
-# from google.genai import types  # only needed for the old GoogleGenAI generation_config
+
+from google.genai import types
 
 from core import config
 from pipeline.prompts import QA_PROMPT_TEMPLATE, LANGUAGE_LABELS
@@ -21,28 +21,20 @@ embed_model = get_query_embed_model()
 Settings.embed_model = embed_model
 
 
-# def _build_llm(api_key: str) -> GoogleGenAI:
-#     return GoogleGenAI(
-#         api_key=api_key,
-#         model=config.GEMINI_GENERATION_MODEL,
-#         temperature=config.GEMINI_GENERATION_TEMPERATURE,
-#         generation_config=types.GenerateContentConfig(
-#             automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
-#         ),
-#     )
-
-
-def _build_llm(api_key: str) -> Groq:
-    return Groq(
+def _build_llm(api_key: str) -> GoogleGenAI:
+    return GoogleGenAI(
         api_key=api_key,
-        model=config.GROQ_GENERATION_MODEL,
-        temperature=config.GROQ_GENERATION_TEMPERATURE,
+        model=config.GEMINI_GENERATION_MODEL,
+        temperature=config.GEMINI_GENERATION_TEMPERATURE,
+        generation_config=types.GenerateContentConfig(
+            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+        ),
     )
 
 
-# One client per Groq project key, built once at import — rotating
+# One client per Gemini project key, built once at import — rotating
 # pre-built clients avoids the construction cost on every request.
-_llm_pool = RoundRobinPool([_build_llm(key) for key in config.GROQ_GENERATION_API_KEYS])
+_llm_pool = RoundRobinPool([_build_llm(key) for key in config.GEMINI_GENERATION_API_KEYS])
 
 # LlamaIndex internals that read Settings.llm directly need a default;
 # actual per-request rotation happens via get_next_llm().
@@ -61,8 +53,8 @@ vector_store = PineconeVectorStore(
 index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
 
 
-def get_next_llm() -> Groq:
-    """Rotates round-robin across Groq generation keys so no single
+def get_next_llm() -> GoogleGenAI:
+    """Rotates round-robin across Gemini generation keys so no single
     project's RPM/RPD quota takes all the traffic."""
     return _llm_pool.next()
 
@@ -95,7 +87,7 @@ def rerank_nodes(nodes: list[NodeWithScore], question: str) -> list[NodeWithScor
 
 
 def build_response_synthesizer(
-    llm: Groq = None,
+    llm: GoogleGenAI = None,
     history: str = "",
     target_language: str = "en",
     streaming: bool = False,

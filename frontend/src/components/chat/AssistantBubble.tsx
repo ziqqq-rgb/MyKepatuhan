@@ -8,15 +8,17 @@ import { useLanguage } from "@/lib/i18n";
 import { chatMarkdownComponents } from "./markdownComponents";
 import { visibleCitationTags } from "@/lib/chat/citationMeta";
 import { ThinkingIndicator } from "@/components/chat/ThinkingIndicator";
+import { StreamingWords } from "./StreamingWords";
 import type { AssistantMessage } from "./constants";
 
 type AssistantBubbleProps = {
   message: AssistantMessage;
-  /** True while this message is still waiting for its first streamed token. */
   isPending?: boolean;
+  /** True while tokens are still arriving for this message. */
+  isStreaming?: boolean;
 };
 
-export function AssistantBubble({ message, isPending = false }: AssistantBubbleProps) {
+export function AssistantBubble({ message, isPending = false, isStreaming = false }: AssistantBubbleProps) {
   const { tr } = useLanguage();
   const [sourcesOpen, setSourcesOpen] = useState(false);
   const citationCount = message.citations?.length ?? 0;
@@ -33,6 +35,8 @@ export function AssistantBubble({ message, isPending = false }: AssistantBubbleP
         >
           {isPending ? (
             <ThinkingIndicator />
+          ) : isStreaming ? (
+            <StreamingWords text={message.content} />
           ) : (
             <ReactMarkdown remarkPlugins={[remarkGfm]} components={chatMarkdownComponents}>
               {message.content}

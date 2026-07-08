@@ -109,6 +109,15 @@ h1, h2, h3, h4 { letter-spacing: -0.025em; }
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes word-in {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-word-in {
+  animation: word-in 0.28s ease-out;
+}
+
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .animate-fade-in  { animation: fade-in 0.35s ease-out; }
@@ -121,7 +130,6 @@ h1, h2, h3, h4 { letter-spacing: -0.025em; }
 .animate-marquee {
   animation: marquee 28s linear infinite;
 }
-
 
 /* ─── Scrollbar ──────────────────────────────────── */
 ::-webkit-scrollbar       { width: 5px; }

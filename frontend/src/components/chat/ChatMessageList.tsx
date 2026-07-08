@@ -6,17 +6,21 @@ import type { Message } from "./constants";
 
 type ChatMessageListProps = {
   messages: Message[];
-  /** True while an answer is still streaming in — used to show the typing indicator on the in-progress message. */
   sending: boolean;
 };
 
-/**
- * A message is "pending" only if it's the last one, belongs to the
- * assistant, has no content yet, and streaming is still in flight —
- * i.e. the placeholder bubble created right before the first token arrives.
- */
+function isLastAssistant(message: Message, index: number, messages: Message[]): boolean {
+  return index === messages.length - 1 && message.role === "assistant";
+}
+
+/** No tokens yet — show the thinking indicator. */
 function isPending(message: Message, index: number, messages: Message[], sending: boolean): boolean {
-  return sending && index === messages.length - 1 && message.role === "assistant" && message.content === "";
+  return sending && isLastAssistant(message, index, messages) && message.content === "";
+}
+
+/** Tokens are actively arriving — show word-by-word fade-in. */
+function isStreaming(message: Message, index: number, messages: Message[], sending: boolean): boolean {
+  return sending && isLastAssistant(message, index, messages) && message.content !== "";
 }
 
 export function ChatMessageList({ messages, sending }: ChatMessageListProps) {
@@ -30,6 +34,7 @@ export function ChatMessageList({ messages, sending }: ChatMessageListProps) {
             key={message.id}
             message={message}
             isPending={isPending(message, index, messages, sending)}
+            isStreaming={isStreaming(message, index, messages, sending)}
           />
         )
       )}
