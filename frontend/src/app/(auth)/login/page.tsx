@@ -9,6 +9,7 @@ import { useLanguage } from "@/lib/i18n";
 import { ErrorBanner } from "@/components/ErrorBanner";
 import { ApiError,apiLogin, setToken } from "@/lib/api";
 import { GoogleIcon } from "@/components/icons/GoogleIcon";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 
 export default function LoginPage() {
   const { tr } = useLanguage();
@@ -59,6 +60,13 @@ export default function LoginPage() {
 
   return (
     <div className="w-full max-w-100 animate-fade-in">
+      <BreadcrumbJsonLd
+        trail={[
+          { name: "Home", path: "/" },
+          { name: "Login", path: "/login" },
+        ]}
+      />
+
       {/* Logo mark */}
       <div className="mb-8 flex flex-col items-center text-center">
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">

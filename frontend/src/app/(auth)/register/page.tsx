@@ -9,6 +9,7 @@ import { useLanguage } from "@/lib/i18n";
 import { ErrorBanner } from "@/components/ErrorBanner";
 import { apiRegister, apiLogin, setToken, ApiError } from "@/lib/api";
 import { GoogleIcon } from "@/components/icons/GoogleIcon";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 
 export default function RegisterPage() {
   const { tr } = useLanguage();
@@ -72,6 +73,13 @@ export default function RegisterPage() {
 
   return (
     <div className="w-full max-w-100 animate-fade-in">
+      <BreadcrumbJsonLd
+        trail={[
+          { name: "Home", path: "/" },
+          { name: "Register", path: "/register" },
+        ]}
+      />
+
       {/* Logo mark */}
       <div className="mb-8 flex flex-col items-center text-center">
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">
