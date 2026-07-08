@@ -18,6 +18,41 @@ __pycache__/
 # macOS
 .DS_Store
 
-# Env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Env vars / secrets
 .env
 .env.local
+.env.*
+!.env.example
+
+# Ingestion pipeline artifacts 
+.checkpoints/
+ingest.log
+uploads/
+
+# Testing / tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+.coverage.*
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
