@@ -7,6 +7,9 @@ export function Footer() {
       <Link href="/privacy" className="underline underline-offset-2 hover:text-gray-700">
         Privacy Policy
       </Link>
+      <Link href="/terms" className="underline underline-offset-2 hover:text-gray-700">
+        Terms of Service
+      </Link>
     </footer>
   );
 }
