@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { TERMS_OF_SERVICE_HTML} from "./content";
+import { TERMS_OF_SERVICE_HTML} from "../privacy/content";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
