@@ -112,7 +112,7 @@ export const t = {
   chat_empty_title: { en: "What would you like to know?", bm: "Apa yang anda ingin ketahui?" },
   chat_sugg_1: { en: "How do I register an Sdn Bhd?", bm: "Bagaimana saya mendaftar Sdn Bhd?" },
   chat_sugg_2: { en: "What licenses do I need to open a restaurant?", bm: "Lesen apa yang saya perlukan untuk buka restoran?" },
-  chat_sugg_3: { en: "How do I register for SST?", bm: "Bagaimana saya mendaftar SST?" },
+  chat_sugg_3: { en: "what are the key steps for starting an e-commerce business?", bm: "Apakah langkah-langkah utama untuk memulakan perniagaan e-commerce?" },
   chat_placeholder: { en: "Ask about Malaysian business compliance...", bm: "Tanya tentang pematuhan perniagaan Malaysia..." },
   chat_disclaimer: { en: "Answers are based on official documents. Not legal advice.", bm: "Jawapan berdasarkan dokumen rasmi. Bukan nasihat undang-undang." },
   chat_show_sources: { en: "Show sources", bm: "Tunjuk sumber" },
