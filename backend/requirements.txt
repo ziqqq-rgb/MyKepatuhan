@@ -1,20 +1,21 @@
 # --- Web framework ---
 fastapi
 uvicorn[standard]
-python-multipart        
+python-multipart
 pydantic
-email-validator           
+email-validator
+
 # --- Auth ---
 python-jose[cryptography]
 bcrypt
-httpx                      
+httpx
 
 # --- Rate limiting ---
 slowapi
 
 # --- Database ---
 sqlalchemy
-psycopg2-binary          
+psycopg2-binary
 
 # --- Config / env ---
 python-dotenv
@@ -31,18 +32,10 @@ google-genai
 # --- Pinecone ---
 pinecone
 
-# --- LlamaIndex core ---
+# --- LlamaIndex 
 llama-index-core
 llama-index-embeddings-google-genai
 llama-index-embeddings-jinaai
 llama-index-postprocessor-jinaai-rerank
 llama-index-vector-stores-pinecone
 llama-index-llms-google-genai
-llama-index-readers-docling
-llama-index-node-parser-docling
-
-# --- Ingestion parsing (docling pulls in its own layout/OCR model deps,
-# which is why the image is large — see deployment notes) ---
-docling
-docling-core
-transformers

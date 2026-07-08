@@ -13,7 +13,6 @@ from database import models
 from routers.login import router as login_router
 from routers.register import router as register_router
 from routers.query import router as query_router
-from routers.ingest import router as ingest_router
 from routers.conversations import router as conversations_router
 from services.rag_pipeline import warm_up
 
@@ -63,7 +62,6 @@ app.add_middleware(
 app.include_router(login_router)
 app.include_router(register_router)
 app.include_router(query_router)
-app.include_router(ingest_router)
 app.include_router(conversations_router)
 
 
