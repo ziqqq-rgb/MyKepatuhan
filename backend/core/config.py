@@ -29,9 +29,7 @@ def load_key_pool(env_var: str) -> list[str]:
 
 
 # ─────────────────────────────────────────
-# Gemini — one rotation pool per workload. Generation runs per user
-# query; enrichment runs in bulk during ingestion, so it's usually the
-# one that needs more keys / hits limits first.
+# Gemini 
 # ─────────────────────────────────────────
 GEMINI_GENERATION_API_KEYS = load_key_pool("GEMINI_GENERATION_KEYS")
 GEMINI_ENRICH_API_KEYS = load_key_pool("GEMINI_ENRICH_KEYS")

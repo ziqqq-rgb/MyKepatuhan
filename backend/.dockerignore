@@ -1,0 +1,15 @@
+# backend/.dockerignore
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.env.*
+uploads/
+.checkpoints/
+ingest.log
+*.pkl
+.git/
+.pytest_cache/
+tests/
+*.md
